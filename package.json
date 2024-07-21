@@ -13,7 +13,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.25.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-webcam": "^7.2.0",
     "web-vitals": "^2.1.4"
   },
@@ -40,5 +40,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "description": "- react-webcam 라이브러리 사용\r   - Teachable Machine Image Classification 사용\r   - Chrome, Safari, Kakao에서 링크 클릭 시 카메라 정상 작동 확인 O",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
