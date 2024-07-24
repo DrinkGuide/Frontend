@@ -1,20 +1,20 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Webcam from "react-webcam";
 import * as tmImage from "@teachablemachine/image";
-import { useSpeechSynthesis } from "react-speech-kit";
+// import { useSpeechSynthesis } from "react-speech-kit";
 
 const TeachableMachine = () => {
   const URL = "/my_model/"; // 모델 파일 경로 설정 (public/my_model/ 기준)
   const [model, setModel] = useState(null);
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
-  const { speak } = useSpeechSynthesis();
+  // const { speak } = useSpeechSynthesis();
 
-  const handleSpeak = (text) => {
-    if (text) {
-      speak({ text });
-    }
-  }; // 전달받은 text를 음성으로 출력
+  // const handleSpeak = (text) => {
+  //   if (text) {
+  //     speak({ text });
+  //   }
+  // }; // 전달받은 text를 음성으로 출력
 
   useEffect(() => {
     const init = async () => {
@@ -43,9 +43,9 @@ const TeachableMachine = () => {
     init();
   }, [URL]); // URL이 변경될 때마다 새로운 모델을 로드합니다.
 
-  useEffect(() => {
-    handleSpeak(result);
-  }, [result]); // result(teachable machine의 결과)가 변경될 때마다 result 값을 음성으로 출력
+  // useEffect(() => {
+  //   handleSpeak(result);
+  // }, [result]); // result(teachable machine의 결과)가 변경될 때마다 result 값을 음성으로 출력
 
   const showPredictions = (predictions) => {
     if (!predictions || predictions.length === 0) return;
