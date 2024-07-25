@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
 import Webcam from "react-webcam";
 import * as tmImage from "@teachablemachine/image";
+import { getSpeech } from "../components/getSpeech";
 // import { useSpeechSynthesis } from "react-speech-kit";
 
 const TeachableMachine = () => {
@@ -46,6 +47,10 @@ const TeachableMachine = () => {
   // useEffect(() => {
   //   handleSpeak(result);
   // }, [result]); // result(teachable machine의 결과)가 변경될 때마다 result 값을 음성으로 출력
+
+  useEffect(() => {
+    getSpeech(result);
+  }, [result]); // result(teachable machine의 결과)가 변경될 때마다 result 값을 음성으로 출력
 
   const showPredictions = (predictions) => {
     if (!predictions || predictions.length === 0) return;
