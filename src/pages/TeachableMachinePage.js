@@ -4,7 +4,7 @@ import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
 // import { useSpeechSynthesis } from "react-speech-kit";
 
-const TeachableMachine = () => {
+const TeachableMachinePage = () => {
   const URL = "/my_model/"; // 모델 파일 경로 설정 (public/my_model/ 기준)
   const [model, setModel] = useState(null);
   const [result, setResult] = useState("");
@@ -93,4 +93,4 @@ const TeachableMachine = () => {
   );
 };
 
-export default TeachableMachine;
+export default TeachableMachinePage;
