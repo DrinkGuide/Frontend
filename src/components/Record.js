@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 
 const Record = () => {
   const [store, setStore] = useState("");
-
   const {
     transcript,
     listening,
@@ -13,9 +12,15 @@ const Record = () => {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
+  const isTyping = useRef(false);
+  const prevTranscript = useRef("");
+
   useEffect(() => {
-    let copy = transcript;
-    setStore(copy);
+    if (!isTyping.current) {
+      const newText = transcript.replace(prevTranscript.current, "");
+      setStore((prevStore) => prevStore + newText);
+      prevTranscript.current = transcript;
+    }
   }, [transcript]);
 
   const handleRecordOn = () => {
@@ -27,16 +32,19 @@ const Record = () => {
   };
 
   const handleChange = (event) => {
+    isTyping.current = true;
     const text = event.target.value;
     if (text.length <= 255) {
       setStore(text);
     }
+    isTyping.current = false;
   };
 
   const handleReset = () => {
     handleRecordOff();
     resetTranscript();
     setStore("");
+    prevTranscript.current = "";
   };
 
   if (!browserSupportsSpeechRecognition) {
@@ -44,7 +52,7 @@ const Record = () => {
   }
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <p>Microphone: {listening ? "on" : "off"}</p>
       <button onClick={handleRecordOn}>Start</button>
       <button onClick={handleRecordOff}>Stop</button>
@@ -56,8 +64,10 @@ const Record = () => {
         value={store}
         onChange={handleChange}
         maxLength={255}
+        style={{ width: "100%", height: "100px" }}
       ></textarea>
     </div>
   );
 };
+
 export default Record;
