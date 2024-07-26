@@ -9,13 +9,6 @@ const TeachableMachinePage = () => {
   const [model, setModel] = useState(null);
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
-  // const { speak } = useSpeechSynthesis();
-
-  // const handleSpeak = (text) => {
-  //   if (text) {
-  //     speak({ text });
-  //   }
-  // }; // 전달받은 text를 음성으로 출력
 
   useEffect(() => {
     const init = async () => {
@@ -43,10 +36,6 @@ const TeachableMachinePage = () => {
 
     init();
   }, [URL]); // URL이 변경될 때마다 새로운 모델을 로드합니다.
-
-  // useEffect(() => {
-  //   handleSpeak(result);
-  // }, [result]); // result(teachable machine의 결과)가 변경될 때마다 result 값을 음성으로 출력
 
   useEffect(() => {
     getSpeech(result);
