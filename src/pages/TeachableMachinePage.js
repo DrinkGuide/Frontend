@@ -78,6 +78,7 @@ const TeachableMachinePage = () => {
         <h2>분류 결과:</h2>
         <p>{result}</p>
       </div>
+      <button className="save-scan-btn">save</button>
     </div>
   );
 };
