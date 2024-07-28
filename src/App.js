@@ -9,6 +9,7 @@ import FeedBackPage from "./pages/FeedBackPage";
 import MyPage from "./pages/MyPage/MyPage";
 import Subscribe from "./pages/MyPage/components/Subscribe";
 import History from "./pages/MyPage/components/History";
+import Cart from "./pages/Cart";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
       <Route path="/mypage" element={<MyPage />}>
         <Route path="subscribe" element={<Subscribe />} />
         <Route path="history" element={<History />} />
+        <Route path="cart" element={<Cart />} />
       </Route>
     </Routes>
   );
