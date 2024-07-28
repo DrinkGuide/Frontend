@@ -6,6 +6,7 @@ function FeedBackPage() {
     <div className="feedBack-container">
       <h2>FeedBack</h2>
       <Record />
+      <button className="save-feedback-btn">save</button>
     </div>
   );
 }
