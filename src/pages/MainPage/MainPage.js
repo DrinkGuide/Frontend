@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { VoiceLabelText } from "./components/VoiceLableText";
-import { Marquee } from "../MainPage/components/Marquee";
+import { VoiceLabelText } from "../../components/VoiceLableText";
+import { Marquee } from "../../components/Marquee";
 import "./Main.css";
 import { ScrollButton } from "./components/ScrollButton";
 import ScanButton from "./components/ScanButton";

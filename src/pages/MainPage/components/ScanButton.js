@@ -1,4 +1,4 @@
-const ScanButton = () => {
+const ScanButton = ({ onClick = () => {} }) => {
   return (
     <svg
       width="214"
@@ -6,6 +6,9 @@ const ScanButton = () => {
       viewBox="0 0 214 57"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      onClick={() => {
+        onClick();
+      }}
     >
       <rect
         x="1"
