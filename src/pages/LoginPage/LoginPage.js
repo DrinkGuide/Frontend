@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { VoiceLabelText } from "../../components/VoiceLableText";
 import { ReactComponent as GoogleLogin } from "../../assets/images/google-login.svg";
 import { ReactComponent as GoogleSignup } from "../../assets/images/google-signup.svg";
+import { Footer } from "../../components/Footer";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -30,14 +31,6 @@ const TextContainer = styled.div`
   left: calc(50% - 154.5px);
 `;
 
-const FooterContainer = styled.div`
-  display: block;
-  background-color: #282828;
-  height: 197px;
-  width: 393px;
-  margin: 0 auto;
-  color: #ffffff;
-`;
 const StyledGoogleLogin = styled(GoogleLogin)`
   width: 280px;
   height: 100px;
@@ -72,11 +65,7 @@ function LoginPage() {
         <StyledGoogleSignup />
         <Marquee />
       </LoginContainer>
-      <FooterContainer>
-        <div>(01811)</div>
-        <div> 서울시 노원구 공릉로 232 서울과학기술대학교</div>
-        <div>[대표번호 : 02-970-6114]</div>
-      </FooterContainer>
+      <Footer />
     </>
   );
 }
