@@ -10,7 +10,6 @@ import MyPage from "./pages/MyPage/MyPage";
 import Subscribe from "./pages/MyPage/components/Subscribe";
 import History from "./pages/MyPage/components/History";
 import Cart from "./pages/Cart";
-
 function App() {
   return (
     <Routes>
