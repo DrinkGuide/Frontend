@@ -2,7 +2,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
 import TeachableMachinePage from "./pages/TeachableMachinePage";
 import MainPage from "./pages/MainPage/MainPage";
 import FeedBackPage from "./pages/FeedBackPage";
