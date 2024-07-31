@@ -202,3 +202,16 @@
   top: 0%;
   overflow: visible;
 }
+
+._01811-232-02-970-6114,
+._01811-232-02-970-6114 * {
+  box-sizing: border-box;
+}
+._01811-232-02-970-6114 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  position: relative;
+}
