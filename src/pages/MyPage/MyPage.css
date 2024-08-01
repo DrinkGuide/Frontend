@@ -1,0 +1,154 @@
+.rectangle-37 {
+  background: #282828;
+  border-radius: 16px;
+  height: 152px;
+  position: relative;
+}
+.group-16,
+.group-16 * {
+  box-sizing: border-box;
+}
+.group-16 {
+  position: relative;
+}
+.ellipse-5 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - 151.69px);
+  top: calc(50% - 50px);
+}
+.ellipse-10 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - 151.69px);
+  top: calc(50% - -9px);
+}
+.ellipse-6 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - 86.1px);
+  top: calc(50% - 50px);
+}
+.ellipse-11 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - 86.1px);
+  top: calc(50% - -9px);
+}
+.ellipse-7 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - 20.5px);
+  top: calc(50% - 50px);
+}
+.ellipse-12 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - 20.5px);
+  top: calc(50% - -9px);
+}
+.ellipse-8 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - -45.1px);
+  top: calc(50% - 50px);
+}
+.ellipse-13 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - -45.1px);
+  top: calc(50% - -9px);
+}
+.ellipse-9 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - -110.69px);
+  top: calc(50% - 50px);
+}
+.ellipse-14 {
+  border-radius: 50%;
+  border-style: solid;
+  border-color: #5c5c5c;
+  border-width: 3px;
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: calc(50% - -110.69px);
+  top: calc(50% - -9px);
+}
+
+.button-scan,
+.button-scan * {
+  box-sizing: border-box;
+}
+.button-scan {
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #fffa87;
+  border-width: 2px;
+  padding: 10px 40px 10px 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  row-gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 214px;
+  height: 57px;
+  position: relative;
+}
+.div {
+  color: #fffa87;
+  text-align: center;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+  position: relative;
+}
