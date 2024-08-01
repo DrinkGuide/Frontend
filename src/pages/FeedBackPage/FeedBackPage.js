@@ -9,6 +9,7 @@ import { ReactComponent as SubmitButton } from "../../assets/images/submit-butto
 // import SubmitModal from "./components/SubmitModal";
 
 const FeedBackContainer = styled.div`
+  font-family: "Pretendard-Regular";
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +23,6 @@ const TextContainer = styled.div`
   padding-top: 1.03rem;
   color: #ffffff;
   text-align: center;
-  font-family: "PretendardVariable-Bold", sans-serif;
   font-size: 1rem;
   line-height: 150%;
   letter-spacing: -0.0110000000001em;
