@@ -10,7 +10,6 @@ import { Footer } from "../../components/Footer";
 import "./MyPage.css";
 
 const MyPageContainer = styled.div`
-  font-family: "Pretendard-Regular";
   display: flex;
   flex-direction: column;
   align-items: center;
