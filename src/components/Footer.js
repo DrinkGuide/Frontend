@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 const FooterContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  width: 100%;
   background-color: #282828;
-  height: 197px;
-  width: 393px;
-  margin: 0 auto;
+  height: 25vh; /* 화면 높이 맞춤 */
+  width: 100vw; /* 화면 너비 맞춤 */
   color: #ffffff;
+  justify-content: center;
   align-items: center;
 `;
 
