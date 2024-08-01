@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
-  padding: 7.9375rem;
-  padding-bottom: 0;
+  cursor : pointer;
+  transition: all 0.3s ease;
 `;
 export const ScrollButton = () => {
   return (

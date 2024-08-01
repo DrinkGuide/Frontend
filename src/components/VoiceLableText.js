@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 const LabelContainer = styled.div`
-  padding: 7.9375rem;
-  padding-bottom: 0;
+  padding-top: 129px;
+  padding-bottom: 17.48px;
 `;
 export const VoiceLabelText = () => {
   return (

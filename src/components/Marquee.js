@@ -12,8 +12,8 @@ const slideRight = keyframes`
 `;
 
 const MarqueeContainer = styled.div`
-  padding-top: 3.6875rem;
-  padding-bottom: 6.8125rem;
+  padding-top: ${(props) => props.paddingTop};
+  padding-bottom: ${(props) => props.paddingBottom};
   width: 100%;
   overflow: hidden; /* Ensure the overflow is hidden */
   background-color: black; /* Adjust the background color if necessary */
@@ -29,9 +29,10 @@ const MarqueeItem = styled.div`
   flex: 1;
 `;
 
-export const Marquee = () => {
+export const Marquee = (props) => {
+  const { paddingTop, paddingBottom } = props;
   return (
-    <MarqueeContainer>
+    <MarqueeContainer paddingTop={paddingTop} paddingBottom={paddingBottom}>
       <MarqueeContent>
         <MarqueeItem>
           <MarqueeSvg />

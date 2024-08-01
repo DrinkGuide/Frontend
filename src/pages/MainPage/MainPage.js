@@ -1,52 +1,45 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import "./Main.css";
+import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
 import { Marquee } from "../../components/Marquee";
-import "./Main.css";
-import { ScrollButton } from "./components/ScrollButton";
-import ScanButton from "./components/ScanButton";
-import FeedbackButton from "./components/FeedbackButton";
-import MypageButton from "./components/MypageButton";
+import { Button } from "../../components/Button";
+import { Text } from "../../components/Text";
 import { EyeIcon } from "./components/EyeIcon";
 import { SpeechIcon } from "./components/SpeechIcon";
+import { Footer } from "../../components/Footer";
+import { ScrollButton } from "./components/ScrollButton";
+import { scroller } from "react-scroll";
+
+
 
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 2345px;
+  height: 2600px;
   width: 393px;
   margin: 0 auto;
   background-color: black;
 `;
 
-const StyledButton = styled.div`
-  background: none;
-  border-radius: 5px;
-  margin-top: 2.4375rem;
-  width: 212px;
-  height: 57px;
-  position: relative;
-  cursor: pointer;
-`;
+//스크롤 버튼 활성화 
+const handleScroll = () => {
+  scroller.scrollTo("scrollTarget", {
+  duration: 800,
+  delay: 0,
+  smooth: "easeInOutQuart",
+  });
+};
 
-const TextContainer = styled.div`
-  padding-top: 1.03rem;
-  color: #ffffff;
-  text-align: center;
-  font-size: 1rem;
-  line-height: 150%;
-  letter-spacing: -0.0110000000001em;
-  font-weight: 700;
-  position: flex;
-  left: calc(50% - 154.5px);
-`;
+
+
 
 const MainPage = () => {
   const navigate = useNavigate();
-  const [light, setLight] = useState(true); //Recoil로 전역변수 처리해야 됨
+  const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
 
   const handleScreenMode = () => {
     {
@@ -55,68 +48,84 @@ const MainPage = () => {
   }; // 다크모드 on/off
 
   return (
-    <MainContainer>
-      <VoiceLabelText />
-      <TextContainer>
+    <MainContainer paddingTop = "129px">
+      <VoiceLabelText/>
+      <Text 
+        color = "#FFFFFF"
+        fontSize = "16px"
+        paddingTop = "17.48px">
         언제 어디서나 손쉽게 음성으로 만나는 정확한 정보
-      </TextContainer>
-      <Marquee />
-      <StyledButton>
-        <ScanButton
-          onClick={() => {
-            navigate("/teachable-machine");
-          }}
-        />
-      </StyledButton>
-      <StyledButton>
-        <FeedbackButton
-          onClick={() => {
-            navigate("/feedback");
-          }}
-        />
-      </StyledButton>
-      <StyledButton>
-        <MypageButton
-          onClick={() => {
-            navigate("/mypage");
-          }}
-        />
-      </StyledButton>
-      <TextContainer>보이스라벨은 어떤 서비스인가요?</TextContainer>
-      <ScrollButton />
-      <Marquee />
+      </Text>
+      <Marquee paddingTop="51px" paddingBottom="63.78px" />
+      <Button
+        name="스캔"
+        color="#FFFA87"
+        onClick={() => {
+          navigate("/teachable-machine");
+        }}
+      />
+      <Button
+        name="피드백"
+        color="#FFA858"
+        onClick={() => {
+          navigate("/feedback");
+        }}
+      />
+      <Button
+        name="마이페이지"
+        color="#FF5858"
+        onClick={() => {
+          navigate("/mypage");
+        }}
+      />
+      <Text
+        color="#FFFFFF"
+        fontSize="16px"
+        paddingTop="40px"
+        paddingBottom="25px"
+      >
+        보이스라벨은 어떤 서비스인가요?
+      </Text>
+      <ScrollButton onClick={handleScroll} />
+      <Marquee paddingTop="65px" paddingBottom="145px" />
 
       <span>
         <EyeIcon />
         <SpeechIcon />
       </span>
 
-      <div class="group-12">
-        <div class="rectangle-33"></div>
-        <div class="rectangle-34"></div>
-        <div class="rectangle-35"></div>
-        <div class="div">
+      <div className="group-12" id="scrollTarget">
+        <div className="rectangle-33"></div>
+        <div className="rectangle-34"></div>
+        <div className="rectangle-35"></div>
+        <div className="div">
           <span>
-            <span class="div-span">정확</span>
-            <span class="div-span2">하고</span>
-            <span class="div-span3">또박또박</span>
-            <span class="div-span4">
+            <span className="div-span">정확</span>
+            <span className="div-span2">하고 </span>
+            <span className="div-span3">또박또박</span>
+            <span className="div-span4">
               하게
               <br />
-              그리고
+              그리고 
             </span>
-            <span class="div-span5">손쉽게</span>
-            <span class="div-span6">!</span>
+            <span className="div-span2"> </span>
+            <span className="div-span5">손쉽게</span>
+            <span className="div-span6">!</span>
           </span>
         </div>
       </div>
 
-      <TextContainer>
-        글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나, 빼곡하게 적혀 있어
-        눈에 잘 들어오지 않는 상품 정보를 정확하고 또박또박한 음성으로 손쉽게
-        알려드립니다.
-      </TextContainer>
-      <Marquee />
+      <Text
+        color="#FFFFFF"
+        fontSize="14px"
+        paddingTop="45px"
+      >
+        글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,<br />
+        빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를<br />
+        정확하고 또박또박한 음성으로 손쉽게 알려드립니다.
+      </Text>
+      <Marquee paddingTop="145px" paddingBottom="137px" />
+
       <svg
         width="116"
         height="150"
@@ -130,7 +139,7 @@ const MainPage = () => {
         />
       </svg>
 
-      <div class="div">
+      <div class="group-12">
         <span>
           <span class="div-span">바로바로</span>
           <span class="div-span2">
@@ -138,17 +147,25 @@ const MainPage = () => {
             <br />
           </span>
           <span class="div-span3">다양한 종류</span>
-          <span class="div-span4">의</span>
+          <span class="div-span4">의 </span>
           <span class="div-span5">상품</span>
           <span class="div-span6">들</span>
         </span>
       </div>
-      <TextContainer>
-        과자와 음료수부터 가공식품, 과일, 채소, 생선류 등! 다양한 상품의 정보를
-        빠르게 알려드립니다.
-      </TextContainer>
-      <Marquee />
+
+      <Text
+        color="#FFFFFF"
+        fontSize="14px"
+        paddingTop="45px"
+      >
+        과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!<br />
+        다양한 상품의 정보를 빠르게 알려드립니다.
+      </Text>
+      
+      <Marquee paddingTop="137px" paddingBottom="68px" />
+      <Footer />
     </MainContainer>
+    
   );
 };
 

@@ -6,7 +6,7 @@
   text-align: center;
   font-family: "PretendardVariable-Bold", sans-serif;
   font-size: 24px;
-  line-height: 150%;
+  line-height: 2000%;
   letter-spacing: -0.011000000000000001em;
   font-weight: 700;
   position: relative;
@@ -62,3 +62,11 @@
   letter-spacing: -0.011000000000000001em;
   font-weight: 700;
 }
+
+.group-12 {
+  padding: 48px; 
+  text-align: center;
+}
+
+
+
