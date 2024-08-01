@@ -8,7 +8,7 @@ function PaymentCheckoutPage({ token }) {
   const [payment, setPayment] = useState(null);
   const [value, setValue] = useState(); // 상품 가격
   const [isProcessing, setIsProcessing] = useState(false); // 결제 처리 상태 추가
-  const [subscribeType, setSubscribeType] = useState("yes");
+  const [subscribeType, setSubscribeType] = useState("DRINK");
   const tempToken =
     "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAMTdlMTE0YTddIiwiaWF0IjoxNzIyNTI0OTE4LCJleHAiOjMzMjU4NTI0OTE4fQ.oteI2PpPS0dl-52Icpdp5hOkuW9Unb5y-nhHINswBNU";
   // 사용자가 지정한 결제 정보
@@ -19,7 +19,7 @@ function PaymentCheckoutPage({ token }) {
 
   const orderId = uuidv4(); // 랜덤하게 생성된 orderId
   const orderName = "보이스 라밸 1개월 구독권";
-  const customerName = "노경인";
+  const customerName = "이주승";
   const customerEmail = "juseung0619@gmail.com";
   const clientKey = "test_ck_ma60RZblrqopozZjBRoZ3wzYWBn1";
   const customerKey = "cro1z9vgLoNhtEeGh0euB";
@@ -52,7 +52,7 @@ function PaymentCheckoutPage({ token }) {
     try {
       const response = await sendOrderIdToServer(
         orderId,
-        amount.value,
+        3,
         subscribeType,
         tempToken
       );
@@ -93,7 +93,6 @@ function PaymentCheckoutPage({ token }) {
     tempToken
   ) {
     try {
-      console.log(orderId);
       // 필요한 결제 정보를 서버로 전송합니다.
       // const response = await axios.post('http://localhost:8080/api/v1/payments', {
       const response = await axios.post(
