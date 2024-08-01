@@ -32,7 +32,6 @@ function PaymentCheckoutPage({ token }) {
         // 모듈 임포트 연동방식
         const tossPayments = await loadTossPayments(clientKey);
         const payment = tossPayments.payment({ customerKey });
-        console.log(decoded);
         setPayment(payment);
       } catch (error) {
         console.error("Error fetching payment:", error);
@@ -52,7 +51,7 @@ function PaymentCheckoutPage({ token }) {
     try {
       const response = await sendOrderIdToServer(
         orderId,
-        3,
+        amount.value,
         subscribeType,
         tempToken
       );
