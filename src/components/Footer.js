@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const FooterContainer = styled.div`
-  font-family: "Pretendard-Regular";
   display: flex;
   background-color: #282828;
   height: 197px;
