@@ -5,8 +5,7 @@ import SpeechRecognition, {
 import { Footer } from "../../components/Footer";
 import styled from "styled-components";
 import { ReactComponent as FeedBackText } from "../../assets/images/feedback-text.svg";
-import { ReactComponent as SubmitButton } from "../../assets/images/submit-button.svg";
-// import SubmitModal from "./components/SubmitModal";
+import { Button } from "../../components/Button";
 
 const FeedBackContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -17,10 +16,12 @@ const FeedBackContainer = styled.div`
   width: 393px;
   margin: 0 auto;
   background-color: black;
+  padding-top: 129px;
 `;
 
 const TextContainer = styled.div`
-  padding-top: 1.03rem;
+  padding-top: 22px;
+  padding-bottom: 64px;
   color: #ffffff;
   text-align: center;
   font-size: 1rem;
@@ -47,6 +48,7 @@ const StyledTextarea = styled.textarea`
   font-weight: 400;
   border: none;
   resize: none;
+  margin-bottom: 64px;
 
   ::placeholder {
     color: #ffffff;
@@ -108,6 +110,26 @@ function FeedBackPage() {
     prevTranscript.current = "";
   };
 
+  const handleSubmit = async () => {
+    console.log("Submitting feedback...");
+
+    const response = await fetch('https://www.drinkguide.store/api/v1/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ content }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log('Success:', data);
+      handleReset(); // Reset the textarea after successful submission
+    } else {
+      console.error('Error:', response.statusText);
+    }
+  };
+
   return (
     <>
       <FeedBackContainer>
@@ -123,7 +145,7 @@ function FeedBackPage() {
           onChange={handleContentChange}
           maxLength={255}
         ></StyledTextarea>
-        <SubmitButton />
+        <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit} />
       </FeedBackContainer>
       <Footer />
     </>

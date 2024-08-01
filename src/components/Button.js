@@ -16,23 +16,40 @@ const ButtonContainer = styled.div`
   width: 214px;
   height: 57px;
   position: relative;
+  margin-bottom:25px;
+  
+
+  cursor : pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color : ${(props) => props.color};
+
+    & > button {
+      color: #000000;
+    }
 `;
 
-const ButtonContentBox = styled.div`
+const ButtonContentBox = styled.button`
+  background-color : transparent;
+  border : none ;
   color: ${(props) => props.color};
   text-align: center;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 150%;
   letter-spacing: -0.011000000000000001em;
   font-weight: 700;
   position: relative;
+  cursor : pointer;
+  transition: all 0.3s ease;
+
 `;
 export const Button = (props) => {
-  const name = props.name;
-  const color = props.color;
+  const { name, color, onClick } = props;
+
   return (
-    <ButtonContainer color={color}>
-      <ButtonContentBox color={color}>{name}</ButtonContentBox>
+    <ButtonContainer color={color} onClick = {onClick}>
+      <ButtonContentBox color={color} >{name}</ButtonContentBox>
     </ButtonContainer>
   );
 };

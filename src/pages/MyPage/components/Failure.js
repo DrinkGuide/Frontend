@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
-export function Success() {
+export function Failure() {
   const navigate = useNavigate();
   return (
     <>
-      <div>성공 ㅋㅋ</div>
+      <div>실패 ㅜㅜ</div>
+      <div>다시 시도하세용</div>
       <button
         onClick={() => {
-          navigate("/");
+          navigate("/subscribe");
         }}
       >
-        처음으로
+        결제창으로
       </button>
     </>
   );
