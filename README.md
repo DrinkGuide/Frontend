@@ -12,3 +12,5 @@
 - Text to Speech는 라이브러리 없이 구현
 - npm install --save react-speech-recognition (음성인식 라이브러리) > speech synthesis 기능이 웹 view에서 지원x
 - npm install @reduxjs/toolkit react-redux 
+- npm install axios
+- npm install jwt-decode
