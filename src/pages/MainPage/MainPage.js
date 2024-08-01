@@ -12,8 +12,6 @@ import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
 import { scroller } from "react-scroll";
 
-
-
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
   display: flex;
@@ -25,17 +23,14 @@ const MainContainer = styled.div`
   background-color: black;
 `;
 
-//스크롤 버튼 활성화 
+//스크롤 버튼 활성화
 const handleScroll = () => {
   scroller.scrollTo("scrollTarget", {
-  duration: 800,
-  delay: 0,
-  smooth: "easeInOutQuart",
+    duration: 800,
+    delay: 0,
+    smooth: "easeInOutQuart",
   });
 };
-
-
-
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -48,12 +43,9 @@ const MainPage = () => {
   }; // 다크모드 on/off
 
   return (
-    <MainContainer paddingTop = "129px">
-      <VoiceLabelText/>
-      <Text 
-        color = "#FFFFFF"
-        fontSize = "16px"
-        paddingTop = "17.48px">
+    <MainContainer paddingTop="129px">
+      <VoiceLabelText />
+      <Text color="#FFFFFF" fontSize="16px" paddingTop="17.48px">
         언제 어디서나 손쉽게 음성으로 만나는 정확한 정보
       </Text>
       <Marquee paddingTop="51px" paddingBottom="63.78px" />
@@ -106,7 +98,7 @@ const MainPage = () => {
             <span className="div-span4">
               하게
               <br />
-              그리고 
+              그리고
             </span>
             <span className="div-span2"> </span>
             <span className="div-span5">손쉽게</span>
@@ -115,13 +107,11 @@ const MainPage = () => {
         </div>
       </div>
 
-      <Text
-        color="#FFFFFF"
-        fontSize="14px"
-        paddingTop="45px"
-      >
-        글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,<br />
-        빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를<br />
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
+        글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
+        <br />
+        빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를
+        <br />
         정확하고 또박또박한 음성으로 손쉽게 알려드립니다.
       </Text>
       <Marquee paddingTop="145px" paddingBottom="137px" />
@@ -153,19 +143,15 @@ const MainPage = () => {
         </span>
       </div>
 
-      <Text
-        color="#FFFFFF"
-        fontSize="14px"
-        paddingTop="45px"
-      >
-        과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!<br />
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
+        과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!
+        <br />
         다양한 상품의 정보를 빠르게 알려드립니다.
       </Text>
-      
+
       <Marquee paddingTop="137px" paddingBottom="68px" />
       <Footer />
     </MainContainer>
-    
   );
 };
 

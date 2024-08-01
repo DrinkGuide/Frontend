@@ -10,6 +10,9 @@ import FeedBackPage from "./pages/FeedBackPage/FeedBackPage";
 import MyPage from "./pages/MyPage/MyPage";
 import HistoryPage from "./pages/MyPage/components/HistoryPage";
 import SubscribePage from "./pages/MyPage/components/SubscribePage";
+import PaymentCheckoutPage from "./pages/MyPage/components/PaymentCheckoutPage";
+import { Success } from "./pages/MyPage/components/Success";
+import { Failure } from "./pages/MyPage/components/Failure";
 
 function App() {
   return (
@@ -21,8 +24,11 @@ function App() {
         <Route path="/feedback" element={<FeedBackPage />} />
         <Route path="/teachable-machine" element={<TeachableMachinePage />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="history" element={<HistoryPage />} />
-        <Route path="subscribe" element={<SubscribePage />} />
+        <Route path="/history" element={<HistoryPage />} />
+        <Route path="/subscribe" element={<SubscribePage />} />
+        <Route path="/payments" element={<PaymentCheckoutPage />} />
+        <Route path="/success" element={<Success />} />
+        <Route path="/fail" element={<Failure />} />
       </Routes>
     </div>
   );
