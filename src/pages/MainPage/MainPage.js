@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
@@ -10,7 +10,6 @@ import { EyeIcon } from "./components/EyeIcon";
 import { SpeechIcon } from "./components/SpeechIcon";
 import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
-import { scroller } from "react-scroll";
 
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -23,15 +22,26 @@ const MainContainer = styled.div`
   background-color: black;
 `;
 
-//스크롤 버튼 활성화
+const AnimationBox = styled.div`
+  &.animation {
+    animation-name: opacity;
+    animation-duration: 5000ms;
+
+    @keyframes opacity {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+`;
 const handleScroll = () => {
-  scroller.scrollTo("scrollTarget", {
-    duration: 800,
-    delay: 0,
-    smooth: "easeInOutQuart",
+  window.scrollTo({
+    top: 745,
+    behavior: "smooth",
   });
 };
-
 const MainPage = () => {
   const navigate = useNavigate();
   const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
@@ -41,6 +51,8 @@ const MainPage = () => {
       setLight((prev) => !prev);
     }
   }; // 다크모드 on/off
+
+  //스크롤 버튼 활성화
 
   return (
     <MainContainer paddingTop="129px">
@@ -53,7 +65,7 @@ const MainPage = () => {
         name="스캔"
         color="#FFFA87"
         onClick={() => {
-          navigate("/teachable-machine");
+          navigate("/scan");
         }}
       />
       <Button

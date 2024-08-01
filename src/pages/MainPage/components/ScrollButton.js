@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
 const ButtonContainer = styled.div`
-  cursor : pointer;
+  cursor: pointer;
   transition: all 0.3s ease;
 `;
-export const ScrollButton = () => {
+export const ScrollButton = ({ onClick }) => {
   return (
-    <ButtonContainer>
+    <ButtonContainer onClick={onClick}>
       <svg
         width="59"
         height="17"
