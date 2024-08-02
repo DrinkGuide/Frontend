@@ -11,7 +11,7 @@ import ScanPage from "./pages/ScanPage";
 import HistoryPage from "./pages/MyPage/components/HistoryPage";
 import SubscribePage from "./pages/MyPage/components/SubscribePage";
 import PaymentCheckoutPage from "./pages/MyPage/components/PaymentCheckoutPage";
-import { Success } from "./pages/MyPage/components/Success";
+import Success from "./pages/MyPage/components/Success";
 import { Failure } from "./pages/MyPage/components/Failure";
 
 function App() {
