@@ -215,3 +215,61 @@
   font-weight: 400;
   position: relative;
 }
+
+.div-span {
+  color: #000000;
+  background-color: #fffa87;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+}
+.div-span2 {
+  color: #ffffff;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+}
+.div-span3 {
+  color: #000000;
+  background-color: #fffa87;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+}
+.div-span4 {
+  color: #ffffff;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+}
+.div-span5 {
+  color: #000000;
+  background-color: #fffa87;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+}
+.div-span6 {
+  color: #ffffff;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+}
+
+.group-12 {
+  background-color: #000000;
+  padding: 48px; 
+  text-align: center;
+}
