@@ -18,7 +18,7 @@ function App() {
       <GlobalStyle />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signin" element={<LoginPage />} />
         <Route path="/feedback" element={<FeedBackPage />} />
         <Route path="/teachable-machine" element={<TeachableMachinePage />} />
         <Route path="/mypage" element={<MyPage />} />
