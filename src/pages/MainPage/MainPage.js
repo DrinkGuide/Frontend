@@ -65,8 +65,8 @@ const MainPage = () => {
           }
         );
         console.log(response.data);
-        console.log(response.data.subscribeType); // 왜 undefined로 뜨지....
-        setUserSubscribeType(response.data.subscribeType);
+        console.log(response.data.data.subscribeType);
+        setUserSubscribeType(response.data.data.subscribeType);
         console.log(userSubscribeType);
         if (userSubscribeType == "DRINK") {
           setIsSubscribe(true);
@@ -89,7 +89,7 @@ const MainPage = () => {
         name="스캔"
         color="#FFFA87"
         onClick={() => {
-          if (!isSubscribe) {
+          if (isSubscribe) {
             navigate("/scan");
           } else {
             navigate("/subscribe");
