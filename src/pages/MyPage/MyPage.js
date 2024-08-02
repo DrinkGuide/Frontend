@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as MypageText } from "../../assets/images/mypage-text.svg";
 import { ReactComponent as SubscribeOn } from "../../assets/images/subscribe-status.svg";
 import { ReactComponent as SubscribeOff } from "../../assets/images/not-subscribe-status.svg";
 import { ReactComponent as HistoryButton } from "../../assets/images/histoy-button.svg";
+import { ReactComponent as HistoryButtonAfter } from "../../assets/images/history-button-after.svg";
 import { ReactComponent as SubscribeCheck } from "../../assets/images/subscribe-check.svg";
+import { ReactComponent as SubscribeCheckAfter } from "../../assets/images/subscribe-check-after.svg";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../assets/images/changing_icon_2.svg";
 import { ReactComponent as Changing_icon_3 } from "../../assets/images/changing_icon_3.svg";
@@ -76,7 +78,6 @@ const PurchaseImageContainer = styled.div`
   margin: 15px 0;
   width: 80%;
   place-items: center; 
-
 `;
 
 const Circle = styled.div`
@@ -89,9 +90,63 @@ const Circle = styled.div`
   align-items: center;
 `;
 
-const StyledSubscribeCheck = styled(SubscribeCheck)`
-margin: 40px 0 20px 0;
-`
+const SubscribeCheckWrapper = styled.div`
+  margin: 40px 0 20px 0;
+  cursor: pointer;
+  width: 50%; /* 필요에 따라 크기를 조정 */
+  height: 40px; /* 필요에 따라 크기를 조정 */
+  position: relative;
+
+  & svg {
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  & .before {
+    opacity: 1;
+  }
+
+  & .after {
+    opacity: 0;
+  }
+
+  &:hover .before {
+    opacity: 0;
+  }
+
+  &:hover .after {
+    opacity: 1;
+  }
+`;
+
+const HistoryButtonWrapper = styled.div`
+  margin: 20px 0;
+  cursor: pointer;
+  width: 50%; /* 필요에 따라 크기를 조정 */
+  height: 40px; /* 필요에 따라 크기를 조정 */
+  position: relative;
+
+  & svg {
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  & .before {
+    opacity: 1;
+  }
+
+  & .after {
+    opacity: 0;
+  }
+
+  &:hover .before {
+    opacity: 0;
+  }
+
+  &:hover .after {
+    opacity: 1;
+  }
+`;
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -144,16 +199,22 @@ const MyPage = () => {
           <br />
           8회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
-        <StyledSubscribeCheck 
+        <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
           }}
-        />
-        <HistoryButton 
+        >
+          <SubscribeCheck className="before" />
+          <SubscribeCheckAfter className="after" />
+        </SubscribeCheckWrapper>
+        <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");
           }}
-        />
+        >
+          <HistoryButton className="before" />
+          <HistoryButtonAfter className="after" />
+        </HistoryButtonWrapper>
       </MyPageContainer>
       <Footer />
     </>
