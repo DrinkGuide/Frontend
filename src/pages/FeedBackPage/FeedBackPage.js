@@ -12,8 +12,8 @@ const FeedBackContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 852px;
-  width: 393px;
+  height: 100vh; /* 화면 높이 맞춤 */
+  width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
   padding-top: 129px;

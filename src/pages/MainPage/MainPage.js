@@ -16,8 +16,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 2600px;
-  width: 393px;
+  width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
 `;

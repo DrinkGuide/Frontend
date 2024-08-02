@@ -20,7 +20,7 @@ const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 852px;
+  height: 100vh;
   width: 100vw;
   margin: 0 auto;
   background-color: black;
