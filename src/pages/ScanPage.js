@@ -10,8 +10,8 @@ const ScanContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 852px;
-  width: 393px;
+  height: 100vh; /* 화면 높이 맞춤 */
+  width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: #000;
   position: relative;

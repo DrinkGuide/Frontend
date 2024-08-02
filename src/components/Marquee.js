@@ -40,6 +40,12 @@ export const Marquee = (props) => {
         <MarqueeItem>
           <MarqueeSvg />
         </MarqueeItem>
+        <MarqueeItem>
+          <MarqueeSvg />
+        </MarqueeItem>
+        <MarqueeItem>
+          <MarqueeSvg />
+        </MarqueeItem>
       </MarqueeContent>
     </MarqueeContainer>
   );
