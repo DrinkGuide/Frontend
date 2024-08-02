@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import { ReactComponent as MypageText } from "../../assets/images/mypage-text.svg";
 import { ReactComponent as SubscribeOn } from "../../assets/images/subscribe-status.svg";
 import { ReactComponent as SubscribeOff } from "../../assets/images/not-subscribe-status.svg";
@@ -75,8 +76,7 @@ const PurchaseImageContainer = styled.div`
   padding: 20px;
   margin: 15px 0;
   width: 80%;
-  place-items: center; 
-
+  place-items: center;
 `;
 
 const Circle = styled.div`
@@ -90,26 +90,55 @@ const Circle = styled.div`
 `;
 
 const StyledSubscribeCheck = styled(SubscribeCheck)`
-margin: 40px 0 20px 0;
-`
+  margin: 40px 0 20px 0;
+`;
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const [subscribe, setSubscribe] = useState(true); // assuming the user is subscribed for the second image
+  const [subscribe, setSubscribe] = useState(false); // 기본값 false로 설정
+  const [memberInfo, setMemberInfo] = useState({});
+
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
+
+  useEffect(() => {
+    const fetchMemberInfoData = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.drinkguide.store/api/v1/members",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        const memberData = response.data.data;
+        setMemberInfo(memberData);
+        if (
+          memberData.subscribeType === "DRINK" ||
+          memberData.subscribeType === "DRINK_SNACK"
+        ) {
+          setSubscribe(true);
+        } else {
+          setSubscribe(false);
+        }
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchMemberInfoData();
+  }, []); // 닉네임 및 구독 정보 조회
 
   return (
     <>
       <MyPageContainer>
         <StyledMypageText />
         <MypageTextBox fontSize="24px" fontColor="#ffffff">
-          안녕하세요, 홍길동 님!
+          안녕하세요, {memberInfo.nickname} 님!
         </MypageTextBox>
         <SubscriptionStatus>
-          {subscribe ? (
-            <SubscribeOn />
-          ) : (
-            <SubscribeOff />
-          )}
+          {!!subscribe ? <SubscribeOn /> : <SubscribeOff />}
         </SubscriptionStatus>
         <MypageTextBox fontSize="16px" fontColor="#ffffff" margin="100px 0">
           이번달 구매 인증
@@ -144,12 +173,12 @@ const MyPage = () => {
           <br />
           8회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
-        <StyledSubscribeCheck 
+        <StyledSubscribeCheck
           onClick={() => {
             navigate("/subscribe");
           }}
         />
-        <HistoryButton 
+        <HistoryButton
           onClick={() => {
             navigate("/history");
           }}
