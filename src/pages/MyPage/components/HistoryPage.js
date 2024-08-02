@@ -10,10 +10,10 @@ import styled from "styled-components";
 /*
 해야할 것들
 
-1. 아이콘 정리해서 구매 인증에 따라 아이콘 보이게 하는 로직 작성
+1. 아이콘 정리해서 구매 인증에 따라 아이콘 보이게 하는 로직 작성(백엔드랑 같이)
 2. 상품 버튼 누르면 상세정보 나오게 하는 애니메이션 구현
 3. footer에서 글자를 어떻게 좀 더 왼쪽으로 옮길지 고민..
-4. 마이페이지에서 링크 매핑하기
+4. 마이페이지에서 링크 매핑하기 - 완료
 5. 중복되는 것들 함수로 구현해서 정리하기
 */
 
@@ -83,11 +83,6 @@ const Circle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const PurchaseImage = styled.img`
-  width: 30px;
-  height: 30px;
 `;
 
 const HistoryPage = () => {
