@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
@@ -21,37 +22,46 @@ const MainContainer = styled.div`
   background-color: black;
 `;
 
-const AnimationBox = styled.div`
-  &.animation {
-    animation-name: opacity;
-    animation-duration: 5000ms;
-
-    @keyframes opacity {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-`;
 const handleScroll = () => {
   window.scrollTo({
-    top: 745,
+    top: 710,
     behavior: "smooth",
   });
 };
 const MainPage = () => {
   const navigate = useNavigate();
   const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
-
+  const [isSubscribe, setIsSubscribe] = useState(false);
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
   const handleScreenMode = () => {
     {
       setLight((prev) => !prev);
     }
   }; // 다크모드 on/off
 
-  //스크롤 버튼 활성화
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.drinkguide.store/api/v1/members/subscribe",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data);
+        let copy = response.data.subscribeType;
+        if (copy == "DRINK") {
+          setIsSubscribe(true);
+        }
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchData();
+  }); // 구독현황 조회
 
   return (
     <MainContainer paddingTop="129px">
@@ -64,7 +74,11 @@ const MainPage = () => {
         name="스캔"
         color="#FFFA87"
         onClick={() => {
-          navigate("/scan");
+          if (isSubscribe) {
+            navigate("/scan");
+          } else {
+            navigate("/subscribe");
+          }
         }}
       />
       <Button
