@@ -1,11 +1,15 @@
+import styled from "styled-components";
+import { useRecoilValue } from "recoil";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import { Footer } from "../../../components/Footer";
+import { ProductTypeColorAtom } from "../../../recoil/atom";
 import { ReactComponent as Changing_icon_1 } from "../../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../../assets/images/changing_icon_2.svg";
 import { ReactComponent as Changing_icon_3 } from "../../../assets/images/changing_icon_3.svg";
 import { ReactComponent as Changing_icon_4 } from "../../../assets/images/changing_icon_4.svg";
 import { ReactComponent as Changing_icon_5 } from "../../../assets/images/changing_icon_5.svg";
 import { ReactComponent as Changing_icon_6 } from "../../../assets/images/changing_icon_6.svg";
-import styled from "styled-components";
 
 /*
 해야할 것들
@@ -35,7 +39,7 @@ const HistoryTextBox = styled.div`
   line-height: 150%;
   letter-spacing: -0.011em;
   font-weight: 700;
-  margin: ${(props) => props.margin || '10px 0'}; /* 기본 여백 설정 */
+  margin: ${(props) => props.margin || "10px 0"}; /* 기본 여백 설정 */
 `;
 
 const PurchaseHistoryList = styled.div`
@@ -48,8 +52,8 @@ const PurchaseHistoryList = styled.div`
 
 const PurchaseItem = styled.div`
   width: 90%;
-  color: #5D9EFF;
-  border: 2px solid #5D9EFF;
+  color: ${(props) => props.color};
+  border: 2px solid ${(props) => props.color};
   border-radius: 15px;
   margin-bottom: 10px;
   padding: 10px 20px;
@@ -71,8 +75,7 @@ const PurchaseImageContainer = styled.div`
   padding: 20px;
   margin: 15px 0;
   width: 80%;
-  place-items: center; 
-
+  place-items: center;
 `;
 
 const Circle = styled.div`
@@ -86,6 +89,39 @@ const Circle = styled.div`
 `;
 
 const HistoryPage = () => {
+  const [historyData, setHistoryData] = useState([]);
+  const [number, setNumber] = useState(6);
+  const productColor = useRecoilValue(ProductTypeColorAtom);
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
+
+  useEffect(() => {
+    const fetchHistoryData = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.drinkguide.store/api/v1/purchases",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data);
+        if (response.data.length > 0) {
+          setHistoryData((prev) => [...prev, ...response.data]);
+        }
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchHistoryData();
+  }, []); // 구독현황 조회
+
+  const getColorByProductType = (productType) => {
+    const colorObj = productColor.find((color) => color[productType]);
+    return colorObj ? colorObj[productType] : "#FFFFFF";
+  };
+
   return (
     <>
       <HistoryContainer>
@@ -120,46 +156,29 @@ const HistoryPage = () => {
           <Circle></Circle>
         </PurchaseImageContainer>
         <HistoryTextBox fontSize="16px" fontColor="#FFFA87" margin="0 0 40px 0">
-          이번 달에는 구매 인증을 6회 했어요.
+          이번 달에는 구매 인증을 {number}회 했어요.
           <br />
-          8회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
+          {10 - number}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </HistoryTextBox>
         <HistoryTextBox fontSize="16px" fontColor="#ffffff" margin="0">
           구매한 상품 히스토리
         </HistoryTextBox>
         <PurchaseHistoryList>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
-          <PurchaseItem>
-            <span>포카리스웨트</span>
-            <span>2024년 01월 01일 구매</span>
-          </PurchaseItem>
+          {historyData.length > 0 ? (
+            historyData.map((item, index) => (
+              <PurchaseItem
+                key={index}
+                color={getColorByProductType(item.productType)}
+              >
+                <span>{item.productName}</span>
+                <span>{item.purchaseDate} 구매</span>
+              </PurchaseItem>
+            ))
+          ) : (
+            <HistoryTextBox fontSize="16px" fontColor="#ffffff">
+              구매한 상품이 없습니다.
+            </HistoryTextBox>
+          )}
         </PurchaseHistoryList>
       </HistoryContainer>
       <Footer />
