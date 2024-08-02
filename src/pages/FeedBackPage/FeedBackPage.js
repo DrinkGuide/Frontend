@@ -72,10 +72,16 @@ function FeedBackPage() {
   useEffect(() => {
     if (!isTyping.current) {
       const newText = transcript.replace(prevTranscript.current, "");
-      setContent((prevStore) => prevStore + newText);
-      prevTranscript.current = transcript;
+      if (newText) {
+        setContent((prevContent) => prevContent + newText);
+        prevTranscript.current = transcript;
+      }
     }
   }, [transcript]);
+
+  useEffect(() => {
+    handleRecordOn();
+  });
 
   const handleRecordOn = () => {
     SpeechRecognition.startListening({ continuous: true });
@@ -94,17 +100,7 @@ function FeedBackPage() {
     isTyping.current = false;
   };
 
-  const handleTitleChange = (event) => {
-    isTyping.current = true;
-    const text = event.target.value;
-    if (text.length <= 100) {
-      setTitle(text);
-    }
-    isTyping.current = false;
-  };
-
   const handleReset = () => {
-    handleRecordOff();
     resetTranscript();
     setContent("");
     prevTranscript.current = "";
@@ -113,20 +109,23 @@ function FeedBackPage() {
   const handleSubmit = async () => {
     console.log("Submitting feedback...");
 
-    const response = await fetch('https://www.drinkguide.store/api/v1/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ content }),
-    });
+    const response = await fetch(
+      "https://www.drinkguide.store/api/v1/contacts",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content }),
+      }
+    );
 
     if (response.ok) {
       const data = await response.json();
-      console.log('Success:', data);
+      console.log("Success:", data);
       handleReset(); // Reset the textarea after successful submission
     } else {
-      console.error('Error:', response.statusText);
+      console.error("Error:", response.statusText);
     }
   };
 
