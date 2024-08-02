@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
 import "./Main.css";
@@ -11,6 +12,7 @@ import { EyeIcon } from "./components/EyeIcon";
 import { SpeechIcon } from "./components/SpeechIcon";
 import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
+import { SubscribeTypeAtom } from "../../recoil/atom";
 
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -28,10 +30,21 @@ const handleScroll = () => {
     behavior: "smooth",
   });
 };
+
+const handleScrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+}; // 맨 위로 올라가기
+
 const MainPage = () => {
   const navigate = useNavigate();
   const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
+  const [userSubscribeType, setUserSubscribeType] =
+    useRecoilState(SubscribeTypeAtom);
   const [isSubscribe, setIsSubscribe] = useState(false);
+
   const accessToken =
     "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
   const handleScreenMode = () => {
@@ -52,8 +65,10 @@ const MainPage = () => {
           }
         );
         console.log(response.data);
-        let copy = response.data.subscribeType;
-        if (copy == "DRINK") {
+        console.log(response.data.subscribeType); // 왜 undefined로 뜨지....
+        setUserSubscribeType(response.data.subscribeType);
+        console.log(userSubscribeType);
+        if (userSubscribeType == "DRINK") {
           setIsSubscribe(true);
         }
       } catch (error) {
@@ -74,7 +89,7 @@ const MainPage = () => {
         name="스캔"
         color="#FFFA87"
         onClick={() => {
-          if (isSubscribe) {
+          if (!isSubscribe) {
             navigate("/scan");
           } else {
             navigate("/subscribe");
