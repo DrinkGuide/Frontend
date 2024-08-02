@@ -52,7 +52,7 @@ function PaymentCheckoutPage({ token }) {
     try {
       const response = await sendOrderIdToServer(
         orderId,
-        3,
+        amount.value,
         subscribeType,
         tempToken
       );

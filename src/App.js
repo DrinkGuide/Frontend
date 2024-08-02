@@ -11,6 +11,7 @@ import MyPage from "./pages/MyPage/MyPage";
 import HistoryPage from "./pages/MyPage/components/HistoryPage";
 import SubscribePage from "./pages/MyPage/components/SubscribePage";
 import PaymentCheckoutPage from "./pages/MyPage/components/PaymentCheckoutPage";
+import Success from './pages/MyPage/components/Success';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/history" element={<HistoryPage />} />
         <Route path="/subscribe" element={<SubscribePage />} />
         <Route path="/payments" element={<PaymentCheckoutPage />} />
+        <Route path="/success" element={<Success />} />
       </Routes>
     </div>
   );
