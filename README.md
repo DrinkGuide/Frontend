@@ -7,7 +7,6 @@
 - react-speech-recognition 사용
 - tosspayments 사용
 
-
 # Test 돌려보기
 
 - npm install하고 실행시켜 보기
@@ -19,3 +18,4 @@
 - npm install jwt-decode
 - npm install --save react-scroll
 - npm install @tosspayments/payment-sdk --save
+- npm i recoil (상태 관리용 > 로그인, 구독여부)
