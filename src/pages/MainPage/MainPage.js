@@ -3,6 +3,7 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
 import "./Main.css";
+import { getAccessToken, isTokenValid } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
 import { Marquee } from "../../components/Marquee";
@@ -13,6 +14,7 @@ import { SpeechIcon } from "./components/SpeechIcon";
 import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
 import { SubscribeTypeAtom } from "../../recoil/atom";
+import { getCookie } from "../../utils/cookie";
 
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -43,12 +45,25 @@ const MainPage = () => {
   const [userSubscribeType, setUserSubscribeType] =
     useRecoilState(SubscribeTypeAtom);
   const [isSubscribe, setIsSubscribe] = useState(false);
+  const [tokenValid, setTokenValid] = useState(false);
+
+  // useEffect(() => {
+
+  //   console.log(accessToken);
+  //   if (isTokenValid(accessToken)) {
+  //     setTokenValid(true);
+  //   } else {
+  //     setTokenValid(false);
+  //   }
+  // }, []);
 
   const accessToken =
     "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
 
   useEffect(() => {
     const fetchData = async () => {
+      // const accessToken = getCookie("access");
+      console.log(accessToken);
       try {
         const response = await axios.get(
           "https://www.drinkguide.store/api/v1/members/subscribe",
@@ -58,7 +73,7 @@ const MainPage = () => {
             },
           }
         );
-        console.log(response.data);
+        console.log(response.data.data);
         console.log(response.data.data.subscribeType);
         setUserSubscribeType(response.data.data.subscribeType);
         console.log(userSubscribeType);

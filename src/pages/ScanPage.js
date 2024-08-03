@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import Webcam from "react-webcam";
+
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
 
@@ -130,6 +132,13 @@ const ScanPage = () => {
   const [model, setModel] = useState(null);
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
+  const [productName, setProductName] = useState("제로콜라");
+  const [productType, setProductType] = useState("DRINK");
+
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
+
+  const data = { productName: productName, productType: productType };
 
   useEffect(() => {
     const init = async () => {
@@ -182,27 +191,56 @@ const ScanPage = () => {
     facingMode: "environment",
   };
 
+  const handlePurchaseDataSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "https://www.drinkguide.store/api/v1/purchases",
+        { data },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      console.log("Success:", response.data);
+    } catch (error) {
+      console.error(
+        "Error:",
+        error.response ? error.response.statusText : error.message
+      );
+    }
+  };
+
   return (
-    <ScanContainer>
-      <TopBox>안녕하세요</TopBox>
-      <StyledWebcam
+    <>
+      <ScanContainer
+        onDoubleClick={() => {
+          console.log("Double click detected");
+          handlePurchaseDataSubmit();
+        }}
+      >
+        <TopBox>안녕하세요</TopBox>
+        <StyledWebcam
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
       />
-      <BottomBox>
-        <div className="frame-1">
-          <div
-            className="scan-type"
-            style={{ color: "#101010", background: "#5d9eff" }}
-          >
-            음료수
+        <BottomBox>
+          <div className="frame-1">
+            <div
+              className="scan-type"
+              style={{ color: "#101010", background: "#5d9eff" }}
+            >
+              음료수
+            </div>
           </div>
-        </div>
-        <ResultText>{result}</ResultText>
-      </BottomBox>
-    </ScanContainer>
+          <ResultText>{result}</ResultText>
+        </BottomBox>
+      </ScanContainer>
+    </>
   );
 };
 

@@ -1,4 +1,3 @@
-// src/App.js
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -13,8 +12,10 @@ import SubscribePage from "./pages/MyPage/components/SubscribePage";
 import PaymentCheckoutPage from "./pages/MyPage/components/PaymentCheckoutPage";
 import Success from "./pages/MyPage/components/Success";
 import { Failure } from "./pages/MyPage/components/Failure";
+import useAuth from "./hooks/useAuth";
 
 function App() {
+  // useAuth();
   return (
     <div>
       <GlobalStyle />

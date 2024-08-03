@@ -5,15 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <RecoilRoot>
-    <React.StrictMode>
+    <CookiesProvider>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </React.StrictMode>
+    </CookiesProvider>
   </RecoilRoot>
 );
 
