@@ -16,3 +16,8 @@ export const ProductTypeColorAtom = atom({
     { FISH: "#FF89C1" },
   ],
 });
+
+export const getAccessTokenAtom = atom({
+  key: "GetAccessToken",
+  default: "",
+});

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { jwtDecode } from "jwt-decode";
 import { getCookie } from "../utils/cookie";
 
 const useAuth = () => {
@@ -16,20 +15,16 @@ const useAuth = () => {
         console.error("Refresh token not found in cookies");
         return;
       }
-
       try {
-        // Store the raw JWT tokens, or decoded information based on your needs
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("refreshToken", refreshToken);
-
-        console.log("Tokens stored in local storage.");
-      } catch (e) {
-        console.error("Error decoding JWT token", e);
+        localStorage.setItem(accessToken);
+        console("save accesstoken in local storage");
+      } catch {
+        console.log("fail to store accesstoken");
       }
     };
 
     storeTokens();
-  }, []); // Fix the empty dependency array
+  }, []);
 };
 
 export default useAuth;

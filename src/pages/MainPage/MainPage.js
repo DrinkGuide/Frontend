@@ -3,7 +3,6 @@ import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
 import "./Main.css";
-import { getAccessToken, isTokenValid } from "../../utils/auth";
 import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
 import { Marquee } from "../../components/Marquee";
@@ -15,6 +14,7 @@ import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
 import { SubscribeTypeAtom } from "../../recoil/atom";
 import { getCookie } from "../../utils/cookie";
+import { jwtDecode } from "jwt-decode"; // 올바른 명명된 임포트
 
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -45,24 +45,12 @@ const MainPage = () => {
   const [userSubscribeType, setUserSubscribeType] =
     useRecoilState(SubscribeTypeAtom);
   const [isSubscribe, setIsSubscribe] = useState(false);
-  const [tokenValid, setTokenValid] = useState(false);
-
-  // useEffect(() => {
-
-  //   console.log(accessToken);
-  //   if (isTokenValid(accessToken)) {
-  //     setTokenValid(true);
-  //   } else {
-  //     setTokenValid(false);
-  //   }
-  // }, []);
-
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
+  const accessToken = localStorage.getItem("accessToken");
+  const decodedaccessToken = jwtDecode(accessToken);
 
   useEffect(() => {
+    console.log(decodedaccessToken);
     const fetchData = async () => {
-      // const accessToken = getCookie("access");
       console.log(accessToken);
       try {
         const response = await axios.get(
@@ -85,7 +73,7 @@ const MainPage = () => {
       }
     };
     fetchData();
-  }); // 구독현황 조회
+  }, []); // 구독현황 조회
 
   return (
     <MainContainer paddingTop="129px">

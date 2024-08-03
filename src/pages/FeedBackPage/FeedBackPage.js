@@ -60,8 +60,7 @@ const StyledTextarea = styled.textarea`
 function FeedBackPage() {
   const [content, setContent] = useState("");
   const location = useLocation();
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
+  const accessToken = localStorage.getItem("accessToken");
 
   const {
     transcript,

@@ -15,7 +15,7 @@ import { Failure } from "./pages/MyPage/components/Failure";
 import useAuth from "./hooks/useAuth";
 
 function App() {
-  // useAuth();
+  useAuth();
   return (
     <div>
       <GlobalStyle />

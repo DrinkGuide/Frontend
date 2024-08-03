@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import { ReactComponent as MypageText } from "../../assets/images/mypage-text.svg";
 import { ReactComponent as SubscribeOn } from "../../assets/images/subscribe-status.svg";
 import { ReactComponent as SubscribeOff } from "../../assets/images/not-subscribe-status.svg";
 import { ReactComponent as HistoryButton } from "../../assets/images/histoy-button.svg";
+import { ReactComponent as HistoryButtonAfter } from "../../assets/images/history-button-after.svg";
 import { ReactComponent as SubscribeCheck } from "../../assets/images/subscribe-check.svg";
+import { ReactComponent as SubscribeCheckAfter } from "../../assets/images/subscribe-check-after.svg";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../assets/images/changing_icon_2.svg";
 import { ReactComponent as Changing_icon_3 } from "../../assets/images/changing_icon_3.svg";
@@ -16,12 +18,13 @@ import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import "./MyPage.css";
+import { jwtDecode } from "jwt-decode";
 
 const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 852px;
   width: 100vw;
   margin: 0 auto;
   background-color: black;
@@ -92,14 +95,71 @@ const Circle = styled.div`
 const StyledSubscribeCheck = styled(SubscribeCheck)`
   margin: 40px 0 20px 0;
 `;
+const SubscribeCheckWrapper = styled.div`
+  margin: 40px 0 20px 0;
+  cursor: pointer;
+  width: 50%; /* 필요에 따라 크기를 조정 */
+  height: 40px; /* 필요에 따라 크기를 조정 */
+  position: relative;
+  & svg {
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+  }
+  & .before {
+    opacity: 1;
+  }
+  & .after {
+    opacity: 0;
+  }
+  &:hover .before {
+    opacity: 0;
+  }
+  &:hover .after {
+    opacity: 1;
+  }
+`;
 
+const HistoryButtonWrapper = styled.div`
+  margin: 20px 0;
+  cursor: pointer;
+  width: 50%; /* 필요에 따라 크기를 조정 */
+  height: 40px; /* 필요에 따라 크기를 조정 */
+  position: relative;
+  & svg {
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+  }
+  & .before {
+    opacity: 1;
+  }
+  & .after {
+    opacity: 0;
+  }
+  &:hover .before {
+    opacity: 0;
+  }
+  &:hover .after {
+    opacity: 1;
+  }
+`;
 const MyPage = () => {
   const navigate = useNavigate();
   const [subscribe, setSubscribe] = useState(false); // 기본값 false로 설정
   const [memberInfo, setMemberInfo] = useState({});
+  const [purchaseNum, setPurchaseNum] = useState();
 
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANTViYzA3ZjVdIiwiaWF0IjoxNzIyNTkyODYzLCJleHAiOjMzMjU4NTkyODYzfQ.wFJFGaRh9e1lZU-yvPJzyl8IU1m03YnScbkD43SnA98";
+  const icons = [
+    <Changing_icon_1 />,
+    <Changing_icon_2 />,
+    <Changing_icon_3 />,
+    <Changing_icon_4 />,
+    <Changing_icon_5 />,
+    <Changing_icon_6 />,
+  ];
+
+  const accessToken = localStorage.getItem("accessToken");
+  const decodedaccessToken = jwtDecode(accessToken);
+  const memberId = decodedaccessToken.memberId;
 
   useEffect(() => {
     const fetchMemberInfoData = async () => {
@@ -130,6 +190,26 @@ const MyPage = () => {
     fetchMemberInfoData();
   }, []); // 닉네임 및 구독 정보 조회
 
+  useEffect(() => {
+    const fetchPurchaseNumInfoData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.drinkguide.store/api/v1/purchases/${memberId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setPurchaseNum();
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchPurchaseNumInfoData();
+  }, []); // 구매
+
   return (
     <>
       <MyPageContainer>
@@ -145,44 +225,34 @@ const MyPage = () => {
         </MypageTextBox>
 
         <PurchaseImageContainer>
-          <Circle>
-            <Changing_icon_1 />
-          </Circle>
-          <Circle>
-            <Changing_icon_2 />
-          </Circle>
-          <Circle>
-            <Changing_icon_3 />
-          </Circle>
-          <Circle>
-            <Changing_icon_4 />
-          </Circle>
-          <Circle>
-            <Changing_icon_5 />
-          </Circle>
-          <Circle>
-            <Changing_icon_6 />
-          </Circle>
-          <Circle></Circle>
-          <Circle></Circle>
-          <Circle></Circle>
-          <Circle></Circle>
+          {icons.map((icon, index) => (
+            <Circle key={index}>{icon}</Circle>
+          ))}
+          {[...Array(4)].map((_, index) => (
+            <Circle key={icons.length + index}></Circle>
+          ))}
         </PurchaseImageContainer>
         <MypageTextBox fontSize="16px" fontColor="#FFFA87">
-          이번 달에는 구매 인증을 2회 했어요.
+          이번 달에는 구매 인증을 {purchaseNum}회 했어요.
           <br />
-          8회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
+          {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
-        <StyledSubscribeCheck
+        <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
           }}
-        />
-        <HistoryButton
+        >
+          <SubscribeCheck className="before" />
+          <SubscribeCheckAfter className="after" />
+        </SubscribeCheckWrapper>
+        <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");
           }}
-        />
+        >
+          <HistoryButton className="before" />
+          <HistoryButtonAfter className="after" />
+        </HistoryButtonWrapper>
       </MyPageContainer>
       <Footer />
     </>
