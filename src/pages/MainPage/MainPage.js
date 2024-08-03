@@ -50,13 +50,14 @@ const MainPage = () => {
   useEffect(() => {
     // 로그인 후 accessToken을 localStorage에서 가져오기
     const token = localStorage.getItem("accessToken");
+    console.log(token);
     if (token) {
       setAccessToken(token); // Recoil 상태 업데이트
       setIsLoggedIn(true); // 로그인 상태 업데이트
     } else {
       setIsLoggedIn(false); // 로그인 상태 업데이트
     }
-  }, [setAccessToken]);
+  }, []);
 
   useEffect(() => {
     // accessToken이 업데이트되었을 때 데이터 페치
@@ -89,7 +90,9 @@ const MainPage = () => {
   }, [accessToken, setUserSubscribeType]);
 
   const handleButtonClick = (path) => {
-    if (isLoggedIn) {
+    const token = localStorage.getItem("accessToken");
+    console.log(token);
+    if (token) {
       navigate(path);
     } else {
       navigate("/signin");

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useRecoilValue } from "recoil";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { Footer } from "../../../components/Footer";
 import { ProductTypeColorAtom } from "../../../recoil/atom";
 import { ReactComponent as Changing_icon_1 } from "../../../assets/images/changing_icon_1.svg";
@@ -111,6 +112,8 @@ const HistoryPage = () => {
   const productColor = useRecoilValue(ProductTypeColorAtom);
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [purchaseNum, setPurchaseNum] = useState(2);
+  const memberId = decodedaccessToken.memberId;
+  const decodedaccessToken = jwtDecode(accessToken);
   const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
@@ -203,25 +206,25 @@ const HistoryPage = () => {
     fetchHistoryData();
   }, []); // 구독현황 조회
 
-  // useEffect(() => {
-  //   const fetchPurchaseNumInfoData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `https://www.drinkguide.store/api/v1/purchases/${memberId}`,
-  //         {
-  //           headers: {
-  //             Authorization: `Bearer ${accessToken}`,
-  //           },
-  //         }
-  //       );
-  //       console.log(response.data.data);
-  //       setPurchaseNum();
-  //     } catch (error) {
-  //       console.error("실패함", error);
-  //     }
-  //   };
-  //   fetchPurchaseNumInfoData();
-  // }, []); // 구매
+  useEffect(() => {
+    const fetchPurchaseNumInfoData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.drinkguide.store/api/v1/purchases/${memberId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setPurchaseNum();
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchPurchaseNumInfoData();
+  }, []); // 구매
 
   const getColorByProductType = (productType) => {
     const colorObj = productColor.find((color) => color[productType]);
