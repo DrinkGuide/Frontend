@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import { ReactComponent as SubscribeCancelBefore } from "../../../assets/images/subscribe-cancel-before.svg";
@@ -170,9 +171,10 @@ const SubscribePage = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [isCancelPopupVisible, setCancelPopupVisible] = useState(false);
   const [subscribeInfo, setSubscribeInfo] = useState([]);
+  const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
-  
+
   const handleCancelClick = () => {
     setPopupVisible(true);
   };
@@ -210,6 +212,10 @@ const SubscribePage = () => {
     fetchsubScribeData();
   }, []); // 구독현황 조회
 
+  const handleNavigateToPayments = (price, type) => {
+    navigate("/payments", { state: { price, type } });
+  };
+
   return (
     <>
       <SubscirbeContainer>
@@ -231,15 +237,15 @@ const SubscribePage = () => {
         <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="20px 0">
           구독 플랜
         </SubscribeTextBox>
-        <SubscribePlan>
+        <SubscribePlan onClick={handleNavigateToPayments(3000, "음료")}>
           <span>음료</span>
           <span>3,000원</span>
         </SubscribePlan>
-        <SubscribePlan>
+        <SubscribePlan onClick={handleNavigateToPayments(7000, "음료 + 과자")}>
           <span>음료 + 과자</span>
           <span>7,000원</span>
         </SubscribePlan>
-        <SubscribePlan>
+        <SubscribePlan onClick={handleNavigateToPayments(15000, "음료 + 과자 + 가공식품")}>
           <span>음료 + 과자 + 가공식품</span>
           <span>15,000원</span>
         </SubscribePlan>
@@ -260,8 +266,8 @@ const SubscribePage = () => {
               정말 구독을 취소하시겠어요?
             </PopupHeader>
             <PopupText>
-              지금 구독을 취소하더라도 2024년 01월 31일까지는 서비스를 이용할 수
-              있습니다.
+              지금 구독을 취소하더라도 {subscribeInfo.expirationDate}까지는
+              서비스를 이용할 수 있습니다.
             </PopupText>
             <PopupButtons>
               <CloseButtonMiniBefore onClick={handleClosePopup} />

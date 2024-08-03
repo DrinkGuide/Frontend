@@ -2,18 +2,21 @@ import React, { useEffect, useState } from "react";
 import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 import { jwtDecode } from "jwt-decode";
 import { v4 as uuidv4 } from "uuid";
-import axios from "axios"; // Axios를 import합니다.
+import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function PaymentCheckoutPage({ token }) {
+  const location = useLocation();
+  const { price, type } = location.state || { price: 3000, type: "DRINK" };
+
   const [payment, setPayment] = useState(null);
-  const [value, setValue] = useState(); // 상품 가격
   const [isProcessing, setIsProcessing] = useState(false); // 결제 처리 상태 추가
   const [subscribeType, setSubscribeType] = useState("DRINK");
 
   // 사용자가 지정한 결제 정보
   const amount = {
     currency: "KRW",
-    value: 3000,
+    value: price,
   };
 
   const orderId = uuidv4(); // 랜덤하게 생성된 orderId
