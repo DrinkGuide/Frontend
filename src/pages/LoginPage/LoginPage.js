@@ -12,6 +12,7 @@ import { ScrollButton } from "../MainPage/components/ScrollButton";
 import { EyeIcon } from "../MainPage/components/EyeIcon";
 import { SpeechIcon } from "../MainPage/components/SpeechIcon";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
+import { useSetRecoilState } from "recoil";
 
 const handleScroll = () => {
   window.scrollTo({

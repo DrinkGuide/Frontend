@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import React, { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
 import "./Main.css";
@@ -12,8 +12,7 @@ import { EyeIcon } from "./components/EyeIcon";
 import { SpeechIcon } from "./components/SpeechIcon";
 import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
-import { SubscribeTypeAtom } from "../../recoil/atom";
-import { getCookie } from "../../utils/cookie";
+import { SubscribeTypeAtom, getAccessTokenAtom } from "../../recoil/atom";
 import { jwtDecode } from "jwt-decode"; // 올바른 명명된 임포트
 
 const MainContainer = styled.div`
@@ -21,7 +20,7 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw; /* 화면 너비 맞춤 */
+  width: 100vw;
   margin: 0 auto;
   background-color: black;
 `;
@@ -38,44 +37,64 @@ const handleScrollToTop = () => {
     top: 0,
     behavior: "smooth",
   });
-}; // 맨 위로 올라가기
+};
 
 const MainPage = () => {
   const navigate = useNavigate();
   const [userSubscribeType, setUserSubscribeType] =
     useRecoilState(SubscribeTypeAtom);
   const [isSubscribe, setIsSubscribe] = useState(false);
-  const accessToken = localStorage.getItem("accessToken");
-  const decodedaccessToken = jwtDecode(accessToken);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  const [accessToken, setAccessToken] = useRecoilState(getAccessTokenAtom);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    console.log(decodedaccessToken);
-    const fetchData = async () => {
-      console.log(accessToken);
-      try {
-        const response = await axios.get(
-          "https://www.drinkguide.store/api/v1/members/subscribe",
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+    // 로그인 후 accessToken을 localStorage에서 가져오기
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setAccessToken(token); // Recoil 상태 업데이트
+      setIsLoggedIn(true); // 로그인 상태 업데이트
+    } else {
+      setIsLoggedIn(false); // 로그인 상태 업데이트
+    }
+  }, [setAccessToken]);
+
+  useEffect(() => {
+    // accessToken이 업데이트되었을 때 데이터 페치
+    if (accessToken) {
+      const decodedAccessToken = jwtDecode(accessToken);
+      console.log(decodedAccessToken);
+
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "https://www.drinkguide.store/api/v1/members/subscribe",
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          console.log(response.data.data);
+          setUserSubscribeType(response.data.data.subscribeType);
+          if (response.data.data.subscribeType === "DRINK") {
+            setIsSubscribe(true);
           }
-        );
-        console.log(response.data.data);
-        console.log(response.data.data.subscribeType);
-        setUserSubscribeType(response.data.data.subscribeType);
-        console.log(userSubscribeType);
-        if (userSubscribeType == "DRINK") {
-          setIsSubscribe(true);
+        } catch (error) {
+          console.error("실패함", error);
         }
-      } catch (error) {
-        console.error("실패함", error);
-      }
-    };
-    fetchData();
-  }, []); // 구독현황 조회
+      };
+
+      fetchData();
+    }
+  }, [accessToken, setUserSubscribeType]);
+
+  const handleButtonClick = (path) => {
+    if (isLoggedIn) {
+      navigate(path);
+    } else {
+      navigate("/signin");
+    }
+  };
 
   return (
     <MainContainer paddingTop="129px">
@@ -87,27 +106,17 @@ const MainPage = () => {
       <Button
         name="스캔"
         color="#FFFA87"
-        onClick={() => {
-          if (isSubscribe) {
-            navigate("/scan");
-          } else {
-            navigate("/subscribe");
-          }
-        }}
+        onClick={() => handleButtonClick(isSubscribe ? "/scan" : "/subscribe")}
       />
       <Button
         name="피드백"
         color="#FFA858"
-        onClick={() => {
-          navigate("/feedback");
-        }}
+        onClick={() => handleButtonClick("/feedback")}
       />
       <Button
         name="마이페이지"
         color="#FF5858"
-        onClick={() => {
-          navigate("/mypage");
-        }}
+        onClick={() => handleButtonClick("/mypage")}
       />
       <Text
         color="#FFFFFF"
@@ -119,6 +128,41 @@ const MainPage = () => {
       </Text>
       <ScrollButton onClick={handleScroll} />
       <Marquee paddingTop="65px" paddingBottom="145px" />
+
+      <span>
+        <EyeIcon />
+        <SpeechIcon />
+      </span>
+
+      <div className="group-12" id="scrollTarget">
+        <div className="rectangle-33"></div>
+        <div className="rectangle-34"></div>
+        <div className="rectangle-35"></div>
+        <div className="div">
+          <span>
+            <span className="div-span">정확</span>
+            <span className="div-span2">하고 </span>
+            <span className="div-span3">또박또박</span>
+            <span className="div-span4">
+              하게
+              <br />
+              그리고
+            </span>
+            <span className="div-span2"> </span>
+            <span className="div-span5">손쉽게</span>
+            <span className="div-span6">!</span>
+          </span>
+        </div>
+      </div>
+
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
+        글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
+        <br />
+        빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를
+        <br />
+        정확하고 또박또박한 음성으로 손쉽게 알려드립니다.
+      </Text>
+      <Marquee paddingTop="145px" paddingBottom="137px" />
 
       <span>
         <EyeIcon />

@@ -2,7 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Webcam from "react-webcam";
-
+import { useRecoilValue } from "recoil";
+import { getAccessTokenAtom } from "../recoil/atom";
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
 
@@ -135,10 +136,10 @@ const ScanPage = () => {
   const [productName, setProductName] = useState("제로콜라");
   const [productType, setProductType] = useState("DRINK");
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
- 
+
   const data = { productName: productName, productType: productType };
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import { ReactComponent as Changing_icon_3 } from "../../../assets/images/changi
 import { ReactComponent as Changing_icon_4 } from "../../../assets/images/changing_icon_4.svg";
 import { ReactComponent as Changing_icon_5 } from "../../../assets/images/changing_icon_5.svg";
 import { ReactComponent as Changing_icon_6 } from "../../../assets/images/changing_icon_6.svg";
-
+import { getAccessTokenAtom } from "../../../recoil/atom";
 const HistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -111,7 +111,7 @@ const HistoryPage = () => {
   const productColor = useRecoilValue(ProductTypeColorAtom);
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [purchaseNum, setPurchaseNum] = useState(2);
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 

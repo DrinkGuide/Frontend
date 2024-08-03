@@ -4,14 +4,16 @@ import { jwtDecode } from "jwt-decode";
 import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { getAccessTokenAtom } from "../../../recoil/atom";
 
 export const PaymentCheckoutPage = ({ token }) => {
   const location = useLocation();
   const { price, type } = location.state || { price: 3000, type: "DRINK" };
-
   const [payment, setPayment] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false); // 결제 처리 상태 추가
   const [subscribeType, setSubscribeType] = useState("DRINK");
+  const accessToken = useRecoilValue(getAccessTokenAtom);
 
   // 사용자가 지정한 결제 정보
   const amount = {
@@ -20,12 +22,12 @@ export const PaymentCheckoutPage = ({ token }) => {
   };
 
   const orderId = uuidv4(); // 랜덤하게 생성된 orderId
-  const orderName = "보이스 라밸 1개월 구독권";
+  const orderName = type;
   const customerName = "이주승";
   const customerEmail = "juseung0619@gmail.com";
   const clientKey = "test_ck_ma60RZblrqopozZjBRoZ3wzYWBn1";
   const customerKey = "cro1z9vgLoNhtEeGh0euB";
-  const accessToken = localStorage.getItem("accessToken");
+
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 

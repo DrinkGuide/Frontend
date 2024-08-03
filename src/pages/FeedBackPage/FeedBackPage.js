@@ -8,6 +8,8 @@ import styled from "styled-components";
 import { ReactComponent as FeedBackText } from "../../assets/images/feedback-text.svg";
 import { Button } from "../../components/Button";
 import { useLocation } from "react-router-dom";
+import { getAccessTokenAtom } from "../../recoil/atom";
+import { useRecoilValue } from "recoil";
 
 const FeedBackContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -60,7 +62,7 @@ const StyledTextarea = styled.textarea`
 function FeedBackPage() {
   const [content, setContent] = useState("");
   const location = useLocation();
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 

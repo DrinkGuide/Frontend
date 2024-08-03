@@ -12,6 +12,8 @@ import { ReactComponent as ExclamationMark } from "../../../assets/images/Exclam
 import { ReactComponent as CancelComplete } from "../../../assets/images/cancel_complete.svg";
 import { Footer } from "../../../components/Footer";
 import PaymentCheckoutPage from "./PaymentCheckoutPage";
+import { useRecoilValue } from "recoil";
+import { getAccessTokenAtom } from "../../../recoil/atom";
 /*
 해야할 것들
 
@@ -173,7 +175,7 @@ const SubscribePage = () => {
   const [subscribeInfo, setSubscribeInfo] = useState([]);
   const navigate = useNavigate();
 
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
@@ -240,19 +242,31 @@ const SubscribePage = () => {
         <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="20px 0">
           구독 플랜
         </SubscribeTextBox>
-        <SubscribePlan onClick={() => handleNavigateToPayments(3000, "음료")}>
+        <SubscribePlan
+          onClick={() =>
+            handleNavigateToPayments(3000, "[보이스 라벨] 음료 1개월 구독권")
+          }
+        >
           <span>음료</span>
           <span>3,000원</span>
         </SubscribePlan>
         <SubscribePlan
-          onClick={() => handleNavigateToPayments(7000, "음료 + 과자")}
+          onClick={() =>
+            handleNavigateToPayments(
+              7000,
+              "[보이스 라벨] 음료 + 과자 1개월 구독권"
+            )
+          }
         >
           <span>음료 + 과자</span>
           <span>7,000원</span>
         </SubscribePlan>
         <SubscribePlan
           onClick={() =>
-            handleNavigateToPayments(15000, "음료 + 과자 + 가공식품")
+            handleNavigateToPayments(
+              15000,
+              "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
+            )
           }
         >
           <span>음료 + 과자 + 가공식품</span>
