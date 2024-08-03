@@ -23,7 +23,7 @@ function PaymentCheckoutPage({ token }) {
   const clientKey = "test_ck_ma60RZblrqopozZjBRoZ3wzYWBn1";
   const customerKey = "cro1z9vgLoNhtEeGh0euB";
   const accessToken = localStorage.getItem("accessToken");
-  const decoded = jwtDecode(tempToken);
+  const decoded = jwtDecode(accessToken);
 
   useEffect(() => {
     async function fetchPayment() {
@@ -52,7 +52,7 @@ function PaymentCheckoutPage({ token }) {
         orderId,
         amount.value,
         subscribeType,
-        tempToken
+        accessToken
       );
       // 서버에 전송 성공
       console.log("Order ID sent to server:", response.data);
@@ -88,7 +88,7 @@ function PaymentCheckoutPage({ token }) {
     orderId,
     amount,
     subscribeType,
-    tempToken
+    accesstoken
   ) {
     try {
       // 필요한 결제 정보를 서버로 전송합니다.
@@ -102,7 +102,7 @@ function PaymentCheckoutPage({ token }) {
         },
         {
           headers: {
-            Authorization: `Bearer ${tempToken}`, // Bearer 토큰 추가
+            Authorization: `Bearer ${accessToken}`, // Bearer 토큰 추가
             "Content-Type": "application/json", // JSON 형식으로 설정
           },
         }
