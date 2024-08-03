@@ -11,7 +11,7 @@ import { ReactComponent as CloseButtonMiniAfter } from "../../../assets/images/c
 import { ReactComponent as ExclamationMark } from "../../../assets/images/Exclamation_mark.svg";
 import { ReactComponent as CancelComplete } from "../../../assets/images/cancel_complete.svg";
 import { Footer } from "../../../components/Footer";
-
+import PaymentCheckoutPage from "./PaymentCheckoutPage";
 /*
 해야할 것들
 
@@ -174,6 +174,8 @@ const SubscribePage = () => {
   const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const handleCancelClick = () => {
     setPopupVisible(true);
@@ -214,6 +216,7 @@ const SubscribePage = () => {
 
   const handleNavigateToPayments = (price, type) => {
     navigate("/payments", { state: { price, type } });
+    <PaymentCheckoutPage />;
   };
 
   return (
@@ -237,15 +240,21 @@ const SubscribePage = () => {
         <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="20px 0">
           구독 플랜
         </SubscribeTextBox>
-        <SubscribePlan onClick={handleNavigateToPayments(3000, "음료")}>
+        <SubscribePlan onClick={() => handleNavigateToPayments(3000, "음료")}>
           <span>음료</span>
           <span>3,000원</span>
         </SubscribePlan>
-        <SubscribePlan onClick={handleNavigateToPayments(7000, "음료 + 과자")}>
+        <SubscribePlan
+          onClick={() => handleNavigateToPayments(7000, "음료 + 과자")}
+        >
           <span>음료 + 과자</span>
           <span>7,000원</span>
         </SubscribePlan>
-        <SubscribePlan onClick={handleNavigateToPayments(15000, "음료 + 과자 + 가공식품")}>
+        <SubscribePlan
+          onClick={() =>
+            handleNavigateToPayments(15000, "음료 + 과자 + 가공식품")
+          }
+        >
           <span>음료 + 과자 + 가공식품</span>
           <span>15,000원</span>
         </SubscribePlan>

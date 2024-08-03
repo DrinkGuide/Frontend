@@ -15,11 +15,12 @@ const useAuth = () => {
         console.error("Refresh token not found in cookies");
         return;
       }
+
       try {
-        localStorage.setItem(accessToken);
-        console("save accesstoken in local storage");
-      } catch {
-        console.log("fail to store accesstoken");
+        localStorage.setItem("accessToken", accessToken); // key와 value를 모두 전달
+        console.log("save accesstoken in local storage");
+      } catch (error) {
+        console.log("fail to store accesstoken", error);
       }
     };
 

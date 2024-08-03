@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
-function PaymentCheckoutPage({ token }) {
+export const PaymentCheckoutPage = ({ token }) => {
   const location = useLocation();
   const { price, type } = location.state || { price: 3000, type: "DRINK" };
 
@@ -26,6 +26,9 @@ function PaymentCheckoutPage({ token }) {
   const clientKey = "test_ck_ma60RZblrqopozZjBRoZ3wzYWBn1";
   const customerKey = "cro1z9vgLoNhtEeGh0euB";
   const accessToken = localStorage.getItem("accessToken");
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+
   const decoded = jwtDecode(accessToken);
 
   useEffect(() => {
@@ -41,6 +44,12 @@ function PaymentCheckoutPage({ token }) {
     }
     fetchPayment();
   }, []);
+
+  useEffect(() => {
+    if (payment) {
+      requestPayment();
+    }
+  }, [payment]);
 
   async function requestPayment() {
     if (!payment) {
@@ -117,15 +126,7 @@ function PaymentCheckoutPage({ token }) {
     }
   }
 
-  return (
-    <div>
-      <h2>결제 정보</h2>
-      <p>
-        금액: {amount.value} {amount.currency}
-      </p>
-      <button onClick={requestPayment}>결제 요청</button>
-    </div>
-  );
-}
+  return <></>;
+};
 
 export default PaymentCheckoutPage;
