@@ -3,7 +3,11 @@ import styled from "styled-components";
 import axios from "axios";
 import Webcam from "react-webcam";
 import { useRecoilValue } from "recoil";
-import { getAccessTokenAtom, scanPageColorAtom } from "../recoil/atom";
+import {
+  getAccessTokenAtom,
+  scanPageColorAtom,
+  scanPageProductTypeAtom,
+} from "../recoil/atom";
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
 import ImageSlider from "./ImageSlider";
@@ -118,7 +122,7 @@ const ScanPage = () => {
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
   const [productName, setProductName] = useState("제로콜라");
-  const [productType, setProductType] = useState("DRINK");
+  const productType = useRecoilValue(scanPageProductTypeAtom);
   const [clickTimeout, setClickTimeout] = useState(null);
   const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = useRecoilValue(getAccessTokenAtom);
@@ -230,7 +234,7 @@ const ScanPage = () => {
         <BottomBox color={resultColor}>
           <div className="frame-1">
             <div className="scan-type" style={{ color: "#101010" }}>
-              음료수
+              {productType}
             </div>
           </div>
           <ResultText color={resultColor}>{result}</ResultText>

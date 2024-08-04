@@ -6,14 +6,21 @@ import image3 from "../assets/images/changing_icon_3.svg";
 import image4 from "../assets/images/changing_icon_4.svg";
 import image5 from "../assets/images/changing_icon_5.svg";
 import image6 from "../assets/images/changing_icon_6.svg";
-import { useSetRecoilState, useRecoilValue } from "recoil";
-import { scanPageColorAtom, ProductTypeColorAtom } from "../recoil/atom";
+import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
+import {
+  scanPageColorAtom,
+  ProductTypeColorAtom,
+  ProductTypeinKorean,
+} from "../recoil/atom";
+import { scanPageProductTypeAtom } from "../recoil/atom";
 
 const ImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef(null);
   const setResultColor = useSetRecoilState(scanPageColorAtom);
   const colorList = useRecoilValue(ProductTypeColorAtom);
+  const productTypeKoreanList = useRecoilValue(ProductTypeinKorean);
+  const [productType, setProductType] = useRecoilState(scanPageProductTypeAtom);
   const images = [image2, image1, image3, image4, image5, image6];
   const productNameList = [
     "DRINK",
@@ -42,6 +49,13 @@ const ImageSlider = () => {
     const colorObj = colorList.find((item) => item[productName]);
     const color = colorObj ? colorObj[productName] : "#FFFFFF"; // Default color if not found
 
+    const productTypeObj = productTypeKoreanList.find(
+      (item) => item[productName]
+    );
+    const productType = productTypeObj ? productTypeObj[productName] : "음료"; // Default color if not found
+
+    setProductType(productType);
+    console.log(productType);
     console.log(color);
     setResultColor(color);
   };
