@@ -17,7 +17,17 @@ export const ProductTypeColorAtom = atom({
   ],
 });
 
-
+export const ProductTypeinKorean = atom({
+  key: "ProductTypeKorean",
+  default: [
+    { DRINK: "음료수" },
+    { SNACK: "과자" },
+    { RETORTFOOD: "가공식품" },
+    { FRUIT: "과일" },
+    { VEGETABLE: "채소" },
+    { FISH: "생선" },
+  ],
+});
 
 export const getAccessTokenAtom = atom({
   key: "GetAccessToken",
@@ -27,4 +37,9 @@ export const getAccessTokenAtom = atom({
 export const scanPageColorAtom = atom({
   key: "scanPageColor",
   default: "#5D9EFF",
+});
+
+export const scanPageProductTypeAtom = atom({
+  key: "scanPageProductType",
+  default: "음료",
 });
