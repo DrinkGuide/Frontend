@@ -3,6 +3,10 @@ import styled from "styled-components";
 import Webcam from "react-webcam";
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
+import ImageSlider from './ImageSlider';
+
+
+
 
 const ScanContainer = styled.div`
   box-sizing: border-box;
@@ -191,6 +195,8 @@ const ScanPage = () => {
         screenshotFormat="image/jpeg"
         videoConstraints={videoConstraints}
       />
+            <ImageSlider />
+
       <BottomBox>
         <div className="frame-1">
           <div
@@ -202,8 +208,16 @@ const ScanPage = () => {
         </div>
         <ResultText>{result}</ResultText>
       </BottomBox>
+
     </ScanContainer>
   );
 };
 
 export default ScanPage;
+
+import image1 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_1.svg';
+import image2 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_2.svg';
+import image3 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_3.svg';
+import image4 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_4.svg';
+import image5 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_5.svg';
+import image6 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_6.svg';
