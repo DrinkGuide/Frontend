@@ -10,12 +10,11 @@ import { ReactComponent as CloseButtonMiniBefore } from "../../../assets/images/
 import { ReactComponent as CloseButtonMiniAfter } from "../../../assets/images/close-button-mini-after.svg";
 import { ReactComponent as ExclamationMark } from "../../../assets/images/Exclamation_mark.svg";
 import { ReactComponent as CancelComplete } from "../../../assets/images/cancel_complete.svg";
-import { ReactComponent as CloseButtonMiniBefore2 } from '../../../assets/images/close-button-mini-before2.svg';
+import { ReactComponent as CloseButtonMiniBefore2 } from "../../../assets/images/close-button-mini-before2.svg";
 import PaymentCheckoutPage from "./PaymentCheckoutPage";
 import { useRecoilValue } from "recoil";
 import { getAccessTokenAtom } from "../../../recoil/atom";
-import { Footer } from '../../../components/Footer';
-
+import { Footer } from "../../../components/Footer";
 
 /*
 해야할 것들
