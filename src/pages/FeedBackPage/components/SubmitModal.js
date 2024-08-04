@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import { Button } from '../../../components/Button';
 import { Text } from '../../../components/Text';
@@ -14,8 +15,7 @@ const ModalOverlay = styled.div`
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* 중앙에서 위로 조정 */
-  padding-top: 20%; /* 화면 상단에서 아래로 10% 여백 */
+  align-items: center;
   z-index: 1000; /* Ensure the modal is above other content */
 `;
 
@@ -36,16 +36,20 @@ const ModalContainer = styled.div`
 
 
 const SubmitModal = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
   if (!isOpen) return null;
   return (
     <ModalOverlay>
       <ModalContainer>
         <SubmitCheckButton />
-        <Text color="#FFFFFF" fontSize="12px" >
+        <Text color="#FFFFFF" fontSize="15px" fontWeight="700">
           고객님의 소중한 의견이 제출되었습니다.
           <br />더 나은 보이스라벨을 기대해주세요!
         </Text>
-        <Button name={"닫기"} color={"#FFFA87"} width={"152px"} height={"39px"}   onClick={onClose} />
+        <Button name={"닫기"} color={"#FFFA87"} width={"152px"} height={"39px"}   onClick={() => {
+  onClose();
+  navigate("/");
+}}/>
       </ModalContainer>
     </ModalOverlay>
   );

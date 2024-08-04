@@ -19,7 +19,6 @@ const FeedBackContainer = styled.div`
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
-  padding-top: 129px;
   padding-bottom : 100px;
 `;
 
