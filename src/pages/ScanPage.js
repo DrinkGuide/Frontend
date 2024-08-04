@@ -1,12 +1,16 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import Webcam from "react-webcam";
+import { useRecoilValue } from "recoil";
+import {
+  getAccessTokenAtom,
+  scanPageColorAtom,
+  scanPageProductTypeAtom,
+} from "../recoil/atom";
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
-import ImageSlider from './ImageSlider';
-
-
-
+import ImageSlider from "./ImageSlider";
 
 const ScanContainer = styled.div`
   box-sizing: border-box;
@@ -22,7 +26,7 @@ const ScanContainer = styled.div`
     &:before {
     content: "";
     background: linear-gradient(
-      to bottom,
+      to top,
       rgba(20, 20, 20, 0) 10%,
       rgba(20, 20, 20, 0.25) 25%,
       rgba(20, 20, 20, 0.5) 50%,
@@ -36,9 +40,8 @@ const ScanContainer = styled.div`
 `;
 
 const StyledWebcam = styled(Webcam)`
-  width: 100%;
-  height: 100%;
-  transform: scaleX(-1);
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
 `;
 
@@ -49,25 +52,10 @@ const TransparentBox = styled.div`
   z-index: 1;
 `;
 
-const TopBox = styled(TransparentBox)`
-  height: 235px;
-  color: white;
-  top: 0;
-  text-align: center;
-  &:before {
-    content: "";
-    background: linear-gradient(to bottom, #000000, transparent);
-    position: absolute;
-    left: 0;
-    height: 50%;
-    width: 100%;
-  }
-`;
-
 const BottomBox = styled(TransparentBox)`
   height: 199px;
   bottom: 0;
-  color: #5d9eff;
+  color: ${(props) => props.color};
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -92,10 +80,9 @@ const BottomBox = styled(TransparentBox)`
   }
 
   .frame-1 {
-    background: #5d9eff;
+    background: ${(props) => props.color};
     border-radius: 1000px;
     border-style: solid;
-    border-color: #5d9eff;
     border-width: 3px;
     padding: 12px 29px;
     display: flex;
@@ -119,7 +106,7 @@ const BottomBox = styled(TransparentBox)`
 `;
 
 const ResultText = styled.div`
-  color: #5d9eff;
+  color: ${(props) => props.color};
   text-align: center;
   font-family: "PretendardVariable-Bold", sans-serif;
   font-size: 24px;
@@ -134,6 +121,16 @@ const ScanPage = () => {
   const [model, setModel] = useState(null);
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
+  const [productName, setProductName] = useState("제로콜라");
+  const productType = useRecoilValue(scanPageProductTypeAtom);
+  const [clickTimeout, setClickTimeout] = useState(null);
+  const resultColor = useRecoilValue(scanPageColorAtom);
+  const accessToken = useRecoilValue(getAccessTokenAtom);
+
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZjliMjZkNF0iLCJpYXQiOjE3MjI3MTc1MDksImV4cCI6MzMyNTg3MTc1MDl9.ovyF_lxTHJ5eBoQZNPiCDYMiLtDqZSTr4q173h-EK2g";
+
+  const data = { productName: productName, productType: productType };
 
   useEffect(() => {
     const init = async () => {
@@ -162,10 +159,6 @@ const ScanPage = () => {
     init();
   }, [URL]);
 
-  useEffect(() => {
-    getSpeech(result);
-  }, [result]);
-
   const showPredictions = (predictions) => {
     if (!predictions || predictions.length === 0) return;
 
@@ -174,42 +167,80 @@ const ScanPage = () => {
     );
 
     setResult(maxPrediction.className);
-
-    predictions.forEach((prediction) => {
-      console.log(
-        `${prediction.className}: ${prediction.probability.toFixed(2)}`
-      );
-    });
   };
 
   const videoConstraints = {
     facingMode: "environment",
   };
 
+  const handlePurchaseDataSubmit = async () => {
+    try {
+      const response = await axios.post(
+        "https://www.drinkguide.store/api/v1/purchases",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      console.log("Success:", response.data);
+      getSpeech(`${data.productName}를 구매합니다`);
+    } catch (error) {
+      console.error(
+        "Error:",
+        error.response ? error.response.statusText : error.message
+      );
+      getSpeech(`${data.productName} 음료를 구매합니다`);
+    }
+  };
+
+  const handleClickEvent = (event) => {
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+      setClickTimeout(null);
+      // Double-click detected
+      handlePurchaseDataSubmit();
+    } else {
+      // Single click detected, set timeout to differentiate between single and double click
+      const timeout = setTimeout(() => {
+        // Single-click action
+        getSpeech(result);
+        setProductName(result);
+        setClickTimeout(null);
+      }, 300); // Adjust the delay as necessary to suit your needs
+
+      setClickTimeout(timeout);
+    }
+  };
+
   return (
-    <ScanContainer>
-      <TopBox>안녕하세요</TopBox>
-      <StyledWebcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        videoConstraints={videoConstraints}
-      />
-            <ImageSlider />
+    <>
+      <ScanContainer
+        onClick={(event) => {
+          handleClickEvent(event);
+        }}
+      >
+        <ImageSlider />
+        <StyledWebcam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          videoConstraints={videoConstraints}
+        />
 
-      <BottomBox>
-        <div className="frame-1">
-          <div
-            className="scan-type"
-            style={{ color: "#101010", background: "#5d9eff" }}
-          >
-            음료수
+        <BottomBox color={resultColor}>
+          <div className="frame-1">
+            <div className="scan-type" style={{ color: "#101010" }}>
+              {productType}
+            </div>
           </div>
-        </div>
-        <ResultText>{result}</ResultText>
-      </BottomBox>
-
-    </ScanContainer>
+          <ResultText color={resultColor}>{result}</ResultText>
+        </BottomBox>
+      </ScanContainer>
+    </>
   );
 };
 

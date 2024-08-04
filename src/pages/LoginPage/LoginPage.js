@@ -20,22 +20,23 @@ import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_
 import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-message.svg";
 import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
 import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
+import { useSetRecoilState } from "recoil";
 
 const handleScroll = () => {
   window.scrollTo({
-    top: 745,
+    top: 630,
     behavior: "smooth",
   });
 };
 
 const LoginContainer = styled.div`
-font-family: "Pretendard-Regular";
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 100vw;
-margin: 0 auto;
-background-color: black;
+  font-family: "Pretendard-Regular";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  margin: 0 auto;
+  background-color: black;
 `;
 
 const TextContainer = styled.div`
@@ -52,7 +53,6 @@ const TextContainer = styled.div`
 `;
 
 const StyledGoogleLogin = styled(GoogleLogin)`
-    
   width: 280px;
   height: 100px;
   cursor: pointer;
@@ -138,6 +138,7 @@ const ChangingIcon = () => {
     </div>
   );
 };
+
 
 function LoginPage() {
   const handleGoogleLogin = () => {
@@ -246,7 +247,6 @@ function LoginPage() {
         <GoUpMessage />
       </LoginContainer>
       <Footer />
-
     </>
   );
 }

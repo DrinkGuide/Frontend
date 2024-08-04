@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
+import axios from "axios";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
@@ -19,34 +21,29 @@ import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_
 import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-message.svg";
 import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
 import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
+import { SubscribeTypeAtom, getAccessTokenAtom } from "../../recoil/atom";
+import { jwtDecode } from "jwt-decode"; // 올바른 명명된 임포트
 
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw; /* 화면 너비 맞춤 */
+  width: 100vw;
   margin: 0 auto;
   background-color: black;
 `;
 
-const AnimationBox = styled.div`
-  &.animation {
-    animation-name: opacity;
-    animation-duration: 5000ms;
-
-    @keyframes opacity {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-`;
 const handleScroll = () => {
   window.scrollTo({
-    top: 745,
+    top: 710,
+    behavior: "smooth",
+  });
+};
+
+const handleScrollToTop = () => {
+  window.scrollTo({
+    top: 0,
     behavior: "smooth",
   });
 };
@@ -137,15 +134,68 @@ const MainPage = () => {
   const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
   const [isHovered, setIsHovered] = useState(false);
 
+const MainPage = () => {
+  const navigate = useNavigate();
+  const [userSubscribeType, setUserSubscribeType] =
+    useRecoilState(SubscribeTypeAtom);
+  const [isSubscribe, setIsSubscribe] = useState(false);
+  const [accessToken, setAccessToken] = useRecoilState(getAccessTokenAtom);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleScreenMode = () => {
-    {
-      setLight((prev) => !prev);
+  useEffect(() => {
+    // 로그인 후 accessToken을 localStorage에서 가져오기
+    const token = localStorage.getItem("accessToken");
+    console.log(token);
+    if (token) {
+      setAccessToken(token); // Recoil 상태 업데이트
+      setIsLoggedIn(true); // 로그인 상태 업데이트
+    } else {
+      setIsLoggedIn(false); // 로그인 상태 업데이트
     }
-  }; // 다크모드 on/off
+  }, []);
+
+  useEffect(() => {
+    // accessToken이 업데이트되었을 때 데이터 페치
+    if (accessToken) {
+      const decodedAccessToken = jwtDecode(accessToken);
+      console.log(decodedAccessToken);
+
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(
+            "https://www.drinkguide.store/api/v1/members/subscribe",
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          console.log(response.data.data);
+          setUserSubscribeType(response.data.data.subscribeType);
+          if (response.data.data.subscribeType === "DRINK") {
+            setIsSubscribe(true);
+          }
+        } catch (error) {
+          console.error("실패함", error);
+        }
+      };
+
+      fetchData();
+    }
+  }, [accessToken, setUserSubscribeType]);
 
 
   //스크롤 버튼 활성화
+
+  const handleButtonClick = (path) => {
+    const token = localStorage.getItem("accessToken");
+    console.log(token);
+    if (token) {
+      navigate(path);
+    } else {
+      navigate("/signin");
+    }
+  };
 
   return (
     <MainContainer paddingTop="129px">
@@ -157,23 +207,17 @@ const MainPage = () => {
       <Button
         name="스캔"
         color="#FFFA87"
-        onClick={() => {
-          navigate("/scan");
-        }}
+        onClick={() => handleButtonClick(isSubscribe ? "/scan" : "/subscribe")}
       />
       <Button
         name="피드백"
         color="#FFA858"
-        onClick={() => {
-          navigate("/feedback");
-        }}
+        onClick={() => handleButtonClick("/feedback")}
       />
       <Button
         name="마이페이지"
         color="#FF5858"
-        onClick={() => {
-          navigate("/mypage");
-        }}
+        onClick={() => handleButtonClick("/mypage")}
       />
       <Text
         color="#FFFFFF"

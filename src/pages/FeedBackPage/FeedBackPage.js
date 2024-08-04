@@ -2,11 +2,15 @@ import React, { useState, useEffect, useRef } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import axios from "axios";
 import { Footer } from "../../components/Footer";
 import styled from "styled-components";
 import { ReactComponent as FeedBackText } from "../../assets/images/feedback-text.svg";
 import { Button } from "../../components/Button";
 import "./FeedBack.css";
+import { useLocation } from "react-router-dom";
+import { getAccessTokenAtom } from "../../recoil/atom";
+import { useRecoilValue } from "recoil";
 
 const FeedBackContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -57,7 +61,10 @@ const StyledTextarea = styled.textarea`
 
 function FeedBackPage() {
   const [content, setContent] = useState("");
-  const [title, setTitle] = useState("");
+  const location = useLocation();
+  const accessToken = useRecoilValue(getAccessTokenAtom);
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const {
     transcript,
@@ -70,10 +77,25 @@ function FeedBackPage() {
   const prevTranscript = useRef("");
 
   useEffect(() => {
+    // Start listening if the browser supports it
+    if (browserSupportsSpeechRecognition) {
+      handleRecordOn();
+    }
+
+    // Cleanup function to stop listening when component unmounts or URL changes
+    return () => {
+      handleRecordOff();
+    };
+  }, [browserSupportsSpeechRecognition, location.pathname]);
+
+  useEffect(() => {
+    // Only update content if there is new transcript data
     if (!isTyping.current) {
       const newText = transcript.replace(prevTranscript.current, "");
-      setContent((prevStore) => prevStore + newText);
-      prevTranscript.current = transcript;
+      if (newText) {
+        setContent((prevContent) => prevContent + newText);
+        prevTranscript.current = transcript;
+      }
     }
   }, [transcript]);
 
@@ -88,24 +110,14 @@ function FeedBackPage() {
   const handleContentChange = (event) => {
     isTyping.current = true;
     const text = event.target.value;
-    if (text.length <= 255) {
+    if (text.length <= 500) {
       setContent(text);
     }
     isTyping.current = false;
   };
 
-  const handleTitleChange = (event) => {
-    isTyping.current = true;
-    const text = event.target.value;
-    if (text.length <= 100) {
-      setTitle(text);
-    }
-    isTyping.current = false;
-  };
-
   const handleReset = () => {
-    handleRecordOff();
-    resetTranscript();
+    resetTranscript(); // Ensure transcript is cleared
     setContent("");
     prevTranscript.current = "";
   };
@@ -113,20 +125,25 @@ function FeedBackPage() {
   const handleSubmit = async () => {
     console.log("Submitting feedback...");
 
-    const response = await fetch('https://www.drinkguide.store/api/v1/contacts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ content }),
-    });
+    try {
+      const response = await axios.post(
+        "https://www.drinkguide.store/api/v1/contacts",
+        { content },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('Success:', data);
+      console.log("Success:", response.data);
       handleReset(); // Reset the textarea after successful submission
-    } else {
-      console.error('Error:', response.statusText);
+    } catch (error) {
+      console.error(
+        "Error:",
+        error.response ? error.response.statusText : error.message
+      );
     }
   };
 
@@ -143,7 +160,7 @@ function FeedBackPage() {
           placeholder="서비스를 사용하면서 불편했던 점, 개선이 필요한 점 등을 작성해주세요."
           value={content}
           onChange={handleContentChange}
-          maxLength={255}
+          maxLength={500}
         ></StyledTextarea>
         <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit}/>
         <div class="margin-bottom" />
