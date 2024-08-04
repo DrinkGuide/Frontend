@@ -5,6 +5,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { Footer } from "../../../components/Footer";
 import { ProductTypeColorAtom } from "../../../recoil/atom";
+import { getSpeech } from "../../../components/getSpeech";
 import { ReactComponent as Changing_icon_1 } from "../../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../../assets/images/changing_icon_2.svg";
 import { ReactComponent as Changing_icon_3 } from "../../../assets/images/changing_icon_3.svg";
@@ -127,10 +128,11 @@ const HistoryPage = () => {
   const [purchaseNum, setPurchaseNum] = useState(); //구매 횟수 변수
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
-
-  const accessToken = useRecoilValue(getAccessTokenAtom);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  const [infoSpeech, setInfoSpeech] = useState();
+  const [nutrientInfo, setNutrientInfo] = useState([]);
+  // const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
@@ -197,13 +199,34 @@ const HistoryPage = () => {
     setIcons(newIcons);
   };
 
-  const handleExpandClick = (index) => {
+  const handleExpandClick = async (index, productName) => {
     setExpandedIndex(expandedIndex === index ? null : index);
+
+    try {
+      const response = await axios.get(
+        `https://www.drinkguide.store/api/v1/purchases/nutrient-info?productName=${encodeURIComponent(
+          productName
+        )}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      console.log(response.data.data);
+      setInfoSpeech(response.data.data);
+    } catch (error) {
+      console.error("영양 정보 조회 실패", error);
+    }
   };
 
   useEffect(() => {
     addIconArray();
   }, [certify]);
+
+  useEffect(() => {
+    getSpeech(infoSpeech);
+  }, [infoSpeech]);
 
   useEffect(() => {
     const fetchHistoryData = async () => {
@@ -289,7 +312,9 @@ const HistoryPage = () => {
                 expanded={expandedIndex === index}
                 color={getColorByProductType(item.productType)}
               >
-                <PurchaseItemHeader onClick={() => handleExpandClick(index)}>
+                <PurchaseItemHeader
+                  onClick={() => handleExpandClick(index, item.productName)}
+                >
                   <span>{item.productName}</span>
                   <span>{item.purchaseDate} 구매</span>
                 </PurchaseItemHeader>
