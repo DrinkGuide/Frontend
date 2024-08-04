@@ -7,7 +7,9 @@ import { ReactComponent as SubscribeOn } from "../../assets/images/subscribe-sta
 import { ReactComponent as SubscribeOff } from "../../assets/images/not-subscribe-status.svg";
 import { ReactComponent as HistoryButton } from "../../assets/images/histoy-button.svg";
 import { ReactComponent as HistoryButtonAfter } from "../../assets/images/history-button-after.svg";
+import { ReactComponent as HistoryButtonAfter } from "../../assets/images/history-button-after.svg";
 import { ReactComponent as SubscribeCheck } from "../../assets/images/subscribe-check.svg";
+import { ReactComponent as SubscribeCheckAfter } from "../../assets/images/subscribe-check-after.svg";
 import { ReactComponent as SubscribeCheckAfter } from "../../assets/images/subscribe-check-after.svg";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../assets/images/changing_icon_2.svg";
@@ -103,8 +105,6 @@ const SubscribeCheckWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
-  display: flex;
-  justify-content: center;
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -249,6 +249,7 @@ const MyPage = () => {
           <br />
           {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
+    
         <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
@@ -258,9 +259,18 @@ const MyPage = () => {
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
         <HistoryButtonWrapper
+        >
+          <SubscribeCheck className="before" />
+          <SubscribeCheckAfter className="after" />
+        </SubscribeCheckWrapper>
+        <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");
           }}
+        >
+          <HistoryButton className="before" />
+          <HistoryButtonAfter className="after" />
+        </HistoryButtonWrapper>
         >
           <HistoryButton className="before" />
           <HistoryButtonAfter className="after" />

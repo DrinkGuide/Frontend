@@ -21,6 +21,7 @@ const HistoryContainer = styled.div`
   background-color: black;
   padding: 20px 0; /* 상하 여백 추가 */
   overflow-y: auto;
+  overflow-y: auto;
 `;
 
 const HistoryTextBox = styled.div`
@@ -60,7 +61,6 @@ const PurchaseItemContainer = styled.div`
 
 const PurchaseItemHeader = styled.div`
   display: flex;
-  text-align: center;
   justify-content: space-between;
   font-weight: 700;
   color: #5d9eff;

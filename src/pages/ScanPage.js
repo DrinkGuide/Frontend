@@ -6,6 +6,10 @@ import { useRecoilValue } from "recoil";
 import { getAccessTokenAtom } from "../recoil/atom";
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
+import ImageSlider from './ImageSlider';
+
+
+
 
 const ScanContainer = styled.div`
   box-sizing: border-box;
@@ -240,6 +244,7 @@ const ScanPage = () => {
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
         />
+        <ImageSlider />
         <BottomBox>
           <div className="frame-1">
             <div

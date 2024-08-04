@@ -1,0 +1,31 @@
+.slider-container {
+	position: fixed;
+	top: 10%;
+	overflow: hidden;
+	z-index: 1000;
+	/* 다른 요소들보다 위에 오도록 설정 */
+	width: 480px;
+	left: calc(50% - 240px);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.slider {
+	display: flex;
+	transition: transform 0.5s ease;
+}
+
+.slider-image {
+	width: 90px;
+	/* Adjust based on your image size */
+	transition: transform 0.5s ease;
+	opacity: 0.7;
+
+}
+
+.slider-image.current {
+	opacity: 1;
+	width: 120px;
+	/* Highlight current image */
+}
