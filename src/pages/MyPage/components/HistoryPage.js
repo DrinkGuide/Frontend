@@ -19,7 +19,7 @@ const HistoryContainer = styled.div`
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
-  padding: 20px 0; /* 상하 여백 추가 */
+  padding: 100px 0; /* 상하 여백 추가 */
   overflow-y: auto;
   overflow-y: auto;
 `;
@@ -239,7 +239,7 @@ const HistoryPage = () => {
   return (
     <>
       <HistoryContainer>
-        <HistoryTextBox fontSize="24px" fontColor="#ffffff" margin="60px 0">
+        <HistoryTextBox fontSize="24px" fontColor="#ffffff" margin="0 0 60px 0">
           구매한 상품 이력
         </HistoryTextBox>
         <HistoryTextBox fontSize="16px" fontColor="#ffffff" margin="0">

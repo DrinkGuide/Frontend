@@ -28,7 +28,7 @@ const ModalText = styled.div`
   font-weight: 700;
   text-align: center;
 `;
-const SubmitModal = () => {
+const SubmitModal = ({onClose}) => {
   return (
     <ModalContainer>
       <SubmitCheckButton />

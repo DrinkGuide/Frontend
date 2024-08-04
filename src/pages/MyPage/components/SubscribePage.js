@@ -10,10 +10,13 @@ import { ReactComponent as CloseButtonMiniBefore } from "../../../assets/images/
 import { ReactComponent as CloseButtonMiniAfter } from "../../../assets/images/close-button-mini-after.svg";
 import { ReactComponent as ExclamationMark } from "../../../assets/images/Exclamation_mark.svg";
 import { ReactComponent as CancelComplete } from "../../../assets/images/cancel_complete.svg";
-import { Footer } from "../../../components/Footer";
+import { ReactComponent as CloseButtonMiniBefore2 } from '../../../assets/images/close-button-mini-before2.svg';
 import PaymentCheckoutPage from "./PaymentCheckoutPage";
 import { useRecoilValue } from "recoil";
 import { getAccessTokenAtom } from "../../../recoil/atom";
+import { Footer } from '../../../components/Footer';
+
+
 /*
 해야할 것들
 
@@ -25,7 +28,6 @@ const SubscirbeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* 화면 높이 맞춤 */
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
@@ -67,7 +69,7 @@ const SubscribePlan = styled.div`
 `;
 
 const SubscribeButton = styled.div`
-  margin: 50px 0 0 0;
+  margin: 50px 0 150px 0;
   cursor: pointer;
   position: relative;
   width: 50px; /* SVG 너비에 맞춰서 설정 */
@@ -144,7 +146,7 @@ const PopupButtons = styled.div`
   margin-top: 20px;
 `;
 
-const StyledCloseButtonMiniBefore = styled(CloseButtonMiniBefore)`
+const StyledCloseButtonMiniBefore = styled(CloseButtonMiniBefore2)`
   width: 90px;
   height: 50px;
   cursor: pointer;
