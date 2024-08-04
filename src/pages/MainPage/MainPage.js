@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from 'react';
 import styled from "styled-components";
 import "./Main.css";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,12 @@ import { EyeIcon } from "./components/EyeIcon";
 import { SpeechIcon } from "./components/SpeechIcon";
 import { Footer } from "../../components/Footer";
 import { ScrollButton } from "./components/ScrollButton";
+import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
+import { ReactComponent as Changing_icon_2 } from "../../assets/images/changing_icon_2.svg";
+import { ReactComponent as Changing_icon_3 } from "../../assets/images/changing_icon_3.svg";
+import { ReactComponent as Changing_icon_4 } from "../../assets/images/changing_icon_4.svg";
+import { ReactComponent as Changing_icon_5 } from "../../assets/images/changing_icon_5.svg";
+import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_icon_6.svg";
 import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-message.svg";
 import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
 import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
@@ -50,8 +56,8 @@ const IconWrapper = styled.div`
   width: 35px; /* Adjust width as needed */
   height: 35px; /* Adjust height as needed */
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
-  margin-top: ${props => (props.isHovered ? '-15px' : '0')};
-  margin-bottom: ${props => (props.isHovered ? '15px' : '0')};
+  margin-top: ${props => (props.isHovered ? '-20px' : '0')};
+  margin-bottom: ${props => (props.isHovered ? '20px' : '0')};
 `;
 
 const WhiteArrowBefore = styled(WhiteArrowBeforeSVG)`
@@ -75,6 +81,49 @@ const GoUpMessage = styled(GoUpMessageSVG)`
   margin-bottom: 70px;
 `
 
+const StyledChanging_icon_1 = styled(Changing_icon_1)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_2 = styled(Changing_icon_2)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_3 = styled(Changing_icon_3)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_4 = styled(Changing_icon_4)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_5 = styled(Changing_icon_5)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_6 = styled(Changing_icon_6)`
+  width: auto;
+  height: 150px;
+`
+
+const ChangingIcon = () => {
+  const icons = [<StyledChanging_icon_1 />, <StyledChanging_icon_2 />, <StyledChanging_icon_3 />, <StyledChanging_icon_4 />, <StyledChanging_icon_5 />, <StyledChanging_icon_6 />];
+  const [currentIconIndex, setCurrentIconIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIconIndex(prevIndex => (prevIndex + 1) % icons.length);
+    }, 500); // 0.5초 간격으로 아이콘 변경
+
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
+  }, []);
+
+  return (
+    <div>
+      {icons[currentIconIndex]}
+    </div>
+  );
+};
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -87,13 +136,6 @@ const MainPage = () => {
       setLight((prev) => !prev);
     }
   }; // 다크모드 on/off
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
 
 
   //스크롤 버튼 활성화
@@ -143,25 +185,25 @@ const MainPage = () => {
       </span>
 
       <div className="group-12" id="scrollTarget">
-        <div className="rectangle-33"></div>
-        <div className="rectangle-34"></div>
-        <div className="rectangle-35"></div>
-        <div className="div">
-          <span>
-            <span className="div-span">정확</span>
-            <span className="div-span2">하고 </span>
-            <span className="div-span3">또박또박</span>
-            <span className="div-span4">
-              하게
-              <br />
-              그리고
+          <div className="rectangle-33"></div>
+          <div className="rectangle-34"></div>
+          <div className="rectangle-35"></div>
+          <div className="div">
+            <span>
+              <span className="div-span">정확</span>
+              <span className="div-span2">하고 </span>
+              <span className="div-span3">또박또박</span>
+              <span className="div-span4">
+                하게
+                <br />
+                그리고
+              </span>
+              <span className="div-span2"> </span>
+              <span className="div-span5">손쉽게</span>
+              <span className="div-span6">!</span>
             </span>
-            <span className="div-span2"> </span>
-            <span className="div-span5">손쉽게</span>
-            <span className="div-span6">!</span>
-          </span>
+          </div>
         </div>
-      </div>
 
       <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
         글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
@@ -172,18 +214,7 @@ const MainPage = () => {
       </Text>
       <Marquee paddingTop="145px" paddingBottom="137px" />
 
-      <svg
-        width="116"
-        height="150"
-        viewBox="0 0 116 150"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M109.946 29.4721L115.037 17.3229C115.13 17.0999 115.179 16.8602 115.179 16.6169V1.8447C115.179 1.17558 114.813 0.559923 114.222 0.233658C113.63 -0.0926059 112.908 -0.0760162 112.332 0.276054L105.352 4.54145L98.3732 0.276054C97.7725 -0.0907626 97.0113 -0.0907626 96.4106 0.276054L89.4314 4.54145L82.4522 0.276054C81.8514 -0.0907626 81.0903 -0.0907626 80.4896 0.276054L73.5103 4.54145L66.5311 0.276054C65.9304 -0.0907626 65.1692 -0.0907626 64.5685 0.276054L57.5893 4.54145L50.6101 0.276054C50.0093 -0.0907626 49.2482 -0.0907626 48.6475 0.276054L41.6682 4.54145L34.689 0.276054C34.0883 -0.0907626 33.3271 -0.0907626 32.7264 0.276054L25.7472 4.54145L18.768 0.277898C18.1672 -0.0889192 17.4061 -0.0889192 16.8053 0.277898L9.82613 4.5433L2.84691 0.277898C2.27044 -0.0741728 1.54845 -0.0889193 0.957054 0.235502C0.365658 0.559923 0 1.17743 0 1.8447V16.6169C0 16.8584 0.0485057 17.098 0.141786 17.3229L5.23302 29.4721V120.526L0.141786 132.678C0.0485057 132.902 0 133.141 0 133.384V148.155C0 148.824 0.365658 149.44 0.957054 149.766C1.54845 150.092 2.27044 150.076 2.84691 149.724L9.82613 145.458L16.8053 149.724C17.4061 150.09 18.1672 150.09 18.768 149.724L25.7472 145.458L32.7264 149.724C33.3271 150.09 34.0883 150.09 34.689 149.724L41.6682 145.458L48.6475 149.724C49.2482 150.09 50.0093 150.09 50.6101 149.724L57.5893 145.458L64.5685 149.724C65.1692 150.09 65.9304 150.09 66.5311 149.724L73.5103 145.458L80.4896 149.724C81.0903 150.09 81.8514 150.09 82.4522 149.724L89.4314 145.458L96.4106 149.724C96.711 149.908 97.0524 150 97.3919 150C97.7315 150 98.0729 149.908 98.3732 149.724L105.352 145.458L112.332 149.724C112.908 150.076 113.63 150.09 114.222 149.766C114.813 149.44 115.179 148.824 115.179 148.155V133.384C115.179 133.143 115.13 132.903 115.037 132.678L109.946 120.527V29.4721ZM111.447 133.749V138.924H3.73121V133.749L3.88418 133.383H111.293L111.446 133.749H111.447ZM3.73121 16.2519V11.076H111.447V16.2519L111.294 16.6188H3.88418L3.73121 16.2519ZM8.96422 93.7388V52.9889H106.214V93.7388H8.96422Z"
-          fill="#FF5858"
-        />
-      </svg>
+      <ChangingIcon />
 
       <div class="group-12">
         <span>
@@ -210,14 +241,13 @@ const MainPage = () => {
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={scrollToTop}
       >
         <IconWrapper isHovered={isHovered}>
           <WhiteArrowBefore isHovered={isHovered} />
           <WhiteArrowAfter isHovered={isHovered} />
         </IconWrapper>
       </div>
-      <GoUpMessage />
+        <GoUpMessage />
       <Footer />
     </MainContainer>
   );

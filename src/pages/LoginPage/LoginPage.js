@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from 'react';
 import { uuseNavigate } from "react-router-dom";
 import { Text } from "../../components/Text";
 import "./Login.css";
@@ -12,6 +12,11 @@ import { ScrollButton } from "../MainPage/components/ScrollButton";
 import { EyeIcon } from "../MainPage/components/EyeIcon";
 import { SpeechIcon } from "../MainPage/components/SpeechIcon";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
+import { ReactComponent as Changing_icon_2 } from "../../assets/images/changing_icon_2.svg";
+import { ReactComponent as Changing_icon_3 } from "../../assets/images/changing_icon_3.svg";
+import { ReactComponent as Changing_icon_4 } from "../../assets/images/changing_icon_4.svg";
+import { ReactComponent as Changing_icon_5 } from "../../assets/images/changing_icon_5.svg";
+import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_icon_6.svg";
 import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-message.svg";
 import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
 import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
@@ -57,6 +62,26 @@ const StyledChanging_icon_1 = styled(Changing_icon_1)`
   width: auto;
   height: 150px;
 `
+const StyledChanging_icon_2 = styled(Changing_icon_2)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_3 = styled(Changing_icon_3)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_4 = styled(Changing_icon_4)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_5 = styled(Changing_icon_5)`
+  width: auto;
+  height: 150px;
+`
+const StyledChanging_icon_6 = styled(Changing_icon_6)`
+  width: auto;
+  height: 150px;
+`
 
 const IconWrapper = styled.div`
   position: relative;
@@ -95,12 +120,32 @@ const scrollToTop = () => {
   });
 };
 
+const ChangingIcon = () => {
+  const icons = [<StyledChanging_icon_1 />, <StyledChanging_icon_2 />, <StyledChanging_icon_3 />, <StyledChanging_icon_4 />, <StyledChanging_icon_5 />, <StyledChanging_icon_6 />];
+  const [currentIconIndex, setCurrentIconIndex] = useState(0);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentIconIndex(prevIndex => (prevIndex + 1) % icons.length);
+    }, 500); // 0.5초 간격으로 아이콘 변경
+
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
+  }, []);
+
+  return (
+    <div>
+      {icons[currentIconIndex]}
+    </div>
+  );
+};
+
 function LoginPage() {
   const handleGoogleLogin = () => {
     window.location.href =
       "https://www.drinkguide.store/oauth2/authorization/google";
   };
   const [isHovered, setIsHovered] = useState(false);
+
 
 
   return (
@@ -165,7 +210,7 @@ function LoginPage() {
         </Text>
         <Marquee paddingTop="145px" paddingBottom="137px" />
 
-        <StyledChanging_icon_1 />
+        <ChangingIcon />
 
         <div class="group-12">
           <span>
