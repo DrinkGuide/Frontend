@@ -62,7 +62,7 @@ const StyledTextarea = styled.textarea`
 function FeedBackPage() {
   const [content, setContent] = useState("");
   const location = useLocation();
-  const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken = localStorage.getItem("accessToken");
 
   const {
     transcript,
