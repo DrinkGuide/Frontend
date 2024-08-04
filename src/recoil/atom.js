@@ -17,7 +17,14 @@ export const ProductTypeColorAtom = atom({
   ],
 });
 
+
+
 export const getAccessTokenAtom = atom({
   key: "GetAccessToken",
   default: "",
+});
+
+export const scanPageColorAtom = atom({
+  key: "scanPageColor",
+  default: "#5D9EFF",
 });

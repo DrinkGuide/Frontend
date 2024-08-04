@@ -3,13 +3,10 @@ import styled from "styled-components";
 import axios from "axios";
 import Webcam from "react-webcam";
 import { useRecoilValue } from "recoil";
-import { getAccessTokenAtom } from "../recoil/atom";
+import { getAccessTokenAtom, scanPageColorAtom } from "../recoil/atom";
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../components/getSpeech";
-import ImageSlider from './ImageSlider';
-
-
-
+import ImageSlider from "./ImageSlider";
 
 const ScanContainer = styled.div`
   box-sizing: border-box;
@@ -25,7 +22,7 @@ const ScanContainer = styled.div`
     &:before {
     content: "";
     background: linear-gradient(
-      to bottom,
+      to top,
       rgba(20, 20, 20, 0) 10%,
       rgba(20, 20, 20, 0.25) 25%,
       rgba(20, 20, 20, 0.5) 50%,
@@ -51,25 +48,10 @@ const TransparentBox = styled.div`
   z-index: 1;
 `;
 
-const TopBox = styled(TransparentBox)`
-  height: 235px;
-  color: white;
-  top: 0;
-  text-align: center;
-  &:before {
-    content: "";
-    background: linear-gradient(to bottom, #000000, transparent);
-    position: absolute;
-    left: 0;
-    height: 50%;
-    width: 100%;
-  }
-`;
-
 const BottomBox = styled(TransparentBox)`
   height: 199px;
   bottom: 0;
-  color: #5d9eff;
+  color: ${(props) => props.color};
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -94,10 +76,9 @@ const BottomBox = styled(TransparentBox)`
   }
 
   .frame-1 {
-    background: #5d9eff;
+    background: ${(props) => props.color};
     border-radius: 1000px;
     border-style: solid;
-    border-color: #5d9eff;
     border-width: 3px;
     padding: 12px 29px;
     display: flex;
@@ -121,7 +102,7 @@ const BottomBox = styled(TransparentBox)`
 `;
 
 const ResultText = styled.div`
-  color: #5d9eff;
+  color: ${(props) => props.color};
   text-align: center;
   font-family: "PretendardVariable-Bold", sans-serif;
   font-size: 24px;
@@ -139,8 +120,9 @@ const ScanPage = () => {
   const [productName, setProductName] = useState("제로콜라");
   const [productType, setProductType] = useState("DRINK");
   const [clickTimeout, setClickTimeout] = useState(null);
-
+  const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = useRecoilValue(getAccessTokenAtom);
+
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZjliMjZkNF0iLCJpYXQiOjE3MjI3MTc1MDksImV4cCI6MzMyNTg3MTc1MDl9.ovyF_lxTHJ5eBoQZNPiCDYMiLtDqZSTr4q173h-EK2g";
 
@@ -237,24 +219,21 @@ const ScanPage = () => {
           handleClickEvent(event);
         }}
       >
-        <TopBox>ㅇ</TopBox>
+        <ImageSlider />
         <StyledWebcam
           audio={false}
           ref={webcamRef}
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
         />
-        <ImageSlider />
-        <BottomBox>
+
+        <BottomBox color={resultColor}>
           <div className="frame-1">
-            <div
-              className="scan-type"
-              style={{ color: "#101010", background: "#5d9eff" }}
-            >
+            <div className="scan-type" style={{ color: "#101010" }}>
               음료수
             </div>
           </div>
-          <ResultText>{result}</ResultText>
+          <ResultText color={resultColor}>{result}</ResultText>
         </BottomBox>
       </ScanContainer>
     </>
