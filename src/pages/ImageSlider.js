@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ImageSlider.css';
-import image1 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_1.svg';
-import image2 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_2.svg';
-import image3 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_3.svg';
-import image4 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_4.svg';
-import image5 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_5.svg';
-import image6 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_6.svg';
+import image1 from '../assets/images/changing_icon_1.svg';
+import image2 from '../assets/images/changing_icon_2.svg';
+import image3 from '../assets/images/changing_icon_3.svg';
+import image4 from '../assets/images/changing_icon_4.svg';
+import image5 from '../assets/images/changing_icon_5.svg';
+import image6 from '../assets/images/changing_icon_6.svg';
 
 const images = [image1, image2, image3, image4, image5, image6];
 

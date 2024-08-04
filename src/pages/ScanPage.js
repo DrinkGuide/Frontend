@@ -214,10 +214,3 @@ const ScanPage = () => {
 };
 
 export default ScanPage;
-
-import image1 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_1.svg';
-import image2 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_2.svg';
-import image3 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_3.svg';
-import image4 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_4.svg';
-import image5 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_5.svg';
-import image6 from '/Users/parkjinhong/Documents/GitHub/Frontend/src/assets/images/changing_icon_6.svg';
