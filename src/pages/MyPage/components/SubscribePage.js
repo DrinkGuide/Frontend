@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { ReactComponent as SubscribeCancelBefore } from '../../../assets/images/subscribe-cancel-before.svg';
-import { ReactComponent as SubscribeCancelAfter } from '../../../assets/images/subscribe-cancel-after.svg';
-import { ReactComponent as SubscribeCancelMiniBefore } from '../../../assets/images/subscribe-cancel-mini-before.svg';
-import { ReactComponent as SubscribeCancelMiniAfter } from '../../../assets/images/subscribe-cancel-mini-after.svg';
-import { ReactComponent as CloseButtonMiniBefore } from '../../../assets/images/close-button-mini-before.svg';
-import { ReactComponent as CloseButtonMiniAfter } from '../../../assets/images/close-button-mini-after.svg';
-import { ReactComponent as ExclamationMark } from '../../../assets/images/Exclamation_mark.svg';
-import { ReactComponent as CancelComplete } from '../../../assets/images/cancel_complete.svg';
-import { Footer } from '../../../components/Footer';
-
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import styled from "styled-components";
+import { ReactComponent as SubscribeCancelBefore } from "../../../assets/images/subscribe-cancel-before.svg";
+import { ReactComponent as SubscribeCancelAfter } from "../../../assets/images/subscribe-cancel-after.svg";
+import { ReactComponent as SubscribeCancelMiniBefore } from "../../../assets/images/subscribe-cancel-mini-before.svg";
+import { ReactComponent as SubscribeCancelMiniAfter } from "../../../assets/images/subscribe-cancel-mini-after.svg";
+import { ReactComponent as CloseButtonMiniBefore } from "../../../assets/images/close-button-mini-before.svg";
+import { ReactComponent as CloseButtonMiniAfter } from "../../../assets/images/close-button-mini-after.svg";
+import { ReactComponent as ExclamationMark } from "../../../assets/images/Exclamation_mark.svg";
+import { ReactComponent as CancelComplete } from "../../../assets/images/cancel_complete.svg";
+import { Footer } from "../../../components/Footer";
+import PaymentCheckoutPage from "./PaymentCheckoutPage";
+import { useRecoilValue } from "recoil";
+import { getAccessTokenAtom } from "../../../recoil/atom";
 /*
 해야할 것들
 
@@ -40,7 +44,7 @@ const SubscribeTextBox = styled.div`
 `;
 
 const SubscribeTextBox2 = styled.div`
-  background-color: #F9E97C; /* 배경색 */
+  background-color: #f9e97c; /* 배경색 */
   color: black;
   text-align: center;
   font-size: 40px;
@@ -53,8 +57,8 @@ const SubscribePlan = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 55%;
-  color: #F9E97C;
-  border: 2.5px solid #F9E97C;
+  color: #f9e97c;
+  border: 2.5px solid #f9e97c;
   border-radius: 15px;
   margin-bottom: 10px;
   padding: 10px 20px;
@@ -92,7 +96,7 @@ const StyledSubscribeCancelAfter = styled(SubscribeCancelAfter)`
   width: 200px;
   height: 100px;
   transition: opacity 0.5s ease; /* 서서히 나타나는 효과 */
-  
+
   ${SubscribeButton}:hover & {
     opacity: 1; /* 마우스를 올리면 나타남 */
   }
@@ -168,6 +172,12 @@ const StyledCancelComplete = styled(CancelComplete)`
 const SubscribePage = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [isCancelPopupVisible, setCancelPopupVisible] = useState(false);
+  const [subscribeInfo, setSubscribeInfo] = useState([]);
+  const navigate = useNavigate();
+
+  const accessToken = useRecoilValue(getAccessTokenAtom);
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const handleCancelClick = () => {
     setPopupVisible(true);
@@ -186,6 +196,31 @@ const SubscribePage = () => {
     setCancelPopupVisible(false);
   };
 
+  useEffect(() => {
+    const fetchsubScribeData = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.drinkguide.store/api/v1/members/subscribe",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        setSubscribeInfo(response.data.data);
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchsubScribeData();
+  }, []); // 구독현황 조회
+
+  const handleNavigateToPayments = (price, type) => {
+    navigate("/payments", { state: { price, type } });
+    <PaymentCheckoutPage />;
+  };
+
   return (
     <>
       <SubscirbeContainer>
@@ -195,25 +230,45 @@ const SubscribePage = () => {
         <SubscribeTextBox fontSize="20px" fontColor="#ffff00" margin="5px 0">
           음료
         </SubscribeTextBox>
-        <SubscribeTextBox2>
-          월 3,000원
-        </SubscribeTextBox2>
-        <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="10px 0 30px 0">
+        <SubscribeTextBox2>월 3,000원</SubscribeTextBox2>
+        <SubscribeTextBox
+          fontSize="16px"
+          fontColor="#ffffff"
+          margin="10px 0 30px 0"
+        >
           다음 결제 날짜 <br />
-          2024년 01월 01일
+          {subscribeInfo.expirationDate}
         </SubscribeTextBox>
         <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="20px 0">
           구독 플랜
         </SubscribeTextBox>
-        <SubscribePlan>
+        <SubscribePlan
+          onClick={() =>
+            handleNavigateToPayments(3000, "[보이스 라벨] 음료 1개월 구독권")
+          }
+        >
           <span>음료</span>
           <span>3,000원</span>
         </SubscribePlan>
-        <SubscribePlan>
+        <SubscribePlan
+          onClick={() =>
+            handleNavigateToPayments(
+              7000,
+              "[보이스 라벨] 음료 + 과자 1개월 구독권"
+            )
+          }
+        >
           <span>음료 + 과자</span>
           <span>7,000원</span>
         </SubscribePlan>
-        <SubscribePlan>
+        <SubscribePlan
+          onClick={() =>
+            handleNavigateToPayments(
+              15000,
+              "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
+            )
+          }
+        >
           <span>음료 + 과자 + 가공식품</span>
           <span>15,000원</span>
         </SubscribePlan>
@@ -233,7 +288,10 @@ const SubscribePage = () => {
               <StyledExclamationMark />
               정말 구독을 취소하시겠어요?
             </PopupHeader>
-            <PopupText>지금 구독을 취소하더라도 2024년 01월 31일까지는 서비스를 이용할 수 있습니다.</PopupText>
+            <PopupText>
+              지금 구독을 취소하더라도 {subscribeInfo.expirationDate}까지는
+              서비스를 이용할 수 있습니다.
+            </PopupText>
             <PopupButtons>
               <CloseButtonMiniBefore onClick={handleClosePopup} />
               <SubscribeCancelMiniBefore onClick={handleCancelSubscription} />

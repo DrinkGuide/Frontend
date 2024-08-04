@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import axios from "axios";
 import { ReactComponent as MypageText } from "../../assets/images/mypage-text.svg";
 import { ReactComponent as SubscribeOn } from "../../assets/images/subscribe-status.svg";
 import { ReactComponent as SubscribeOff } from "../../assets/images/not-subscribe-status.svg";
@@ -17,12 +18,15 @@ import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import "./MyPage.css";
+import { jwtDecode } from "jwt-decode";
+import { useRecoilValue } from "recoil";
+import { getAccessTokenAtom } from "../../recoil/atom";
 
 const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: 852px;
   width: 100vw;
   margin: 0 auto;
   background-color: black;
@@ -77,7 +81,7 @@ const PurchaseImageContainer = styled.div`
   padding: 20px;
   margin: 15px 0;
   width: 80%;
-  place-items: center; 
+  place-items: center;
 `;
 
 const Circle = styled.div`
@@ -90,30 +94,28 @@ const Circle = styled.div`
   align-items: center;
 `;
 
+const StyledSubscribeCheck = styled(SubscribeCheck)`
+  margin: 40px 0 20px 0;
+`;
 const SubscribeCheckWrapper = styled.div`
   margin: 40px 0 20px 0;
   cursor: pointer;
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
-
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
   }
-
   & .before {
     opacity: 1;
   }
-
   & .after {
     opacity: 0;
   }
-
   &:hover .before {
     opacity: 0;
   }
-
   &:hover .after {
     opacity: 1;
   }
@@ -125,80 +127,127 @@ const HistoryButtonWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
-
+  display: flex;
+  justify-content: center;
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
   }
-
   & .before {
     opacity: 1;
   }
-
   & .after {
     opacity: 0;
   }
-
   &:hover .before {
     opacity: 0;
   }
-
   &:hover .after {
     opacity: 1;
   }
 `;
-
 const MyPage = () => {
   const navigate = useNavigate();
-  const [subscribe, setSubscribe] = useState(true); // assuming the user is subscribed for the second image
+  const [subscribe, setSubscribe] = useState(false); // 기본값 false로 설정
+  const [memberInfo, setMemberInfo] = useState({});
+  const [purchaseNum, setPurchaseNum] = useState();
+  const [certify, setCertify] = useState([]);
+  const [icons, setIcons] = useState([]);
+  const accessToken = useRecoilValue(getAccessTokenAtom);
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+
+  const decodedaccessToken = jwtDecode(accessToken);
+  const memberId = decodedaccessToken.memberId;
+
+  useEffect(() => {
+    const fetchMemberInfoData = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.drinkguide.store/api/v1/members",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data.data);
+        const memberData = response.data.data;
+        setMemberInfo(memberData);
+        if (
+          memberData.subscribeType === "DRINK" ||
+          memberData.subscribeType === "DRINK_SNACK"
+        ) {
+          setSubscribe(true);
+        } else {
+          setSubscribe(false);
+        }
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchMemberInfoData();
+  }, []); // 닉네임 및 구독 정보 조회
+
+  useEffect(() => {
+    const fetchPurchaseNumInfoData = async () => {
+      try {
+        const response = await axios.get(
+          `https://www.drinkguide.store/api/v1/purchases/${memberId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setCertify(response.data.data);
+        setPurchaseNum(response.data.data.length);
+        addIconArray();
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchPurchaseNumInfoData();
+  }, []); // 구매
+
+  const addIconArray = () => {
+    const newIcons = certify.map((item, index) => {
+      if (item === "DRINK") return <Changing_icon_2 key={index} />;
+      if (item === "SNACK") return <Changing_icon_1 key={index} />;
+      return null;
+    });
+    setIcons(newIcons);
+  };
 
   return (
     <>
       <MyPageContainer>
         <StyledMypageText />
         <MypageTextBox fontSize="24px" fontColor="#ffffff">
-          안녕하세요, 홍길동 님!
+          안녕하세요, {memberInfo.nickname} 님!
         </MypageTextBox>
         <SubscriptionStatus>
-          {subscribe ? (
-            <SubscribeOn />
-          ) : (
-            <SubscribeOff />
-          )}
+          {!!subscribe ? <SubscribeOn /> : <SubscribeOff />}
         </SubscriptionStatus>
         <MypageTextBox fontSize="16px" fontColor="#ffffff" margin="100px 0">
           이번달 구매 인증
         </MypageTextBox>
 
         <PurchaseImageContainer>
-          <Circle>
-            <Changing_icon_1 />
-          </Circle>
-          <Circle>
-            <Changing_icon_2 />
-          </Circle>
-          <Circle>
-            <Changing_icon_3 />
-          </Circle>
-          <Circle>
-            <Changing_icon_4 />
-          </Circle>
-          <Circle>
-            <Changing_icon_5 />
-          </Circle>
-          <Circle>
-            <Changing_icon_6 />
-          </Circle>
-          <Circle></Circle>
-          <Circle></Circle>
-          <Circle></Circle>
-          <Circle></Circle>
+          {icons.map((icon, index) => (
+            <Circle key={index}>{icon}</Circle>
+          ))}
+          {[...Array(10 - icons.length)].map((_, index) => (
+            <Circle key={icons.length + index}></Circle>
+          ))}
         </PurchaseImageContainer>
+
         <MypageTextBox fontSize="16px" fontColor="#FFFA87">
-          이번 달에는 구매 인증을 2회 했어요.
+          이번 달에는 구매 인증을 {purchaseNum}회 했어요.
           <br />
-          8회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
+          {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
+
         <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
@@ -207,6 +256,7 @@ const MyPage = () => {
           <SubscribeCheck className="before" />
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
+
         <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");

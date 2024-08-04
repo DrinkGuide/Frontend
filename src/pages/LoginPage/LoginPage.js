@@ -12,22 +12,23 @@ import { ScrollButton } from "../MainPage/components/ScrollButton";
 import { EyeIcon } from "../MainPage/components/EyeIcon";
 import { SpeechIcon } from "../MainPage/components/SpeechIcon";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
+import { useSetRecoilState } from "recoil";
 
 const handleScroll = () => {
   window.scrollTo({
-    top: 745,
+    top: 630,
     behavior: "smooth",
   });
 };
 
 const LoginContainer = styled.div`
-font-family: "Pretendard-Regular";
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 100vw;
-margin: 0 auto;
-background-color: black;
+  font-family: "Pretendard-Regular";
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  margin: 0 auto;
+  background-color: black;
 `;
 
 const TextContainer = styled.div`
@@ -44,7 +45,6 @@ const TextContainer = styled.div`
 `;
 
 const StyledGoogleLogin = styled(GoogleLogin)`
-    
   width: 280px;
   height: 100px;
   cursor: pointer;
@@ -53,7 +53,7 @@ const StyledGoogleLogin = styled(GoogleLogin)`
 const StyledChanging_icon_1 = styled(Changing_icon_1)`
   width: auto;
   height: 150px;
-`
+`;
 
 function LoginPage() {
   const handleGoogleLogin = () => {
@@ -148,7 +148,6 @@ function LoginPage() {
         <Marquee paddingTop="137px" paddingBottom="68px" />
         <Footer />
       </LoginContainer>
-
     </>
   );
 }
