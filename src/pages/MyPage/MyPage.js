@@ -103,6 +103,8 @@ const SubscribeCheckWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
+  display: flex;
+  justify-content: center;
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -154,8 +156,6 @@ const MyPage = () => {
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
   const accessToken = useRecoilValue(getAccessTokenAtom);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
@@ -219,6 +219,10 @@ const MyPage = () => {
     setIcons(newIcons);
   };
 
+  useEffect(() => {
+    addIconArray();
+  }, [certify]);
+
   return (
     <>
       <MyPageContainer>
@@ -247,7 +251,6 @@ const MyPage = () => {
           <br />
           {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
-
         <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
@@ -256,7 +259,6 @@ const MyPage = () => {
           <SubscribeCheck className="before" />
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
-
         <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");

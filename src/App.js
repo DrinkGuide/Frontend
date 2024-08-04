@@ -6,7 +6,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import MainPage from "./pages/MainPage/MainPage";
 import FeedBackPage from "./pages/FeedBackPage/FeedBackPage";
 import MyPage from "./pages/MyPage/MyPage";
-import ScanPage from "./pages/ScanPage";
+import ScanPage from "./pages/ScanPage/ScanPage";
 import HistoryPage from "./pages/MyPage/components/HistoryPage";
 import SubscribePage from "./pages/MyPage/components/SubscribePage";
 import PaymentCheckoutPage from "./pages/MyPage/components/PaymentCheckoutPage";

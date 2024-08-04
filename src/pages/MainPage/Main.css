@@ -1,8 +1,75 @@
-.div,
-.div * {
+.feedback-contents,
+.feedback-contents * {
   box-sizing: border-box;
 }
+.feedback-contents {
+  background: #101010;
+  height: 852px;
+  position: relative;
+  overflow: hidden;
+}
+.group-17 {
+  width: 393px;
+  height: 197px;
+  position: relative;
+  left: 0px;
+  top: 655px;
+}
+.rectangle-32 {
+  background: #282828;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  top: 0%;
+}
+._01811-232-02-970-6114 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  position: relative;
+  right: 4.07%;
+  left: 4.07%;
+  width: 91.86%;
+  bottom: 29.44%;
+  top: 38.07%;
+  height: 32.49%;
+}
+.group-15 {
+  position: relative;
+  inset: 0;
+}
+.button-signup {
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 2px;
+  padding: 10px 40px 10px 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  row-gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 254px;
+  height: 57px;
+  position: relative;
+  left: 69px;
+  top: 348px;
+}
+.google-icon-logo-svgrepo-com-1 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: visible;
+}
 .div {
+  color: #ffffff;
   text-align: center;
   font-family: "PretendardVariable-Bold", sans-serif;
   font-size: 24px;
@@ -11,6 +78,144 @@
   font-weight: 700;
   position: relative;
 }
+.button-register {
+  border-radius: 16px;
+  border-style: solid;
+  border-color: #b6b6b6;
+  border-width: 2px;
+  padding: 10px 40px 10px 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  row-gap: 0px;
+  align-items: center;
+  justify-content: center;
+  width: 254px;
+  height: 57px;
+  position: relative;
+  left: 69px;
+  top: 430px;
+}
+.google-icon-logo-svgrepo-com-12 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: visible;
+}
+.div2 {
+  color: #b6b6b6;
+  text-align: center;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+  position: relative;
+}
+.component-1 {
+  width: 309px;
+  height: 67px;
+  position: relative;
+  left: 42px;
+  top: 129px;
+}
+.group-8 {
+  width: 90.94%;
+  height: 57.49%;
+  position: relative;
+  right: 4.53%;
+  left: 4.53%;
+  bottom: 42.51%;
+  top: 0%;
+  overflow: visible;
+}
+.div3 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "PretendardVariable-Bold", sans-serif;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: -0.011000000000000001em;
+  font-weight: 700;
+  position: relative;
+  right: 0%;
+  left: 0%;
+  width: 100%;
+  bottom: 0%;
+  top: 83.58%;
+  height: 16.42%;
+}
+.marquee {
+  width: 393px;
+  height: 28px;
+  position: relative;
+  left: calc(50% - 196.5px);
+  top: 247px;
+  overflow: hidden;
+}
+.group-7 {
+  width: 97.76%;
+  height: 100.8%;
+  position: relative;
+  right: 1.99%;
+  left: 0.25%;
+  bottom: -0.8%;
+  top: 0%;
+  overflow: visible;
+}
+.group-82 {
+  width: 98.01%;
+  height: 100.8%;
+  position: relative;
+  right: -98.07%;
+  left: 100.05%;
+  bottom: -0.8%;
+  top: 0%;
+  overflow: visible;
+}
+.marquee2 {
+  width: 393px;
+  height: 28px;
+  position: relative;
+  left: calc(50% - 196.5px);
+  top: 560px;
+  overflow: hidden;
+}
+.group-72 {
+  width: 97.76%;
+  height: 100.8%;
+  position: relative;
+  right: 1.99%;
+  left: 0.25%;
+  bottom: -0.8%;
+  top: 0%;
+  overflow: visible;
+}
+.group-83 {
+  width: 98.01%;
+  height: 100.8%;
+  position: relative;
+  right: -98.07%;
+  left: 100.05%;
+  bottom: -0.8%;
+  top: 0%;
+  overflow: visible;
+}
+
+._01811-232-02-970-6114,
+._01811-232-02-970-6114 * {
+  box-sizing: border-box;
+}
+._01811-232-02-970-6114 {
+  color: #ffffff;
+  text-align: left;
+  font-family: "Inter-Regular", sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  position: relative;
+}
+
 .div-span {
   color: #000000;
   background-color: #fffa87;
@@ -64,9 +269,7 @@
 }
 
 .group-12 {
+  background-color: #000000;
   padding: 48px; 
   text-align: center;
 }
-
-
-

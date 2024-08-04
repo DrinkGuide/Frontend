@@ -8,8 +8,6 @@ const Success = () => {
   const amount = urlParams.get("amount");
   const orderId = urlParams.get("orderId");
   const paymentKey = urlParams.get("paymentKey");
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const postPaymentApproval = async (amount, orderId, paymentKey) => {
     // const apiUrl = "http://localhost:8080/api/v1/payments/approve"; // 백엔드 API URL
@@ -32,7 +30,7 @@ const Success = () => {
       if (response.data.success) {
         setPaymentApproved(true); // 결제 승인 상태 업데이트
         // 다음 페이지로 이동
-        window.location.href = "/subscribe"; // 적절한 URL로 수정
+        window.location.href = "/mypage"; // 적절한 URL로 수정
       } else {
         setErrorMessage("결제 승인 실패: " + response.data.message);
       }
