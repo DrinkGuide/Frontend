@@ -103,6 +103,8 @@ const SubscribeCheckWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
+  display: flex;
+  justify-content: center;
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -127,6 +129,8 @@ const HistoryButtonWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
+  display: flex;
+  justify-content: center;
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -149,18 +153,12 @@ const MyPage = () => {
   const [subscribe, setSubscribe] = useState(false); // 기본값 false로 설정
   const [memberInfo, setMemberInfo] = useState({});
   const [purchaseNum, setPurchaseNum] = useState();
-
-  const icons = [
-    <Changing_icon_1 />,
-    <Changing_icon_2 />,
-    <Changing_icon_3 />,
-    <Changing_icon_4 />,
-    <Changing_icon_5 />,
-    <Changing_icon_6 />,
-  ];
+  const [certify, setCertify] = useState([]);
+  const [icons, setIcons] = useState([]);
   const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
 
@@ -204,14 +202,24 @@ const MyPage = () => {
             },
           }
         );
-        console.log(response.data.data);
-        setPurchaseNum();
+        setCertify(response.data.data);
+        setPurchaseNum(response.data.data.length);
+        addIconArray();
       } catch (error) {
         console.error("실패함", error);
       }
     };
     fetchPurchaseNumInfoData();
   }, []); // 구매
+
+  const addIconArray = () => {
+    const newIcons = certify.map((item, index) => {
+      if (item === "DRINK") return <Changing_icon_2 key={index} />;
+      if (item === "SNACK") return <Changing_icon_1 key={index} />;
+      return null;
+    });
+    setIcons(newIcons);
+  };
 
   return (
     <>
@@ -231,10 +239,11 @@ const MyPage = () => {
           {icons.map((icon, index) => (
             <Circle key={index}>{icon}</Circle>
           ))}
-          {[...Array(4)].map((_, index) => (
+          {[...Array(10 - icons.length)].map((_, index) => (
             <Circle key={icons.length + index}></Circle>
           ))}
         </PurchaseImageContainer>
+
         <MypageTextBox fontSize="16px" fontColor="#FFFA87">
           이번 달에는 구매 인증을 {purchaseNum}회 했어요.
           <br />

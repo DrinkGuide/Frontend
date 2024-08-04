@@ -35,9 +35,8 @@ const ScanContainer = styled.div`
 `;
 
 const StyledWebcam = styled(Webcam)`
-  width: 100%;
-  height: 100%;
-  transform: scaleX(-1);
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
 `;
 
@@ -135,10 +134,11 @@ const ScanPage = () => {
   const webcamRef = useRef(null);
   const [productName, setProductName] = useState("제로콜라");
   const [productType, setProductType] = useState("DRINK");
+  const [clickTimeout, setClickTimeout] = useState(null);
 
   const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZjliMjZkNF0iLCJpYXQiOjE3MjI3MTc1MDksImV4cCI6MzMyNTg3MTc1MDl9.ovyF_lxTHJ5eBoQZNPiCDYMiLtDqZSTr4q173h-EK2g";
 
   const data = { productName: productName, productType: productType };
 
@@ -169,10 +169,6 @@ const ScanPage = () => {
     init();
   }, [URL]);
 
-  useEffect(() => {
-    getSpeech(result);
-  }, [result]);
-
   const showPredictions = (predictions) => {
     if (!predictions || predictions.length === 0) return;
 
@@ -181,12 +177,6 @@ const ScanPage = () => {
     );
 
     setResult(maxPrediction.className);
-
-    predictions.forEach((prediction) => {
-      console.log(
-        `${prediction.className}: ${prediction.probability.toFixed(2)}`
-      );
-    });
   };
 
   const videoConstraints = {
@@ -197,7 +187,7 @@ const ScanPage = () => {
     try {
       const response = await axios.post(
         "https://www.drinkguide.store/api/v1/purchases",
-        { data },
+        data,
         {
           headers: {
             "Content-Type": "application/json",
@@ -207,23 +197,43 @@ const ScanPage = () => {
       );
 
       console.log("Success:", response.data);
+      getSpeech(`${data.productName}를 구매합니다`);
     } catch (error) {
       console.error(
         "Error:",
         error.response ? error.response.statusText : error.message
       );
+      getSpeech(`${data.productName} 음료를 구매합니다`);
+    }
+  };
+
+  const handleClickEvent = (event) => {
+    if (clickTimeout) {
+      clearTimeout(clickTimeout);
+      setClickTimeout(null);
+      // Double-click detected
+      handlePurchaseDataSubmit();
+    } else {
+      // Single click detected, set timeout to differentiate between single and double click
+      const timeout = setTimeout(() => {
+        // Single-click action
+        getSpeech(result);
+        setProductName(result);
+        setClickTimeout(null);
+      }, 300); // Adjust the delay as necessary to suit your needs
+
+      setClickTimeout(timeout);
     }
   };
 
   return (
     <>
       <ScanContainer
-        onDoubleClick={() => {
-          console.log("Double click detected");
-          handlePurchaseDataSubmit();
+        onClick={(event) => {
+          handleClickEvent(event);
         }}
       >
-        <TopBox>안녕하세요</TopBox>
+        <TopBox>ㅇ</TopBox>
         <StyledWebcam
           audio={false}
           ref={webcamRef}

@@ -108,15 +108,18 @@ const Circle = styled.div`
 
 const HistoryPage = () => {
   const [historyData, setHistoryData] = useState([]);
-  const [number, setNumber] = useState(6);
   const productColor = useRecoilValue(ProductTypeColorAtom);
   const [expandedIndex, setExpandedIndex] = useState(null);
-  const [purchaseNum, setPurchaseNum] = useState(2);
-  const memberId = decodedaccessToken.memberId;
-  const decodedaccessToken = jwtDecode(accessToken);
+  const [purchaseNum, setPurchaseNum] = useState();
+  const [certify, setCertify] = useState([]);
+  const [icons, setIcons] = useState([]);
+
   const accessToken = useRecoilValue(getAccessTokenAtom);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+
+  const decodedaccessToken = jwtDecode(accessToken);
+  const memberId = decodedaccessToken.memberId;
 
   const purchaseHistory = [
     {
@@ -171,14 +174,14 @@ const HistoryPage = () => {
     // ...더 많은 상품 데이터 추가 가능
   ];
 
-  const icons = [
-    <Changing_icon_1 />,
-    <Changing_icon_2 />,
-    <Changing_icon_3 />,
-    <Changing_icon_4 />,
-    <Changing_icon_5 />,
-    <Changing_icon_6 />,
-  ];
+  const addIconArray = () => {
+    const newIcons = certify.map((item, index) => {
+      if (item === "DRINK") return <Changing_icon_2 key={index} />;
+      if (item === "SNACK") return <Changing_icon_1 key={index} />;
+      return null;
+    });
+    setIcons(newIcons);
+  };
 
   const handleExpandClick = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -217,8 +220,10 @@ const HistoryPage = () => {
             },
           }
         );
-        console.log(response.data.data);
-        setPurchaseNum();
+
+        setCertify(response.data.data);
+        setPurchaseNum(response.data.data.length);
+        addIconArray();
       } catch (error) {
         console.error("실패함", error);
       }
@@ -244,7 +249,7 @@ const HistoryPage = () => {
           {icons.map((icon, index) => (
             <Circle key={index}>{icon}</Circle>
           ))}
-          {[...Array(4)].map((_, index) => (
+          {[...Array(10 - icons.length)].map((_, index) => (
             <Circle key={icons.length + index}></Circle>
           ))}
         </PurchaseImageContainer>

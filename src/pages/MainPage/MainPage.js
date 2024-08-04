@@ -167,41 +167,6 @@ const MainPage = () => {
       </Text>
       <Marquee paddingTop="145px" paddingBottom="137px" />
 
-      <span>
-        <EyeIcon />
-        <SpeechIcon />
-      </span>
-
-      <div className="group-12" id="scrollTarget">
-        <div className="rectangle-33"></div>
-        <div className="rectangle-34"></div>
-        <div className="rectangle-35"></div>
-        <div className="div">
-          <span>
-            <span className="div-span">정확</span>
-            <span className="div-span2">하고 </span>
-            <span className="div-span3">또박또박</span>
-            <span className="div-span4">
-              하게
-              <br />
-              그리고
-            </span>
-            <span className="div-span2"> </span>
-            <span className="div-span5">손쉽게</span>
-            <span className="div-span6">!</span>
-          </span>
-        </div>
-      </div>
-
-      <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
-        글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
-        <br />
-        빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를
-        <br />
-        정확하고 또박또박한 음성으로 손쉽게 알려드립니다.
-      </Text>
-      <Marquee paddingTop="145px" paddingBottom="137px" />
-
       <svg
         width="116"
         height="150"
