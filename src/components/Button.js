@@ -16,7 +16,7 @@ const ButtonContainer = styled.div`
   width: 214px;
   height: 57px;
   position: relative;
-  margin-bottom:25px;
+  margin-bottom: 25px;
   
 
   cursor : pointer;

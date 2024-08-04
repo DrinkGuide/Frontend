@@ -14,6 +14,9 @@ import { ReactComponent as Changing_icon_3 } from "../../assets/images/changing_
 import { ReactComponent as Changing_icon_4 } from "../../assets/images/changing_icon_4.svg";
 import { ReactComponent as Changing_icon_5 } from "../../assets/images/changing_icon_5.svg";
 import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_icon_6.svg";
+import { ReactComponent as GoUpMessage } from "../../assets/images/go-up-message.svg";
+import { ReactComponent as WhiteArrowBefore } from "../../assets/images/white-arrow-before.svg";
+import { ReactComponent as WhiteArrowAfter } from "../../assets/images/white-arrow-after.svg";
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import "./MyPage.css";

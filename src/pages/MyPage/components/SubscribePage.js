@@ -5,6 +5,7 @@ import { ReactComponent as SubscribeCancelAfter } from '../../../assets/images/s
 import { ReactComponent as SubscribeCancelMiniBefore } from '../../../assets/images/subscribe-cancel-mini-before.svg';
 import { ReactComponent as SubscribeCancelMiniAfter } from '../../../assets/images/subscribe-cancel-mini-after.svg';
 import { ReactComponent as CloseButtonMiniBefore } from '../../../assets/images/close-button-mini-before.svg';
+import { ReactComponent as CloseButtonMiniBefore2 } from '../../../assets/images/close-button-mini-before2.svg';
 import { ReactComponent as CloseButtonMiniAfter } from '../../../assets/images/close-button-mini-after.svg';
 import { ReactComponent as ExclamationMark } from '../../../assets/images/Exclamation_mark.svg';
 import { ReactComponent as CancelComplete } from '../../../assets/images/cancel_complete.svg';
@@ -140,7 +141,7 @@ const PopupButtons = styled.div`
   margin-top: 20px;
 `;
 
-const StyledCloseButtonMiniBefore = styled(CloseButtonMiniBefore)`
+const StyledCloseButtonMiniBefore = styled(CloseButtonMiniBefore2)`
   width: 90px;
   height: 50px;
   cursor: pointer;

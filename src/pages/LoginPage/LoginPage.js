@@ -1,5 +1,5 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useRef } from "react";
+import { uuseNavigate } from "react-router-dom";
 import { Text } from "../../components/Text";
 import "./Login.css";
 import { Marquee } from "../../components/Marquee";
@@ -12,6 +12,9 @@ import { ScrollButton } from "../MainPage/components/ScrollButton";
 import { EyeIcon } from "../MainPage/components/EyeIcon";
 import { SpeechIcon } from "../MainPage/components/SpeechIcon";
 import { ReactComponent as Changing_icon_1 } from "../../assets/images/changing_icon_1.svg";
+import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-message.svg";
+import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
+import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
 
 const handleScroll = () => {
   window.scrollTo({
@@ -55,11 +58,50 @@ const StyledChanging_icon_1 = styled(Changing_icon_1)`
   height: 150px;
 `
 
+const IconWrapper = styled.div`
+  position: relative;
+  width: 35px; /* Adjust width as needed */
+  height: 35px; /* Adjust height as needed */
+  transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+  margin-top: ${props => (props.isHovered ? '-15px' : '0')};
+  margin-bottom: ${props => (props.isHovered ? '15px' : '0')};
+`;
+
+const WhiteArrowBefore = styled(WhiteArrowBeforeSVG)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: ${props => (props.isHovered ? 0 : 1)};
+`;
+
+const WhiteArrowAfter = styled(WhiteArrowAfterSVG)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: ${props => (props.isHovered ? 1 : 0)};
+`;
+
+const GoUpMessage = styled(GoUpMessageSVG)`
+  margin-top: 10px;
+  margin-bottom: 70px;
+`
+
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
 function LoginPage() {
   const handleGoogleLogin = () => {
     window.location.href =
       "https://www.drinkguide.store/oauth2/authorization/google";
   };
+  const [isHovered, setIsHovered] = useState(false);
+
 
   return (
     <>
@@ -146,8 +188,19 @@ function LoginPage() {
         </Text>
 
         <Marquee paddingTop="137px" paddingBottom="68px" />
-        <Footer />
+        <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={scrollToTop}
+        >
+          <IconWrapper isHovered={isHovered}>
+            <WhiteArrowBefore isHovered={isHovered} />
+            <WhiteArrowAfter isHovered={isHovered} />
+          </IconWrapper>
+        </div>
+        <GoUpMessage />
       </LoginContainer>
+      <Footer />
 
     </>
   );
