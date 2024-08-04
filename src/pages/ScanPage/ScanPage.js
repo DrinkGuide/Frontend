@@ -210,6 +210,10 @@ const ScanPage = () => {
     }
   };
 
+  const handleSliderClick = (event) => {
+    event.stopPropagation(); // 이벤트 전파 중단
+  };
+
   return (
     <>
       <ScanContainer
@@ -217,7 +221,7 @@ const ScanPage = () => {
           handleClickEvent(event);
         }}
       >
-        <ImageSlider />
+        <ImageSlider onClick={handleSliderClick} />
         <StyledWebcam
           audio={false}
           ref={webcamRef}
