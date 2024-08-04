@@ -174,11 +174,13 @@ const SubscribePage = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [isCancelPopupVisible, setCancelPopupVisible] = useState(false);
   const [subscribeInfo, setSubscribeInfo] = useState([]);
+  const [subscribeTypeKorean, setSubscribeTypeKorean] = useState("음료");
+  const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
 
-  const accessToken = useRecoilValue(getAccessTokenAtom);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  // const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const handleCancelClick = () => {
     setPopupVisible(true);
@@ -210,6 +212,13 @@ const SubscribePage = () => {
         );
         console.log(response.data.data);
         setSubscribeInfo(response.data.data);
+        if (subscribeInfo.subscribeType === "DRINK") {
+          setSubscribeTypeKorean("음료");
+          setSubscribePrice(3000);
+        } else if (subscribeInfo.subscribeType === "DRINK_SNACK") {
+          setSubscribeTypeKorean("음료+과자");
+          setSubscribePrice(7000);
+        }
       } catch (error) {
         console.error("실패함", error);
       }
@@ -229,9 +238,9 @@ const SubscribePage = () => {
           내 멤버십 서비스 구독 현황
         </SubscribeTextBox>
         <SubscribeTextBox fontSize="20px" fontColor="#ffff00" margin="5px 0">
-          음료
+          {setSubscribeTypeKorean}
         </SubscribeTextBox>
-        <SubscribeTextBox2>월 3,000원</SubscribeTextBox2>
+        <SubscribeTextBox2>월 {subscribePrice}원</SubscribeTextBox2>
         <SubscribeTextBox
           fontSize="16px"
           fontColor="#ffffff"
