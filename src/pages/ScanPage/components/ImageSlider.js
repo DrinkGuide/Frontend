@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./ImageSlider.css";
-import image1 from "../assets/images/changing_icon_1.svg";
-import image2 from "../assets/images/changing_icon_2.svg";
-import image3 from "../assets/images/changing_icon_3.svg";
-import image4 from "../assets/images/changing_icon_4.svg";
-import image5 from "../assets/images/changing_icon_5.svg";
-import image6 from "../assets/images/changing_icon_6.svg";
+import image1 from "../../../assets/images/changing_icon_1.svg";
+import image2 from "../../../assets/images/changing_icon_2.svg";
+import image3 from "../../../assets/images/changing_icon_3.svg";
+import image4 from "../../../assets/images/changing_icon_4.svg";
+import image5 from "../../../assets/images/changing_icon_5.svg";
+import image6 from "../../../assets/images/changing_icon_6.svg";
 import { useSetRecoilState, useRecoilValue, useRecoilState } from "recoil";
 import {
   scanPageColorAtom,
   ProductTypeColorAtom,
   ProductTypeinKorean,
-} from "../recoil/atom";
-import { scanPageProductTypeAtom } from "../recoil/atom";
+} from "../../../recoil/atom";
+import { scanPageProductTypeAtom } from "../../../recoil/atom";
 
 const ImageSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

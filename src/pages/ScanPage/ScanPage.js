@@ -7,10 +7,10 @@ import {
   getAccessTokenAtom,
   scanPageColorAtom,
   scanPageProductTypeAtom,
-} from "../recoil/atom";
+} from "../../recoil/atom";
 import * as tmImage from "@teachablemachine/image";
-import { getSpeech } from "../components/getSpeech";
-import ImageSlider from "./ImageSlider";
+import { getSpeech } from "../../components/getSpeech";
+import ImageSlider from "./components/ImageSlider";
 
 const ScanContainer = styled.div`
   box-sizing: border-box;
