@@ -1,6 +1,7 @@
 .feedback,
 .feedback * {
   box-sizing: border-box;
+  z-index: 90%;
 }
 .feedback {
   background: #101010;

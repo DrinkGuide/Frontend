@@ -205,16 +205,25 @@ const MainPage = () => {
       <Button
         name="스캔"
         color="#FFFA87"
+        width="214px"
+        height="57px"
+        marginBottom = "25px"
         onClick={() => handleButtonClick(isSubscribe ? "/scan" : "/subscribe")}
       />
       <Button
         name="피드백"
         color="#FFA858"
+        width="214px"
+        height="57px"
+        marginBottom = "25px"
         onClick={() => handleButtonClick("/feedback")}
       />
       <Button
         name="마이페이지"
         color="#FF5858"
+        width="214px"
+        height="57px"
+        marginBottom = "25px"
         onClick={() => handleButtonClick("/mypage")}
       />
       <Text

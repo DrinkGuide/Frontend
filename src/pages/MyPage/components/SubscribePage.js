@@ -15,6 +15,7 @@ import { ReactComponent as CloseButtonMiniBefore2 } from "../../../assets/images
 import PaymentCheckoutPage from "./PaymentCheckoutPage";
 import { useRecoilValue } from "recoil";
 import { getAccessTokenAtom } from "../../../recoil/atom";
+import { Button } from "../../../components/Button";
 import { Footer } from "../../../components/Footer";
 
 /*
@@ -32,6 +33,7 @@ const SubscirbeContainer = styled.div`
   margin: 0 auto;
   background-color: black;
 `;
+
 
 const SubscribeTextBox = styled.div`
   background-color: ${(props) => props.backColor || "black"};
@@ -66,6 +68,13 @@ const SubscribePlan = styled.div`
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
+
+  &:hover {
+    cursor:pointer;
+    background-color: #f9e97c;
+    color: black;
+    border-color: #f9e97c;
+  }
 `;
 
 const SubscribeButton = styled.div`
@@ -251,6 +260,8 @@ const SubscribePage = () => {
         <SubscribeTextBox fontSize="24px" fontColor="#ffffff" margin="70px 0">
           내 멤버십 서비스 구독 현황
         </SubscribeTextBox>
+     
+
         <SubscribeTextBox fontSize="20px" fontColor="#ffff00" margin="5px 0">
           {setSubscribeTypeKorean}
         </SubscribeTextBox>

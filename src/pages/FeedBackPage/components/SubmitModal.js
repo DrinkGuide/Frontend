@@ -6,8 +6,6 @@ import { Text } from '../../../components/Text';
 import { ReactComponent as CloseButton } from '../../../assets/images/close-button.svg';
 import { ReactComponent as SubmitCheckButton } from '../../../assets/images/submit-check.svg';
 
-
-
 const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
@@ -39,7 +37,6 @@ const ModalContainer = styled.div`
 
 const SubmitModal = ({ isOpen, onClose }) => {
   const navigate = useNavigate();
-
   if (!isOpen) return null;
   return (
     <ModalOverlay>
@@ -54,7 +51,6 @@ const SubmitModal = ({ isOpen, onClose }) => {
   navigate("/");
 }}/>
       </ModalContainer>
-
     </ModalOverlay>
   );
 };

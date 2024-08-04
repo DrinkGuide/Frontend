@@ -13,10 +13,11 @@ const ButtonContainer = styled.div`
   row-gap: 0px;
   align-items: center;
   justify-content: center;
-  width: 214px;
-  height: 57px;
+  width: ${(props) => props.width};
+  //214,57
+  height: ${(props) => props.height};
   position: relative;
-  margin-bottom: 25px;
+  margin-bottom: ${(props) => props.marginBottom};
 
   cursor: pointer;
   transition: all 0.3s ease;
@@ -45,10 +46,10 @@ const ButtonContentBox = styled.button`
 `;
 
 export const Button = (props) => {
-  const { name, color, onClick } = props;
+  const { name, color, onClick , width, height, marginBottom} = props;
 
   return (
-    <ButtonContainer color={color} onClick={onClick}>
+    <ButtonContainer color={color} width={width} height={height} marginBottom= {marginBottom} onClick={onClick}>
       <ButtonContentBox color={color}>{name}</ButtonContentBox>
     </ButtonContainer>
   );
