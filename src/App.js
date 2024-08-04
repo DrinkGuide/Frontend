@@ -11,6 +11,7 @@ import HistoryPage from "./pages/MyPage/components/HistoryPage";
 import SubscribePage from "./pages/MyPage/components/SubscribePage";
 import PaymentCheckoutPage from "./pages/MyPage/components/PaymentCheckoutPage";
 import Success from "./pages/MyPage/components/Success";
+import SubmitModal from "./pages/FeedBackPage/components/SubmitModal";
 import { Failure } from "./pages/MyPage/components/Failure";
 import useAuth from "./hooks/useAuth";
 
@@ -30,6 +31,7 @@ function App() {
         <Route path="/payments" element={<PaymentCheckoutPage />} />
         <Route path="/success" element={<Success />} />
         <Route path="/fail" element={<Failure />} />
+        <Route path="/submit" element={<SubmitModal />} />
       </Routes>
     </div>
   );

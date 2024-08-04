@@ -1,23 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import axios from "axios";
 import { Footer } from "../../components/Footer";
 import styled from "styled-components";
 import { ReactComponent as FeedBackText } from "../../assets/images/feedback-text.svg";
 import { Button } from "../../components/Button";
+import "./FeedBack.css";
 import { useLocation } from "react-router-dom";
 import { getAccessTokenAtom } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
+import SubmitModal from "./components/SubmitModal"; // 올바른 경로로 수정
 
 const FeedBackContainer = styled.div`
   font-family: "Pretendard-Regular";
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* 화면 높이 맞춤 */
-  width: 100vw; /* 화면 너비 맞춤 */
+  width: 100vw;
   margin: 0 auto;
   background-color: black;
   padding-top: 129px;
@@ -30,7 +29,7 @@ const TextContainer = styled.div`
   text-align: center;
   font-size: 1rem;
   line-height: 150%;
-  letter-spacing: -0.0110000000001em;
+  letter-spacing: -0.011em;
   font-weight: 700;
   position: flex;
   left: calc(50% - 154.5px);
@@ -48,7 +47,7 @@ const StyledTextarea = styled.textarea`
   font-family: "PretendardVariable-Regular", sans-serif;
   font-size: 15px;
   line-height: 150%;
-  letter-spacing: -0.011000000000000001em;
+  letter-spacing: -0.011em;
   font-weight: 400;
   border: none;
   resize: none;
@@ -61,10 +60,11 @@ const StyledTextarea = styled.textarea`
 
 function FeedBackPage() {
   const [content, setContent] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const location = useLocation();
-  const accessToken = useRecoilValue(getAccessTokenAtom);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const {
     transcript,
@@ -77,19 +77,16 @@ function FeedBackPage() {
   const prevTranscript = useRef("");
 
   useEffect(() => {
-    // Start listening if the browser supports it
     if (browserSupportsSpeechRecognition) {
       handleRecordOn();
     }
 
-    // Cleanup function to stop listening when component unmounts or URL changes
     return () => {
       handleRecordOff();
     };
   }, [browserSupportsSpeechRecognition, location.pathname]);
 
   useEffect(() => {
-    // Only update content if there is new transcript data
     if (!isTyping.current) {
       const newText = transcript.replace(prevTranscript.current, "");
       if (newText) {
@@ -117,14 +114,12 @@ function FeedBackPage() {
   };
 
   const handleReset = () => {
-    resetTranscript(); // Ensure transcript is cleared
+    resetTranscript();
     setContent("");
     prevTranscript.current = "";
   };
 
   const handleSubmit = async () => {
-    console.log("Submitting feedback...");
-
     try {
       const response = await axios.post(
         "https://www.drinkguide.store/api/v1/contacts",
@@ -137,8 +132,8 @@ function FeedBackPage() {
         }
       );
 
-      console.log("Success:", response.data);
-      handleReset(); // Reset the textarea after successful submission
+      handleReset(); // 제출 후 텍스트 초기화
+      setIsModalOpen(true); // 모달 열기
     } catch (error) {
       console.error(
         "Error:",
@@ -150,7 +145,7 @@ function FeedBackPage() {
   return (
     <>
       <FeedBackContainer>
-        <FeedBackText padding-top={129} />
+        <FeedBackText style={{ paddingTop: '129px' }} />
         <TextContainer>
           <div>고객님의 의견을 들려주세요!</div>
           <div>추후 더 나은 서비스로 발전하는데 큰 도움이 됩니다.</div>
@@ -164,6 +159,7 @@ function FeedBackPage() {
         ></StyledTextarea>
         <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit} />
       </FeedBackContainer>
+      {isModalOpen && <SubmitModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
       <Footer />
     </>
   );
