@@ -45,7 +45,7 @@ const SubscribeTextBox = styled.div`
 `;
 
 const SubscribeTextBox2 = styled.div`
-  background-color: #f9e97c; /* 배경색 */
+  background-color: ${(props) => props.backgroundColor};
   color: black;
   text-align: center;
   font-size: 40px;
@@ -173,6 +173,7 @@ const StyledCancelComplete = styled(CancelComplete)`
 const SubscribePage = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [isCancelPopupVisible, setCancelPopupVisible] = useState(false);
+  const [isSubscribe, setIsSubscribe] = useState(false);
   const [subscribeInfo, setSubscribeInfo] = useState([]);
   const [subscribeTypeKorean, setSubscribeTypeKorean] = useState("음료");
   const [subscribePrice, setSubscribePrice] = useState(3000);
@@ -215,9 +216,12 @@ const SubscribePage = () => {
         if (subscribeInfo.subscribeType === "DRINK") {
           setSubscribeTypeKorean("음료");
           setSubscribePrice(3000);
+          setIsSubscribe(true);
+          console.log(subscribeInfo);
         } else if (subscribeInfo.subscribeType === "DRINK_SNACK") {
-          setSubscribeTypeKorean("음료+과자");
+          setSubscribeTypeKorean("음료 + 과자");
           setSubscribePrice(7000);
+          setIsSubscribe(true);
         }
       } catch (error) {
         console.error("실패함", error);
@@ -237,17 +241,25 @@ const SubscribePage = () => {
         <SubscribeTextBox fontSize="24px" fontColor="#ffffff" margin="70px 0">
           내 멤버십 서비스 구독 현황
         </SubscribeTextBox>
-        <SubscribeTextBox fontSize="20px" fontColor="#ffff00" margin="5px 0">
-          {setSubscribeTypeKorean}
+        <SubscribeTextBox
+          fontSize="16px"
+          fontColor={!isSubscribe ? "#FFFA87" : "#5D9EFF"}
+          margin="5px 0"
+        >
+          {!isSubscribe ? `${subscribeTypeKorean}` : "신선식품 포함 모든 기능"}
         </SubscribeTextBox>
-        <SubscribeTextBox2>월 {subscribePrice}원</SubscribeTextBox2>
+        <SubscribeTextBox2
+          backgroundColor={!isSubscribe ? "#FFFA87" : "#5D9EFF"}
+        >
+          {!isSubscribe ? `월 ${subscribePrice}원` : "일주일 무료"}
+        </SubscribeTextBox2>
         <SubscribeTextBox
           fontSize="16px"
           fontColor="#ffffff"
           margin="10px 0 30px 0"
         >
           다음 결제 날짜 <br />
-          {subscribeInfo.expirationDate}
+          {!isSubscribe ? `${subscribeInfo.expirationDate}` : " "}
         </SubscribeTextBox>
         <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="20px 0">
           구독 플랜
