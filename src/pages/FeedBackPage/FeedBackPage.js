@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import axios from "axios";
 import { Footer } from "../../components/Footer";
 import styled from "styled-components";
@@ -11,6 +9,7 @@ import "./FeedBack.css";
 import { useLocation } from "react-router-dom";
 import { getAccessTokenAtom } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
+import SubmitModal from "./components/SubmitModal"; // 올바른 경로로 수정
 
 const FeedBackContainer = styled.div`
   font-family: "Pretendard-Regular";
@@ -20,7 +19,7 @@ const FeedBackContainer = styled.div`
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
-  padding-top: 129px;
+  padding-bottom : 100px;
 `;
 
 const TextContainer = styled.div`
@@ -30,7 +29,7 @@ const TextContainer = styled.div`
   text-align: center;
   font-size: 1rem;
   line-height: 150%;
-  letter-spacing: -0.0110000000001em;
+  letter-spacing: -0.011em;
   font-weight: 700;
   position: flex;
   left: calc(50% - 154.5px);
@@ -48,7 +47,7 @@ const StyledTextarea = styled.textarea`
   font-family: "PretendardVariable-Regular", sans-serif;
   font-size: 15px;
   line-height: 150%;
-  letter-spacing: -0.011000000000000001em;
+  letter-spacing: -0.011em;
   font-weight: 400;
   border: none;
   resize: none;
@@ -61,6 +60,7 @@ const StyledTextarea = styled.textarea`
 
 function FeedBackPage() {
   const [content, setContent] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const location = useLocation();
   const accessToken = useRecoilValue(getAccessTokenAtom);
 
@@ -75,27 +75,30 @@ function FeedBackPage() {
   const prevTranscript = useRef("");
 
   useEffect(() => {
-    // Start listening if the browser supports it
     if (browserSupportsSpeechRecognition) {
       handleRecordOn();
     }
 
-    // Cleanup function to stop listening when component unmounts or URL changes
     return () => {
       handleRecordOff();
     };
   }, [browserSupportsSpeechRecognition, location.pathname]);
 
   useEffect(() => {
-    // Only update content if there is new transcript data
     if (!isTyping.current) {
-      const newText = transcript.replace(prevTranscript.current, "");
+      const newText = transcript.substring(prevTranscript.current.length).trim();
       if (newText) {
-        setContent((prevContent) => prevContent + newText);
-        prevTranscript.current = transcript;
+        setContent((prevContent) => {
+          const trimmedContent = prevContent.trimEnd();
+          return trimmedContent + (trimmedContent ? " " : "") + newText;
+        });
       }
+      prevTranscript.current = transcript;
     }
   }, [transcript]);
+  
+  
+
 
   const handleRecordOn = () => {
     SpeechRecognition.startListening({ continuous: true });
@@ -115,14 +118,12 @@ function FeedBackPage() {
   };
 
   const handleReset = () => {
-    resetTranscript(); // Ensure transcript is cleared
+    resetTranscript();
     setContent("");
     prevTranscript.current = "";
   };
 
   const handleSubmit = async () => {
-    console.log("Submitting feedback...");
-
     try {
       const response = await axios.post(
         "https://www.drinkguide.store/api/v1/contacts",
@@ -135,8 +136,8 @@ function FeedBackPage() {
         }
       );
 
-      console.log("Success:", response.data);
-      handleReset(); // Reset the textarea after successful submission
+      handleReset(); // 제출 후 텍스트 초기화
+      setIsModalOpen(true); // 모달 열기
     } catch (error) {
       console.error(
         "Error:",
@@ -148,7 +149,7 @@ function FeedBackPage() {
   return (
     <>
       <FeedBackContainer>
-        <FeedBackText padding-top={129} />
+        <FeedBackText style={{ paddingTop: '129px' }} />
         <TextContainer>
           <div>고객님의 의견을 들려주세요!</div>
           <div>추후 더 나은 서비스로 발전하는데 큰 도움이 됩니다.</div>
@@ -160,9 +161,9 @@ function FeedBackPage() {
           onChange={handleContentChange}
           maxLength={500}
         ></StyledTextarea>
-        <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit} />
-        <div class="margin-bottom" />
+        <Button name={"제출"} color={"#FFFA87"} width={"214px"} height = {"57px"} paddingBottom={"68px"} onClick={handleSubmit}  />
       </FeedBackContainer>
+      {isModalOpen && <SubmitModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
       <Footer />
     </>
   );
