@@ -9,6 +9,7 @@ import { ReactComponent as SubscribeCancelMiniAfter } from "../../../assets/imag
 import { ReactComponent as CloseButtonMiniBefore } from "../../../assets/images/close-button-mini-before.svg";
 import { ReactComponent as CloseButtonMiniAfter } from "../../../assets/images/close-button-mini-after.svg";
 import { ReactComponent as ExclamationMark } from "../../../assets/images/Exclamation_mark.svg";
+import { ReactComponent as ExclamationMark2 } from "../../../assets/images/Exclamation_mark2.svg";
 import { ReactComponent as CancelComplete } from "../../../assets/images/cancel_complete.svg";
 import { ReactComponent as CloseButtonMiniBefore2 } from "../../../assets/images/close-button-mini-before2.svg";
 import PaymentCheckoutPage from "./PaymentCheckoutPage";
@@ -163,6 +164,12 @@ const StyledExclamationMark = styled(ExclamationMark)`
   margin-bottom: 15px;
 `;
 
+const StyledExclamationMark2 = styled(ExclamationMark2)`
+  width: 40px;
+  height: 40px;
+  margin-bottom: 15px;
+`;
+
 const StyledCancelComplete = styled(CancelComplete)`
   width: 50px;
   height: 50px;
@@ -173,8 +180,8 @@ const StyledCancelComplete = styled(CancelComplete)`
 const SubscribePage = () => {
   const [isPopupVisible, setPopupVisible] = useState(false);
   const [isCancelPopupVisible, setCancelPopupVisible] = useState(false);
-  const [isSubscribe, setIsSubscribe] = useState(false);
   const [subscribeInfo, setSubscribeInfo] = useState([]);
+  const [isDevelopPopupVisible, setDevelopPopupVisible] = useState(false);
   const [subscribeTypeKorean, setSubscribeTypeKorean] = useState("음료");
   const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
@@ -198,6 +205,14 @@ const SubscribePage = () => {
 
   const handleCloseCancelPopup = () => {
     setCancelPopupVisible(false);
+  };
+
+  const handleDevelopClick = () => {
+    setDevelopPopupVisible(true);
+  };
+
+  const handleCloseDevelopPopup = () => {
+    setDevelopPopupVisible(false);
   };
 
   useEffect(() => {
@@ -284,17 +299,18 @@ const SubscribePage = () => {
           <span>7,000원</span>
         </SubscribePlan>
         <SubscribePlan
-          onClick={() =>
-            handleNavigateToPayments(
-              15000,
-              "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
-            )
-          }
+          onClick={handleDevelopClick}
+          // onClick={() =>
+          //   handleNavigateToPayments(
+          //     15000,
+          //     "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
+          //   )
+          // }
         >
           <span>음료 + 과자 + 가공식품</span>
           <span>15,000원</span>
         </SubscribePlan>
-        <SubscribePlan>
+        <SubscribePlan onClick={handleDevelopClick}>
           <span>신선식품 포함 모든 기능</span>
           <span>28,000원</span>
         </SubscribePlan>
@@ -330,6 +346,20 @@ const SubscribePage = () => {
             </PopupHeader>
             <PopupButtons>
               <StyledCloseButtonMiniBefore onClick={handleCloseCancelPopup} />
+            </PopupButtons>
+          </Popup>
+        </PopupOverlay>
+      )}
+      {isDevelopPopupVisible && (
+        <PopupOverlay>
+          <Popup>
+            <PopupHeader>
+              <StyledExclamationMark2 />
+              현재 준비중인 서비스입니다. <br />
+              조금만 더 기다려주세요!
+            </PopupHeader>
+            <PopupButtons>
+              <CloseButtonMiniBefore onClick={handleCloseDevelopPopup} />
             </PopupButtons>
           </Popup>
         </PopupOverlay>

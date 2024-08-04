@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { uuseNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Text } from "../../components/Text";
 import "./Login.css";
 import { Marquee } from "../../components/Marquee";
 import styled from "styled-components";
 import { VoiceLabelText } from "../../components/VoiceLableText";
-import { ReactComponent as GoogleLogin } from "../../assets/images/google-login.svg";
+import { ReactComponent as GoogleLoginSVG } from "../../assets/images/google-login.svg";
+import { ReactComponent as GoogleLoginAfterSVG } from "../../assets/images/google-login-after.svg";
 import { ReactComponent as GoogleSignup } from "../../assets/images/google-signup.svg";
 import { Footer } from "../../components/Footer";
 import { ScrollButton } from "../MainPage/components/ScrollButton";
@@ -52,11 +53,6 @@ const TextContainer = styled.div`
   left: calc(50% - 154.5px);
 `;
 
-const StyledGoogleLogin = styled(GoogleLogin)`
-  width: 280px;
-  height: 100px;
-  cursor: pointer;
-`;
 
 const StyledChanging_icon_1 = styled(Changing_icon_1)`
   width: auto;
@@ -111,7 +107,7 @@ const WhiteArrowAfter = styled(WhiteArrowAfterSVG)`
 const GoUpMessage = styled(GoUpMessageSVG)`
   margin-top: 10px;
   margin-bottom: 70px;
-`
+`;
 
 const scrollToTop = () => {
   window.scrollTo({
@@ -139,14 +135,38 @@ const ChangingIcon = () => {
   );
 };
 
+const LoginButton = styled.div`
+  position: relative;
+  width: 260px; /* Adjust width as needed */
+  height: 110px;
+  transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+`;
+
+const GoogleLogin = styled(GoogleLoginSVG)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: ${props => (props.isHovered ? 0 : 1)};
+`;
+
+
+const GoogleLoginAfter = styled(GoogleLoginAfterSVG)`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease-in-out;
+  opacity: ${props => (props.isHovered ? 1 : 0)};
+`;
+
 
 function LoginPage() {
   const handleGoogleLogin = () => {
     window.location.href =
       "https://www.drinkguide.store/oauth2/authorization/google";
   };
-  const [isHovered, setIsHovered] = useState(false);
 
+  const [isHovered, setIsHovered] = useState(false);
 
 
   return (
@@ -161,11 +181,20 @@ function LoginPage() {
           별도의 번거로운 회원가입 절차 없이 <br />
           구글 계정으로 만나보세요!
         </Text>
-        <StyledGoogleLogin
-          onClick={() => {
+
+        <div
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onClick={scrollToTop}
+        >
+          <LoginButton isHovered={isHovered} onClick={() => {
             handleGoogleLogin();
-          }}
-        />
+          }}>
+            <GoogleLogin isHovered={isHovered} />
+            <GoogleLoginAfter isHovered={isHovered} />
+          </LoginButton>
+        </div>
+
         <Text
           color="#FFFFFF"
           fontSize="16px"
