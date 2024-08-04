@@ -26,7 +26,6 @@ const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 852px;
   width: 100vw;
   margin: 0 auto;
   background-color: black;
@@ -103,6 +102,10 @@ const SubscribeCheckWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -129,6 +132,8 @@ const HistoryButtonWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
+  align-items: center;
+
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -146,6 +151,11 @@ const HistoryButtonWrapper = styled.div`
     opacity: 1;
   }
 `;
+
+const StyledHistoryButtonWrapper = styled(HistoryButtonWrapper)`
+margin-bottom: 70px;
+`
+
 const MyPage = () => {
   const navigate = useNavigate();
   const [subscribe, setSubscribe] = useState(false); // 기본값 false로 설정
@@ -256,15 +266,14 @@ const MyPage = () => {
           <SubscribeCheck className="before" />
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
-
-        <HistoryButtonWrapper
+        <StyledHistoryButtonWrapper
           onClick={() => {
             navigate("/history");
           }}
         >
           <HistoryButton className="before" />
           <HistoryButtonAfter className="after" />
-        </HistoryButtonWrapper>
+        </StyledHistoryButtonWrapper>
       </MyPageContainer>
       <Footer />
     </>

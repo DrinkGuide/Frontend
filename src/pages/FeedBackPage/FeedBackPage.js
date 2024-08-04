@@ -7,6 +7,7 @@ import { Footer } from "../../components/Footer";
 import styled from "styled-components";
 import { ReactComponent as FeedBackText } from "../../assets/images/feedback-text.svg";
 import { Button } from "../../components/Button";
+import "./FeedBack.css";
 import { useLocation } from "react-router-dom";
 import { getAccessTokenAtom } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
@@ -16,7 +17,6 @@ const FeedBackContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* 화면 높이 맞춤 */
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
@@ -162,7 +162,8 @@ function FeedBackPage() {
           onChange={handleContentChange}
           maxLength={500}
         ></StyledTextarea>
-        <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit} />
+        <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit}/>
+        <div class="margin-bottom" />
       </FeedBackContainer>
       <Footer />
     </>
