@@ -221,6 +221,10 @@ const MyPage = () => {
     setIcons(newIcons);
   };
 
+  useEffect(() => {
+    addIconArray();
+  }, [certify]);
+
   return (
     <>
       <MyPageContainer>
