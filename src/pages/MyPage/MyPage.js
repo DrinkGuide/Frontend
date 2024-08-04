@@ -203,7 +203,6 @@ const MyPage = () => {
           }
         );
         setCertify(response.data.data);
-        console.log(response.data.data);
         setPurchaseNum(response.data.data.length);
         addIconArray();
       } catch (error) {
@@ -213,9 +212,6 @@ const MyPage = () => {
     fetchPurchaseNumInfoData();
   }, []); // 구매
 
-  useEffect(() => {
-    addIconArray();
-  }, [certify]);
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
       if (item === "DRINK") return <Changing_icon_2 key={index} />;
@@ -253,7 +249,6 @@ const MyPage = () => {
           <br />
           {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
         </MypageTextBox>
-
         <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
@@ -262,7 +257,6 @@ const MyPage = () => {
           <SubscribeCheck className="before" />
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
-
         <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");
