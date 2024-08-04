@@ -14,7 +14,7 @@ import {
 } from "../../../recoil/atom";
 import { scanPageProductTypeAtom } from "../../../recoil/atom";
 
-const ImageSlider = () => {
+const ImageSlider = ({ onClick }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const sliderRef = useRef(null);
   const setResultColor = useSetRecoilState(scanPageColorAtom);
@@ -61,7 +61,7 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="slider-container">
+    <div className="slider-container" onClick={onClick}>
       <div className="slider" ref={sliderRef}>
         {images.map((image, index) => {
           const virtualIndex = index % images.length;
