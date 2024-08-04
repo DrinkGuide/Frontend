@@ -52,8 +52,7 @@ const ImageSlider = ({ onClick }) => {
     const productTypeObj = productTypeKoreanList.find(
       (item) => item[productName]
     );
-    const productType = productTypeObj ? productTypeObj[productName] : "음료"; // Default color if not found
-
+    const productType = productTypeObj ? productTypeObj[productName] : "음료";
     setProductType(productType);
     console.log(productType);
     console.log(color);

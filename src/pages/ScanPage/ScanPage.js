@@ -122,11 +122,15 @@ const ScanPage = () => {
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
   const [productName, setProductName] = useState("코카콜라 제로");
-  const productType = useRecoilValue(scanPageProductTypeAtom);
+  const productType = useRecoilValue(scanPageProductTypeAtom); // 화면에 보여주기 위한 hook
+  const [sendProductType, setSendProductType] = useState("DRINK"); // 서버 전달용 변수
   const [clickTimeout, setClickTimeout] = useState(null);
   const resultColor = useRecoilValue(scanPageColorAtom);
-  const accessToken = useRecoilValue(getAccessTokenAtom);
-  const data = { productName: productName, productType: productType };
+  // const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+
+  const data = { productName: productName, productType: sendProductType };
 
   useEffect(() => {
     const init = async () => {
@@ -163,6 +167,14 @@ const ScanPage = () => {
 
     setResult(maxPrediction.className);
   };
+
+  useEffect(() => {
+    if (productType === "음료") {
+      setSendProductType("DRINK");
+    } else if (productType === "과자") {
+      setSendProductType("SNACK");
+    }
+  }, [productType]);
 
   const videoConstraints = {
     facingMode: "environment",

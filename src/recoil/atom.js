@@ -41,5 +41,5 @@ export const scanPageColorAtom = atom({
 
 export const scanPageProductTypeAtom = atom({
   key: "scanPageProductType",
-  default: "DRINK",
+  default: "음료",
 });
