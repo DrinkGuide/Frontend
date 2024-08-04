@@ -129,10 +129,6 @@ const scrollToTop = () => {
   });
 };
 
-const MainPage = () => {
-  const navigate = useNavigate();
-  const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
-  const [isHovered, setIsHovered] = useState(false);
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -140,6 +136,8 @@ const MainPage = () => {
     useRecoilState(SubscribeTypeAtom);
   const [isSubscribe, setIsSubscribe] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(getAccessTokenAtom);
+  const [isHovered, setIsHovered] = useState(false);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
