@@ -194,8 +194,7 @@ const SubscribePage = () => {
   const [subscribeTypeKorean, setSubscribeTypeKorean] = useState("음료");
   const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
-
-  const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken = localStorage.getItem("accessToken");
 
   const handleCancelClick = () => {
     setPopupVisible(true);

@@ -53,8 +53,8 @@ const IconWrapper = styled.div`
   width: 35px; /* Adjust width as needed */
   height: 35px; /* Adjust height as needed */
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
-  margin-top: ${props => (props.isHovered ? '-20px' : '0')};
-  margin-bottom: ${props => (props.isHovered ? '20px' : '0')};
+  margin-top: ${(props) => (props.isHovered ? "-20px" : "0")};
+  margin-bottom: ${(props) => (props.isHovered ? "20px" : "0")};
 `;
 
 const WhiteArrowBefore = styled(WhiteArrowBeforeSVG)`
@@ -62,7 +62,7 @@ const WhiteArrowBefore = styled(WhiteArrowBeforeSVG)`
   width: 100%;
   height: 100%;
   transition: opacity 0.5s ease-in-out;
-  opacity: ${props => (props.isHovered ? 0 : 1)};
+  opacity: ${(props) => (props.isHovered ? 0 : 1)};
 `;
 
 const WhiteArrowAfter = styled(WhiteArrowAfterSVG)`
@@ -70,56 +70,59 @@ const WhiteArrowAfter = styled(WhiteArrowAfterSVG)`
   width: 100%;
   height: 100%;
   transition: opacity 0.5s ease-in-out;
-  opacity: ${props => (props.isHovered ? 1 : 0)};
+  opacity: ${(props) => (props.isHovered ? 1 : 0)};
 `;
 
 const GoUpMessage = styled(GoUpMessageSVG)`
   margin-top: 10px;
   margin-bottom: 70px;
-`
+`;
 
 const StyledChanging_icon_1 = styled(Changing_icon_1)`
   width: auto;
   height: 150px;
-`
+`;
 const StyledChanging_icon_2 = styled(Changing_icon_2)`
   width: auto;
   height: 150px;
-`
+`;
 const StyledChanging_icon_3 = styled(Changing_icon_3)`
   width: auto;
   height: 150px;
-`
+`;
 const StyledChanging_icon_4 = styled(Changing_icon_4)`
   width: auto;
   height: 150px;
-`
+`;
 const StyledChanging_icon_5 = styled(Changing_icon_5)`
   width: auto;
   height: 150px;
-`
+`;
 const StyledChanging_icon_6 = styled(Changing_icon_6)`
   width: auto;
   height: 150px;
-`
+`;
 
 const ChangingIcon = () => {
-  const icons = [<StyledChanging_icon_1 />, <StyledChanging_icon_2 />, <StyledChanging_icon_3 />, <StyledChanging_icon_4 />, <StyledChanging_icon_5 />, <StyledChanging_icon_6 />];
+  const icons = [
+    <StyledChanging_icon_1 />,
+    <StyledChanging_icon_2 />,
+    <StyledChanging_icon_3 />,
+    <StyledChanging_icon_4 />,
+    <StyledChanging_icon_5 />,
+    <StyledChanging_icon_6 />,
+  ];
   const [currentIconIndex, setCurrentIconIndex] = useState(0);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentIconIndex(prevIndex => (prevIndex + 1) % icons.length);
+      setCurrentIconIndex((prevIndex) => (prevIndex + 1) % icons.length);
     }, 500); // 0.5초 간격으로 아이콘 변경
 
     return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
   }, []);
 
-  return (
-    <div>
-      {icons[currentIconIndex]}
-    </div>
-  );
+  return <div>{icons[currentIconIndex]}</div>;
 };
 
 const scrollToTop = () => {
@@ -128,7 +131,6 @@ const scrollToTop = () => {
     behavior: "smooth",
   });
 };
-
 
 const MainPage = () => {
   const navigate = useNavigate();
@@ -143,9 +145,7 @@ const MainPage = () => {
   useEffect(() => {
     // 로그인 후 accessToken을 localStorage에서 가져오기
     const token = localStorage.getItem("accessToken");
-    console.log(token);
     if (token) {
-      setAccessToken(token); // Recoil 상태 업데이트
       setIsLoggedIn(true); // 로그인 상태 업데이트
     } else {
       setIsLoggedIn(false); // 로그인 상태 업데이트
@@ -181,7 +181,6 @@ const MainPage = () => {
       fetchData();
     }
   }, [accessToken, setUserSubscribeType]);
-
 
   //스크롤 버튼 활성화
 
@@ -243,25 +242,25 @@ const MainPage = () => {
       </span>
 
       <div className="group-12" id="scrollTarget">
-          <div className="rectangle-33"></div>
-          <div className="rectangle-34"></div>
-          <div className="rectangle-35"></div>
-          <div className="div">
-            <span>
-              <span className="div-span">정확</span>
-              <span className="div-span2">하고 </span>
-              <span className="div-span3">또박또박</span>
-              <span className="div-span4">
-                하게
-                <br />
-                그리고
-              </span>
-              <span className="div-span2"> </span>
-              <span className="div-span5">손쉽게</span>
-              <span className="div-span6">!</span>
+        <div className="rectangle-33"></div>
+        <div className="rectangle-34"></div>
+        <div className="rectangle-35"></div>
+        <div className="div">
+          <span>
+            <span className="div-span">정확</span>
+            <span className="div-span2">하고 </span>
+            <span className="div-span3">또박또박</span>
+            <span className="div-span4">
+              하게
+              <br />
+              그리고
             </span>
-          </div>
+            <span className="div-span2"> </span>
+            <span className="div-span5">손쉽게</span>
+            <span className="div-span6">!</span>
+          </span>
         </div>
+      </div>
 
       <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
         글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
@@ -306,7 +305,7 @@ const MainPage = () => {
           <WhiteArrowAfter isHovered={isHovered} />
         </IconWrapper>
       </div>
-        <GoUpMessage />
+      <GoUpMessage />
       <Footer />
     </MainContainer>
   );

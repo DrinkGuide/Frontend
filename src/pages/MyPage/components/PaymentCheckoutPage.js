@@ -13,21 +13,41 @@ export const PaymentCheckoutPage = ({ token }) => {
   const [payment, setPayment] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false); // 결제 처리 상태 추가
   const [subscribeType, setSubscribeType] = useState("DRINK");
-  const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken = localStorage.getItem("accessToken");
+  const [nickname, setNickName] = useState();
+
+  useEffect(() => {
+    const fetchMemberInfoData = async () => {
+      try {
+        const response = await axios.get(
+          "https://www.drinkguide.store/api/v1/members",
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        console.log(response.data.data.nickname);
+        setNickName(response.data.data.nickname);
+      } catch (error) {
+        console.error("실패함", error);
+      }
+    };
+    fetchMemberInfoData();
+  }, []); // 닉네임 및 구독 정보 조회
 
   // 사용자가 지정한 결제 정보
   const amount = {
     currency: "KRW",
     value: price,
   };
-
+  const decoded = jwtDecode(accessToken);
   const orderId = uuidv4(); // 랜덤하게 생성된 orderId
   const orderName = type;
-  const customerName = "이주승";
+  const customerName = nickname;
   const customerEmail = "juseung0619@gmail.com";
   const clientKey = "test_ck_ma60RZblrqopozZjBRoZ3wzYWBn1";
   const customerKey = "cro1z9vgLoNhtEeGh0euB";
-  const decoded = jwtDecode(accessToken);
 
   useEffect(() => {
     async function fetchPayment() {

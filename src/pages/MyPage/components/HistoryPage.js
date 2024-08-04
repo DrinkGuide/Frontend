@@ -12,7 +12,6 @@ import { ReactComponent as Changing_icon_3 } from "../../../assets/images/changi
 import { ReactComponent as Changing_icon_4 } from "../../../assets/images/changing_icon_4.svg";
 import { ReactComponent as Changing_icon_5 } from "../../../assets/images/changing_icon_5.svg";
 import { ReactComponent as Changing_icon_6 } from "../../../assets/images/changing_icon_6.svg";
-import { getAccessTokenAtom } from "../../../recoil/atom";
 
 const HistoryContainer = styled.div`
   display: flex;
@@ -129,7 +128,8 @@ const HistoryPage = () => {
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
   const [infoSpeech, setInfoSpeech] = useState();
-  const accessToken = useRecoilValue(getAccessTokenAtom);
+
+  const accessToken = localStorage.getItem("accessToken");
 
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;

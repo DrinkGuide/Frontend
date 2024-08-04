@@ -62,7 +62,7 @@ function FeedBackPage() {
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const location = useLocation();
-  const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken = localStorage.getItem("accessToken");
 
   const {
     transcript,
