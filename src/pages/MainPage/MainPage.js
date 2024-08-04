@@ -125,6 +125,13 @@ const ChangingIcon = () => {
   );
 };
 
+const scrollToTop = () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+};
+
 const MainPage = () => {
   const navigate = useNavigate();
   const [light, setLight] = useState(true); // Recoil로 전역변수 처리해야 됨
@@ -241,6 +248,7 @@ const MainPage = () => {
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        onClick={scrollToTop}
       >
         <IconWrapper isHovered={isHovered}>
           <WhiteArrowBefore isHovered={isHovered} />
