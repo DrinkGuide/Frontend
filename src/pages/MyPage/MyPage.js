@@ -14,9 +14,6 @@ import { ReactComponent as Changing_icon_3 } from "../../assets/images/changing_
 import { ReactComponent as Changing_icon_4 } from "../../assets/images/changing_icon_4.svg";
 import { ReactComponent as Changing_icon_5 } from "../../assets/images/changing_icon_5.svg";
 import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_icon_6.svg";
-import { ReactComponent as GoUpMessage } from "../../assets/images/go-up-message.svg";
-import { ReactComponent as WhiteArrowBefore } from "../../assets/images/white-arrow-before.svg";
-import { ReactComponent as WhiteArrowAfter } from "../../assets/images/white-arrow-after.svg";
 import { Button } from "../../components/Button";
 import { Footer } from "../../components/Footer";
 import "./MyPage.css";
@@ -25,7 +22,6 @@ const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
   width: 100vw;
   margin: 0 auto;
   background-color: black;
@@ -99,6 +95,10 @@ const SubscribeCheckWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 
   & svg {
     position: absolute;
@@ -128,6 +128,9 @@ const HistoryButtonWrapper = styled.div`
   width: 50%; /* 필요에 따라 크기를 조정 */
   height: 40px; /* 필요에 따라 크기를 조정 */
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   & svg {
     position: absolute;
@@ -150,6 +153,11 @@ const HistoryButtonWrapper = styled.div`
     opacity: 1;
   }
 `;
+
+const StyledHistoryButtonWrapper = styled(HistoryButtonWrapper)`
+margin-bottom: 20vh;
+
+`
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -210,14 +218,14 @@ const MyPage = () => {
           <SubscribeCheck className="before" />
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
-        <HistoryButtonWrapper
+        <StyledHistoryButtonWrapper
           onClick={() => {
             navigate("/history");
           }}
         >
           <HistoryButton className="before" />
           <HistoryButtonAfter className="after" />
-        </HistoryButtonWrapper>
+        </StyledHistoryButtonWrapper>
       </MyPageContainer>
       <Footer />
     </>

@@ -22,7 +22,6 @@ const SubscirbeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* 화면 높이 맞춤 */
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: black;
@@ -64,7 +63,7 @@ const SubscribePlan = styled.div`
 `;
 
 const SubscribeButton = styled.div`
-  margin: 50px 0 0 0;
+  margin: 50px 0 150px 0;
   cursor: pointer;
   position: relative;
   width: 50px; /* SVG 너비에 맞춰서 설정 */
