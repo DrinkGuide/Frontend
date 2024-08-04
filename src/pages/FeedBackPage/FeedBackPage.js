@@ -20,6 +20,7 @@ const FeedBackContainer = styled.div`
   margin: 0 auto;
   background-color: black;
   padding-top: 129px;
+  padding-bottom : 100px;
 `;
 
 const TextContainer = styled.div`
@@ -88,13 +89,19 @@ function FeedBackPage() {
 
   useEffect(() => {
     if (!isTyping.current) {
-      const newText = transcript.replace(prevTranscript.current, "");
+      const newText = transcript.substring(prevTranscript.current.length).trim();
       if (newText) {
-        setContent((prevContent) => prevContent + newText);
-        prevTranscript.current = transcript;
+        setContent((prevContent) => {
+          const trimmedContent = prevContent.trimEnd();
+          return trimmedContent + (trimmedContent ? " " : "") + newText;
+        });
       }
+      prevTranscript.current = transcript;
     }
   }, [transcript]);
+  
+  
+
 
   const handleRecordOn = () => {
     SpeechRecognition.startListening({ continuous: true });
@@ -157,7 +164,7 @@ function FeedBackPage() {
           onChange={handleContentChange}
           maxLength={500}
         ></StyledTextarea>
-        <Button name={"제출"} color={"#FFFA87"} onClick={handleSubmit} />
+        <Button name={"제출"} color={"#FFFA87"} width={"214px"} height = {"57px"} paddingBottom={"68px"} onClick={handleSubmit}  />
       </FeedBackContainer>
       {isModalOpen && <SubmitModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />}
       <Footer />

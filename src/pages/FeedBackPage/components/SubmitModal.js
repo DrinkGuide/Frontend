@@ -34,17 +34,6 @@ const ModalContainer = styled.div`
   z-index: 1001; /* Ensure the modal content is above the overlay */
 `;
 
-const ModalText = styled.div`
-  color: #ffffff;
-  font-family: "PretendardVariable-Bold", sans-serif;
-  font-size: 13.5px;
-  line-height: 150%;
-  letter-spacing: -0.011em;
-  font-weight: 700;
-  text-align: center;
-`;
-
-
 
 const SubmitModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -52,11 +41,11 @@ const SubmitModal = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContainer>
         <SubmitCheckButton />
-        <Text color="#FFFFFF" fontSize="14px" >
+        <Text color="#FFFFFF" fontSize="12px" >
           고객님의 소중한 의견이 제출되었습니다.
           <br />더 나은 보이스라벨을 기대해주세요!
         </Text>
-        <Button name={"닫기"} color={"#FFFA87"} width={"152px"} height={"39px"} onClick={onClose} />
+        <Button name={"닫기"} color={"#FFFA87"} width={"152px"} height={"39px"}   onClick={onClose} />
       </ModalContainer>
     </ModalOverlay>
   );
