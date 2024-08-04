@@ -155,9 +155,9 @@ const HistoryButtonWrapper = styled.div`
 `;
 
 const StyledHistoryButtonWrapper = styled(HistoryButtonWrapper)`
-margin-bottom: 20vh;
-
+margin-bottom: 70px;
 `
+
 
 const MyPage = () => {
   const navigate = useNavigate();
