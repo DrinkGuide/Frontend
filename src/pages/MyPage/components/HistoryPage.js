@@ -188,6 +188,9 @@ const HistoryPage = () => {
   };
 
   useEffect(() => {
+    addIconArray();
+  }, [certify]);
+  useEffect(() => {
     const fetchHistoryData = async () => {
       try {
         const response = await axios.get(
@@ -223,7 +226,7 @@ const HistoryPage = () => {
 
         setCertify(response.data.data);
         setPurchaseNum(response.data.data.length);
-        addIconArray();
+        console.log(response.data.data.length);
       } catch (error) {
         console.error("실패함", error);
       }

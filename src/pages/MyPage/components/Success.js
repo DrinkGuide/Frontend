@@ -32,7 +32,7 @@ const Success = () => {
       if (response.data.success) {
         setPaymentApproved(true); // 결제 승인 상태 업데이트
         // 다음 페이지로 이동
-        window.location.href = "/subscribe"; // 적절한 URL로 수정
+        window.location.href = "/mypage"; // 적절한 URL로 수정
       } else {
         setErrorMessage("결제 승인 실패: " + response.data.message);
       }

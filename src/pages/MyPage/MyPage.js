@@ -26,6 +26,7 @@ const MyPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 852px;
   width: 100vw;
   margin: 0 auto;
   background-color: black;
@@ -104,8 +105,6 @@ const SubscribeCheckWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
-
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -132,8 +131,6 @@ const HistoryButtonWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
-  align-items: center;
-
   & svg {
     position: absolute;
     transition: opacity 0.3s ease-in-out;
@@ -151,11 +148,6 @@ const HistoryButtonWrapper = styled.div`
     opacity: 1;
   }
 `;
-
-const StyledHistoryButtonWrapper = styled(HistoryButtonWrapper)`
-margin-bottom: 70px;
-`
-
 const MyPage = () => {
   const navigate = useNavigate();
   const [subscribe, setSubscribe] = useState(false); // 기본값 false로 설정
@@ -163,9 +155,9 @@ const MyPage = () => {
   const [purchaseNum, setPurchaseNum] = useState();
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
-  const accessToken = useRecoilValue(getAccessTokenAtom);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  // const accessToken = useRecoilValue(getAccessTokenAtom);
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
@@ -211,6 +203,7 @@ const MyPage = () => {
           }
         );
         setCertify(response.data.data);
+        console.log(response.data.data);
         setPurchaseNum(response.data.data.length);
         addIconArray();
       } catch (error) {
@@ -220,6 +213,9 @@ const MyPage = () => {
     fetchPurchaseNumInfoData();
   }, []); // 구매
 
+  useEffect(() => {
+    addIconArray();
+  }, [certify]);
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
       if (item === "DRINK") return <Changing_icon_2 key={index} />;
@@ -266,14 +262,15 @@ const MyPage = () => {
           <SubscribeCheck className="before" />
           <SubscribeCheckAfter className="after" />
         </SubscribeCheckWrapper>
-        <StyledHistoryButtonWrapper
+
+        <HistoryButtonWrapper
           onClick={() => {
             navigate("/history");
           }}
         >
           <HistoryButton className="before" />
           <HistoryButtonAfter className="after" />
-        </StyledHistoryButtonWrapper>
+        </HistoryButtonWrapper>
       </MyPageContainer>
       <Footer />
     </>
