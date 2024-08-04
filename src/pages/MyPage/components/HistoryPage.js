@@ -129,66 +129,10 @@ const HistoryPage = () => {
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
   const [infoSpeech, setInfoSpeech] = useState();
-  const [nutrientInfo, setNutrientInfo] = useState([]);
-  // const accessToken = useRecoilValue(getAccessTokenAtom);
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  const accessToken = useRecoilValue(getAccessTokenAtom);
 
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
-
-  // const purchaseHistory = [
-  //   {
-  //     name: "포카리스웨트",
-  //     date: "2024년 01월 01일",
-  //     details: "영양성분: 수분, 나트륨, 칼륨, 칼슘, 마그네슘",
-  //     image:
-  //       "https://img.danawa.com/prod_img/500000/217/969/img/1969217_1.jpg?_v=20220302173222",
-  //   },
-  //   {
-  //     name: "비타500",
-  //     date: "2024년 01월 02일",
-  //     details: "영양성분: 비타민C, 탄산수, 설탕",
-  //     image: "/path/to/vita500.png",
-  //   },
-  //   {
-  //     name: "코카콜라",
-  //     date: "2024년 01월 03일",
-  //     details: "영양성분: 탄산수, 설탕, 카페인, 카라멜 색소",
-  //     image: "/path/to/cocacola.png",
-  //   },
-  //   {
-  //     name: "아쿠아리우스",
-  //     date: "2024년 01월 04일",
-  //     details: "영양성분: 수분, 나트륨, 칼륨, 칼슘, 마그네슘",
-  //     image: "/path/to/aquarius.png",
-  //   },
-  //   {
-  //     name: "파워에이드",
-  //     date: "2024년 01월 05일",
-  //     details: "영양성분: 수분, 나트륨, 칼륨, 칼슘, 마그네슘",
-  //     image: "/path/to/powerade.png",
-  //   },
-  //   {
-  //     name: "레몬에이드",
-  //     date: "2024년 01월 06일",
-  //     details: "영양성분: 물, 레몬즙, 설탕, 비타민C",
-  //     image: "/path/to/lemonade.png",
-  //   },
-  //   {
-  //     name: "환타",
-  //     date: "2024년 01월 07일",
-  //     details: "영양성분: 탄산수, 설탕, 인공향료, 색소",
-  //     image: "/path/to/fanta.png",
-  //   },
-  //   {
-  //     name: "사이다",
-  //     date: "2024년 01월 08일",
-  //     details: "영양성분: 탄산수, 설탕, 인공향료",
-  //     image: "/path/to/cider.png",
-  //   },
-  //   // ...더 많은 상품 데이터 추가 가능
-  // ];
 
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {

@@ -185,8 +185,6 @@ const SubscribePage = () => {
   const navigate = useNavigate();
 
   const accessToken = useRecoilValue(getAccessTokenAtom);
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const handleCancelClick = () => {
     setPopupVisible(true);
@@ -207,7 +205,7 @@ const SubscribePage = () => {
 
   const handleDevelopClick = () => {
     setDevelopPopupVisible(true);
-  }
+  };
 
   const handleCloseDevelopPopup = () => {
     setDevelopPopupVisible(false);
@@ -278,13 +276,14 @@ const SubscribePage = () => {
           <span>음료 + 과자</span>
           <span>7,000원</span>
         </SubscribePlan>
-        <SubscribePlan onClick={handleDevelopClick}
-        // onClick={() =>
-        //   handleNavigateToPayments(
-        //     15000,
-        //     "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
-        //   )
-        // }
+        <SubscribePlan
+          onClick={handleDevelopClick}
+          // onClick={() =>
+          //   handleNavigateToPayments(
+          //     15000,
+          //     "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
+          //   )
+          // }
         >
           <span>음료 + 과자 + 가공식품</span>
           <span>15,000원</span>
@@ -334,7 +333,7 @@ const SubscribePage = () => {
           <Popup>
             <PopupHeader>
               <StyledExclamationMark2 />
-              현재 준비중인 서비스입니다. <br/>
+              현재 준비중인 서비스입니다. <br />
               조금만 더 기다려주세요!
             </PopupHeader>
             <PopupButtons>

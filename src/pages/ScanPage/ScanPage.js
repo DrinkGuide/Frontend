@@ -121,15 +121,11 @@ const ScanPage = () => {
   const [model, setModel] = useState(null);
   const [result, setResult] = useState("");
   const webcamRef = useRef(null);
-  const [productName, setProductName] = useState("제로콜라");
+  const [productName, setProductName] = useState("코카콜라 제로");
   const productType = useRecoilValue(scanPageProductTypeAtom);
   const [clickTimeout, setClickTimeout] = useState(null);
   const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = useRecoilValue(getAccessTokenAtom);
-
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZjliMjZkNF0iLCJpYXQiOjE3MjI3MTc1MDksImV4cCI6MzMyNTg3MTc1MDl9.ovyF_lxTHJ5eBoQZNPiCDYMiLtDqZSTr4q173h-EK2g";
-
   const data = { productName: productName, productType: productType };
 
   useEffect(() => {
@@ -155,7 +151,6 @@ const ScanPage = () => {
         console.error("Error loading the model: ", error);
       }
     };
-
     init();
   }, [URL]);
 
@@ -193,7 +188,6 @@ const ScanPage = () => {
         "Error:",
         error.response ? error.response.statusText : error.message
       );
-      getSpeech(`${data.productName} 음료를 구매합니다`);
     }
   };
 
