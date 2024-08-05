@@ -217,6 +217,10 @@ const MyPage = () => {
     fetchPurchaseNumInfoData();
   }, []); // 구매
 
+  useEffect(() => {
+    addIconArray();
+  }, [certify]);
+
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
       if (item === "DRINK") return <Changing_icon_2 key={index} />;
