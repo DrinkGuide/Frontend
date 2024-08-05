@@ -17,17 +17,18 @@ color: ${(props) => props.color};
 `;
 
 export const Text = (props) => {
-  const { marginTop, marginBottom, paddingTop, paddingBottom, color, fontSize, fontWeight, children } = props;
+  const { marginTop, marginBottom, paddingTop, paddingBottom, color, fontSize, fontWeight, children, font } = props;
 
   return (
     <TextContainer
-    marginBottom={marginBottom}
-    marginTop={marginTop}
+      marginBottom={marginBottom}
+      marginTop={marginTop}
       color={color}
       paddingTop={paddingTop}
       paddingBottom={paddingBottom}
       fontSize={fontSize}
       fontWeight={fontWeight}
+      font={font}
     >
       {children}
     </TextContainer>
