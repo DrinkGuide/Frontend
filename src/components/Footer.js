@@ -9,7 +9,11 @@ const FooterContainer = styled.div`
   width: 100vw;
   margin: 0 auto;
   padding-top : 54px;
+<<<<<<< HEAD
+  padding-bottom: 31px;
+=======
   padding-bottom: 61px;
+>>>>>>> 407f3936c6c139fea6127ae4730766bb444de80d
   align-items: center;
   color: #ffffff;
 `;

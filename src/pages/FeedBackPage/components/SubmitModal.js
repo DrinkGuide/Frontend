@@ -21,10 +21,8 @@ const ModalOverlay = styled.div`
 
 const ModalContainer = styled.div`
   box-sizing: border-box;
-  padding: 33px 56px;
   display: flex;
   flex-direction: column;
-  gap: 22px;
   background: #282828;
   border-radius: 16px;
   align-items: center;
@@ -42,7 +40,7 @@ const SubmitModal = ({ isOpen, onClose }) => {
     <ModalOverlay>
       <ModalContainer>
         <SubmitCheckButton />
-        <Text color="#FFFFFF" fontSize="15px" fontWeight="700">
+        <Text color="#FFFFFF" fontSize="13px" fontWeight="700" paddingTop ="22px" paddingBottom ="22px">
           고객님의 소중한 의견이 제출되었습니다.
           <br />더 나은 보이스라벨을 기대해주세요!
         </Text>

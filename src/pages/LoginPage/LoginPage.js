@@ -86,6 +86,7 @@ const IconWrapper = styled.div`
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
   margin-top: ${props => (props.isHovered ? '-15px' : '0')};
   margin-bottom: ${props => (props.isHovered ? '15px' : '0')};
+  cursor:pointer;
 `;
 
 const WhiteArrowBefore = styled(WhiteArrowBeforeSVG)`
@@ -140,6 +141,7 @@ const LoginButton = styled.div`
   width: 260px; /* Adjust width as needed */
   height: 55px;
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
+  cursor : pointer;
 `;
 
 const GoogleLogin = styled(GoogleLoginSVG)`
@@ -268,6 +270,7 @@ function LoginPage() {
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={scrollToTop}
+          
         >
           <IconWrapper isHovered={isHovered}>
             <WhiteArrowBefore isHovered={isHovered} />

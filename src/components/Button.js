@@ -25,6 +25,7 @@ const ButtonContainer = styled.div`
 
   &:hover {
     background-color: ${(props) => props.color};
+    cursor:pointer;
 
     & > button {
       color: #000000;
@@ -37,20 +38,20 @@ const ButtonContentBox = styled.button`
   border: none;
   color: ${(props) => props.color};
   text-align: center;
-  font-size: 24px;
-  line-height: 150%;
-  letter-spacing: -0.011000000000000001em;
+  font-size: ${(props) => props.fontSize};
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Button = (props) => {
-  const { name, color, onClick , width, height, marginBottom, fontWeight, paddingTop} = props;
+  const { name, color, onClick , width, height, marginBottom, fontWeight, paddingTop, fontSize} = props;
 
   return (
     <ButtonContainer color={color} width={width} height={height} marginBottom= {marginBottom} paddingTop={paddingTop} fontWeight= {fontWeight} onClick={onClick}>
-      <ButtonContentBox color={color}>{name}</ButtonContentBox>
+      <ButtonContentBox color={color} fontSize={fontSize}>{name}</ButtonContentBox>
     </ButtonContainer>
   );
 };
