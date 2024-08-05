@@ -39,3 +39,7 @@ export const getSpeech = (text) => {
 
   speech(text);
 };
+
+export const stopSpeech = () => {
+  window.speechSynthesis.cancel();
+};
