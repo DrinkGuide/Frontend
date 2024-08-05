@@ -41,7 +41,7 @@ const LoginContainer = styled.div`
 `;
 
 const TextContainer = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 51px;
   color: #ffffff;
   text-align: center;
   font-family: "PretendardVariable-Bold", sans-serif;
@@ -105,8 +105,8 @@ const WhiteArrowAfter = styled(WhiteArrowAfterSVG)`
 `;
 
 const GoUpMessage = styled(GoUpMessageSVG)`
-  margin-top: 10px;
-  margin-bottom: 70px;
+  margin-top: 16px;
+  margin-bottom: 68px;
 `;
 
 const scrollToTop = () => {
@@ -138,7 +138,7 @@ const ChangingIcon = () => {
 const LoginButton = styled.div`
   position: relative;
   width: 260px; /* Adjust width as needed */
-  height: 110px;
+  height: 55px;
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
 `;
 
@@ -171,13 +171,13 @@ function LoginPage() {
 
   return (
     <>
-      <LoginContainer>
+      <LoginContainer paddingTop="129px">
         <VoiceLabelText />
         <TextContainer>
           언제 어디서나 손쉽게 음성으로 만나는 정확한 정보
         </TextContainer>
-        <Marquee paddingBottom="40px" />
-        <Text color="#FFFFFF" fontSize="23px" marginTop="60px" fontWeight="700">
+        <Marquee paddingBottom="100px" />
+        <Text color="#FFFFFF" fontSize="23px"  fontWeight="700" paddingBottom="25px">
           별도의 번거로운 회원가입 절차 없이 <br />
           구글 계정으로 만나보세요!
         </Text>
@@ -198,13 +198,14 @@ function LoginPage() {
         <Text
           color="#FFFFFF"
           fontSize="16px"
-          marginTop="60px"
+          marginTop="96px"
           paddingBottom="25px"
+          fontWeight="700"
         >
           보이스라벨은 어떤 서비스인가요?
         </Text>
         <ScrollButton onClick={handleScroll} />
-        <Marquee paddingTop="60px" paddingBottom="100px" />
+        <Marquee paddingTop="65px" paddingBottom="145px" />
         <span>
           <EyeIcon />
           <SpeechIcon />
@@ -231,7 +232,7 @@ function LoginPage() {
           </div>
         </div>
 
-        <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
+        <Text color="#FFFFFF" fontSize="14px">
           글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
           <br />
           빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를

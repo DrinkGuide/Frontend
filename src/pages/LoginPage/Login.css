@@ -270,6 +270,7 @@
 
 .group-12 {
   background-color: #000000;
-  padding: 48px; 
+  padding-top: 48px;
+  padding-bottom: 55px; 
   text-align: center;
 }
