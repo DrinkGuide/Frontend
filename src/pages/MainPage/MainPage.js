@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
-// import "./Main.css";
+import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
 import { Marquee } from "../../components/Marquee";
@@ -143,18 +143,18 @@ const MainPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // 로그인 후 accessToken을 localStorage에서 가져오기
     const token = localStorage.getItem("accessToken");
     if (token) {
-      setIsLoggedIn(true); // 로그인 상태 업데이트
+      setAccessToken(token); // Recoil 상태에 설정
+      setIsLoggedIn(true);
     } else {
-      setIsLoggedIn(false); // 로그인 상태 업데이트
+      setIsLoggedIn(false);
     }
-  }, []);
+  }, [setAccessToken]);
 
   useEffect(() => {
-    // accessToken이 업데이트되었을 때 데이터 페치
     if (accessToken) {
+      console.log("Access Token:", accessToken); // 추가
       const decodedAccessToken = jwtDecode(accessToken);
       console.log(decodedAccessToken);
 
@@ -168,9 +168,11 @@ const MainPage = () => {
               },
             }
           );
-          console.log(response.data.data);
+          console.log(response.data.data); // 응답 데이터 확인
           setUserSubscribeType(response.data.data.subscribeType);
-          if (response.data.data.subscribeType === "DRINK") {
+
+          const subscribeType = response.data.data.subscribeType;
+          if (["DRINK", "TRIAL", "DRINK_SNACK"].includes(subscribeType)) {
             setIsSubscribe(true);
           }
         } catch (error) {
