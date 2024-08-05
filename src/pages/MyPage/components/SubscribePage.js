@@ -47,7 +47,8 @@ const SubscribeTextBox = styled.div`
 `;
 
 const SubscribeTextBox2 = styled.div`
-  background-color: ${(props) => props.fontColor || "#f9e97c"}; /* 배경색 */
+  background-color: ${(props) =>
+    props.backgroundColor || "#f9e97c"}; /* 배경색 */
   color: black;
   text-align: center;
   font-size: 40px;
@@ -309,15 +310,7 @@ const SubscribePage = () => {
           <span>음료 + 과자</span>
           <span>7,000원</span>
         </SubscribePlan>
-        <SubscribePlan
-          onClick={handleDevelopClick}
-          // onClick={() =>
-          //   handleNavigateToPayments(
-          //     15000,
-          //     "[보이스 라벨] 음료 + 과자 + 가공식품 1개월 구독권"
-          //   )
-          // }
-        >
+        <SubscribePlan onClick={handleDevelopClick}>
           <span>음료 + 과자 + 가공식품</span>
           <span>15,000원</span>
         </SubscribePlan>

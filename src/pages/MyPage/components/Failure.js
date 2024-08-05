@@ -3,7 +3,7 @@ export function Failure() {
   const navigate = useNavigate();
   return (
     <>
-      <div>실패</div>
+      <div>결제에 실패하셨습니다</div>
       <button
         onClick={() => {
           navigate("/subscribe");
