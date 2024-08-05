@@ -5,18 +5,19 @@ const FooterContainer = styled.div`
   font-size : 14px;
   display: flex;
   background-color: #282828;
-  height: 7vh;
+  height: 197px;
   width: 100vw;
   margin: 0 auto;
   padding-top : 54px;
   padding-bottom: 61px;
+  align-items: center;
   color: #ffffff;
 `;
 
 const FooterContent = styled.div`
   font-family: "Pretendard-Light";
   font-size : 13px;
-  margin-left : 40px;
+  margin-left : 16px;
 `;
 
 export const Footer = () => {

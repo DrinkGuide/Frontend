@@ -30,7 +30,6 @@ const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  margin: 0 auto;
   background-color: black;
 `;
 
@@ -199,12 +198,12 @@ const MainPage = () => {
   return (
     <MainContainer paddingTop="129px">
       <VoiceLabelText />
-      <Text color="#FFFFFF" fontSize="16px" paddingTop="17.48px">
-        언제 어디서나 손쉽게 음성으로 만나는 정확한 정보
+      <Text color="#FFFFFF" fontSize="16px" paddingTop="17.48px" fontWeignt="700">
+        <b>언제 어디서나 손쉽게 음성으로 만나는 정확한 정보</b>
       </Text>
       <Marquee paddingTop="51px" paddingBottom="63.78px" />
       <Button
-        name="스캔"
+        name="상품 스캔"
         color="#FFFA87"
         width="214px"
         height="57px"
@@ -264,7 +263,7 @@ const MainPage = () => {
         </div>
       </div>
 
-      <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="7px">
         글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
         <br />
         빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를
@@ -289,7 +288,7 @@ const MainPage = () => {
         </span>
       </div>
 
-      <Text color="#FFFFFF" fontSize="14px" paddingTop="45px">
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="7px">
         과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!
         <br />
         다양한 상품의 정보를 빠르게 알려드립니다.
