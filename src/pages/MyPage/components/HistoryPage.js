@@ -129,9 +129,7 @@ const HistoryPage = () => {
   const [infoSpeech, setInfoSpeech] = useState();
   const [isSpeechClicked, setIsSpeechClicked] = useState(false);
 
-  // const accessToken = localStorage.getItem("accessToken");
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAMzg0ZGI3M2ZdIiwiaWF0IjoxNzIyODQyNTI2LCJleHAiOjMzMjU4ODQyNTI2fQ.lrV8-yab6lgmHXv5SxBnIX-4TGqantHsvVN7ZtBrTUQ";
+  const accessToken = localStorage.getItem("accessToken");
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
 
