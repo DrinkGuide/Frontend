@@ -18,12 +18,6 @@ import { getAccessTokenAtom } from "../../../recoil/atom";
 import { Button } from "../../../components/Button";
 import { Footer } from "../../../components/Footer";
 
-/*
-해야할 것들
-
-1. 구독 취소를 누를 때, 호버 반영 - 완료
-2. 구독 취소를 누르면 "정말 구독을 취소하시겠어요" 팝업창 구현 - 완료
-*/
 
 const SubscirbeContainer = styled.div`
   display: flex;
@@ -60,12 +54,13 @@ const SubscribePlan = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 55%;
+  width: 272px;
+  height: 39px;
   color: #f9e97c;
   border: 2.5px solid #f9e97c;
   border-radius: 15px;
-  margin-bottom: 10px;
-  padding: 10px 20px;
+  margin-bottom: 11px;
+  padding: 0 15px 0 23px;
   font-size: 16px;
   font-weight: bold;
 
@@ -78,11 +73,11 @@ const SubscribePlan = styled.div`
 `;
 
 const SubscribeButton = styled.div`
-  margin: 50px 0 150px 0;
+  margin: 47px 0 68px 0;
   cursor: pointer;
   position: relative;
   width: 50px; /* SVG 너비에 맞춰서 설정 */
-  height: 50px; /* SVG 높이에 맞춰서 설정 */
+  height: 57px; /* SVG 높이에 맞춰서 설정 */
 `;
 
 const StyledSubscribeCancelBefore = styled(SubscribeCancelBefore)`
@@ -91,7 +86,7 @@ const StyledSubscribeCancelBefore = styled(SubscribeCancelBefore)`
   left: 50%;
   transform: translateX(-50%);
   width: 200px;
-  height: 100px;
+  height: 57px;
   transition: opacity 0.5s ease; /* 서서히 사라지는 효과 */
 
   ${SubscribeButton}:hover & {
@@ -105,7 +100,7 @@ const StyledSubscribeCancelAfter = styled(SubscribeCancelAfter)`
   left: 50%;
   transform: translateX(-50%);
   width: 200px;
-  height: 100px;
+  height: 57px;
   transition: opacity 0.5s ease; /* 서서히 나타나는 효과 */
 
   ${SubscribeButton}:hover & {
@@ -139,20 +134,32 @@ const PopupHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-weight: 1000;
   flex-direction: column; /* 요소를 세로로 정렬 */
 `;
 
 const PopupText = styled.p`
   font-size: 14px;
-  margin: 10px 0;
+  margin: 0;
 `;
 
 const PopupButtons = styled.div`
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(2, 95px); /* 3개의 동일한 너비의 컬럼 생성 */
+  gap: 22px;
+  justify-content: center;
+  align-items: center;
+  place-items: center;
   margin-top: 20px;
+`;
+
+const PopupButtons2 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  place-items: center;
+  margin-top: 10px;
 `;
 
 const StyledCloseButtonMiniBefore = styled(CloseButtonMiniBefore2)`
@@ -256,24 +263,24 @@ const SubscribePage = () => {
   return (
     <>
       <SubscirbeContainer>
-        <SubscribeTextBox fontSize="24px" fontColor="#ffffff" margin="70px 0">
+        <SubscribeTextBox fontSize="24px" fontColor="#ffffff" margin="129px 0 59px 0">
           내 멤버십 서비스 구독 현황
         </SubscribeTextBox>
      
 
-        <SubscribeTextBox fontSize="20px" fontColor="#ffff00" margin="5px 0">
-          {setSubscribeTypeKorean}
+        <SubscribeTextBox fontSize="16px" fontColor="#FFFA87" margin="5px 0">
+          {subscribeTypeKorean}
         </SubscribeTextBox>
         <SubscribeTextBox2>월 {subscribePrice}원</SubscribeTextBox2>
         <SubscribeTextBox
           fontSize="16px"
           fontColor="#ffffff"
-          margin="10px 0 30px 0"
+          margin="12px 0 0 0"
         >
           다음 결제 날짜 <br />
           {subscribeInfo.expirationDate}
         </SubscribeTextBox>
-        <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="20px 0">
+        <SubscribeTextBox fontSize="16px" fontColor="#ffffff" margin="58px 0 23px 0">
           구독 플랜
         </SubscribeTextBox>
         <SubscribePlan
@@ -324,8 +331,8 @@ const SubscribePage = () => {
               정말 구독을 취소하시겠어요?
             </PopupHeader>
             <PopupText>
-              지금 구독을 취소하더라도 {subscribeInfo.expirationDate}까지는
-              서비스를 이용할 수 있습니다.
+              지금 구독을 취소하더라도 <br/>
+              {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
             </PopupText>
             <PopupButtons>
               <CloseButtonMiniBefore onClick={handleClosePopup} />
@@ -341,9 +348,9 @@ const SubscribePage = () => {
               <StyledCancelComplete />
               <div margin="30px 0">서비스 플랜 구독이 취소 되었습니다.</div>
             </PopupHeader>
-            <PopupButtons>
+            <PopupButtons2>
               <StyledCloseButtonMiniBefore onClick={handleCloseCancelPopup} />
-            </PopupButtons>
+            </PopupButtons2>
           </Popup>
         </PopupOverlay>
       )}
@@ -355,9 +362,9 @@ const SubscribePage = () => {
               현재 준비중인 서비스입니다. <br />
               조금만 더 기다려주세요!
             </PopupHeader>
-            <PopupButtons>
+            <PopupButtons2>
               <CloseButtonMiniBefore onClick={handleCloseDevelopPopup} />
-            </PopupButtons>
+            </PopupButtons2>
           </Popup>
         </PopupOverlay>
       )}
