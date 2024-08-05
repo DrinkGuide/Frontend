@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const LabelContainer = styled.div`
-  margin: 70px 0 10px 0;
+  margin: 129px 0 0 0;
 `;
 export const VoiceLabelText = () => {
   return (
