@@ -5,7 +5,7 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { Footer } from "../../../components/Footer";
 import { ProductTypeColorAtom } from "../../../recoil/atom";
-import { getSpeech } from "../../../components/getSpeech";
+import { getSpeech, stopSpeech } from "../../../components/getSpeech";
 import { ReactComponent as Changing_icon_1 } from "../../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../../assets/images/changing_icon_2.svg";
 import { ReactComponent as Changing_icon_3 } from "../../../assets/images/changing_icon_3.svg";
@@ -21,7 +21,6 @@ const HistoryContainer = styled.div`
   margin: 0 auto;
   background-color: black;
   padding: 100px 0; /* 상하 여백 추가 */
-  overflow-y: auto;
   overflow-y: auto;
 `;
 
@@ -128,9 +127,9 @@ const HistoryPage = () => {
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
   const [infoSpeech, setInfoSpeech] = useState();
+  const [isSpeechClicked, setIsSpeechClicked] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
-
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
 
@@ -144,7 +143,17 @@ const HistoryPage = () => {
   };
 
   const handleExpandClick = async (index, productName) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    stopSpeech(); // 이전 음성 중단
+
+    if (expandedIndex === index) {
+      // 이미 열려있는 항목을 다시 클릭하면 음성을 중단
+      setExpandedIndex(null);
+      setIsSpeechClicked(false);
+      return;
+    }
+
+    setExpandedIndex(index);
+    setIsSpeechClicked(true);
 
     try {
       const response = await axios.get(
@@ -159,6 +168,7 @@ const HistoryPage = () => {
       );
       console.log(response.data.data);
       setInfoSpeech(response.data.data);
+      getSpeech(response.data.data); // 새로운 음성을 바로 재생
     } catch (error) {
       console.error("영양 정보 조회 실패", error);
     }
@@ -167,10 +177,6 @@ const HistoryPage = () => {
   useEffect(() => {
     addIconArray();
   }, [certify]);
-
-  useEffect(() => {
-    getSpeech(infoSpeech);
-  }, [infoSpeech]);
 
   useEffect(() => {
     const fetchHistoryData = async () => {
@@ -262,10 +268,6 @@ const HistoryPage = () => {
                   <span>{item.productName}</span>
                   <span>{item.purchaseDate} 구매</span>
                 </PurchaseItemHeader>
-                {/* <PurchaseItemDetails expanded={expandedIndex === index}>
-                  <img src={item.image} alt={item.name} />
-                  <p>{item.details}</p>
-                </PurchaseItemDetails> */}
               </PurchaseItemContainer>
             ))
           ) : (
