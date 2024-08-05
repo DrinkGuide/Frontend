@@ -21,6 +21,8 @@ import "./MyPage.css";
 import { jwtDecode } from "jwt-decode";
 import { useRecoilValue } from "recoil";
 import { getAccessTokenAtom } from "../../recoil/atom";
+import { Text } from "../../components/Text";
+
 
 const MyPageContainer = styled.div`
   display: flex;
@@ -30,6 +32,7 @@ const MyPageContainer = styled.div`
   width: 100vw;
   margin: 0 auto;
   background-color: black;
+  padding-bottom:68px;
 `;
 
 const MypageTextBox = styled.div`
@@ -40,10 +43,11 @@ const MypageTextBox = styled.div`
   letter-spacing: -0.011000000000000001em;
   font-weight: 700;
   position: relative;
+  padding-top:23px;
 `;
 
 const SubscriptionStatus = styled.div`
-  margin: 10px 0 40px 0;
+  // margin: 10px 0 40px 0;
 `;
 
 const PurchaseVerificationContainer = styled.div`
@@ -66,7 +70,7 @@ const PurchaseVerificationItem = styled.div`
 
 const StyledMypageText = styled(MypageText)`
   width: 160px;
-  margin: 70px 0;
+  padding-top:129px;
 `;
 
 const PurchaseImageContainer = styled.div`
@@ -78,8 +82,6 @@ const PurchaseImageContainer = styled.div`
   align-items: center;
   background-color: #333;
   border-radius: 20px;
-  padding: 20px;
-  margin: 15px 0;
   width: 80%;
   place-items: center;
 `;
@@ -155,9 +157,9 @@ const MyPage = () => {
   const [purchaseNum, setPurchaseNum] = useState();
   const [certify, setCertify] = useState([]);
   const [icons, setIcons] = useState([]);
-  const accessToken = localStorage.getItem("accessToken");
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  //const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
   let memberId;
   if (accessToken) {
     const decodedaccessToken = jwtDecode(accessToken);
@@ -234,15 +236,27 @@ const MyPage = () => {
     <>
       <MyPageContainer>
         <StyledMypageText />
-        <MypageTextBox fontSize="24px" fontColor="#ffffff">
+        <Text
+          color="#FFFFFF"
+          fontSize="24px"
+          paddingTop="70px"
+          paddingBottom="17px"
+          fontWeight = "700"
+        >
           안녕하세요, {memberInfo.nickname} 님!
-        </MypageTextBox>
+        </Text>
         <SubscriptionStatus>
           {!!subscribe ? <SubscribeOn /> : <SubscribeOff />}
         </SubscriptionStatus>
-        <MypageTextBox fontSize="16px" fontColor="#ffffff" margin="100px 0">
+        <Text
+          color="#FFFFFF"
+          fontSize="16px"
+          paddingTop="59px"
+          paddingBottom="23px"
+          fontWeight = "700"
+        >
           이번달 구매 인증
-        </MypageTextBox>
+        </Text>
 
         <PurchaseImageContainer>
           {icons.map((icon, index) => (
@@ -253,13 +267,17 @@ const MyPage = () => {
           ))}
         </PurchaseImageContainer>
 
-        <MypageTextBox fontSize="16px" fontColor="#FFFA87">
-          {!purchaseNum === 10
-            ? `이번 달에는 구매 인증을 ${purchaseNum}회 했어요.
-          <br />
-          ${10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.`
-            : "10회 인증이 완료되어 1000원 할인 혜택을 받을 수 있습니다"}
-        </MypageTextBox>
+        <Text color="#FFFA87" fontSize="16px" fontWeight="700" paddingTop="23px" paddingBottom="55px">
+          {purchaseNum !== 10 ? (
+            <>
+              이번 달에는 구매 인증을 {purchaseNum}회 했어요.
+              <br />
+              {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
+            </>
+          ) : (
+            "10회 인증이 완료되어 1000원 할인 혜택을 받을 수 있습니다"
+          )}
+        </Text>
         <SubscribeCheckWrapper
           onClick={() => {
             navigate("/subscribe");
@@ -277,7 +295,7 @@ const MyPage = () => {
           <HistoryButtonAfter className="after" />
         </HistoryButtonWrapper>
       </MyPageContainer>
-      <Footer />
+      <Footer/>
     </>
   );
 };

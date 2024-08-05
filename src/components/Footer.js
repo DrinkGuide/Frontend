@@ -8,6 +8,8 @@ const FooterContainer = styled.div`
   height: 197px;
   width: 100vw;
   margin: 0 auto;
+  padding-top : 54px;
+  padding-bottom: 61px;
   align-items: center;
   color: #ffffff;
 `;

@@ -126,7 +126,7 @@ const Popup = styled.div`
   border-radius: 10px;
   text-align: center;
   color: white;
-  width: 300px;
+  width: 361px;
   position: relative;
 `;
 
@@ -163,8 +163,8 @@ const PopupButtons2 = styled.div`
 `;
 
 const StyledCloseButtonMiniBefore = styled(CloseButtonMiniBefore2)`
-  width: 90px;
-  height: 50px;
+  width: 95px;
+  height: 39px;
   cursor: pointer;
 `;
 
@@ -331,8 +331,10 @@ const SubscribePage = () => {
               정말 구독을 취소하시겠어요?
             </PopupHeader>
             <PopupText>
+
               지금 구독을 취소하더라도 <br/>
               {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
+
             </PopupText>
             <PopupButtons>
               <CloseButtonMiniBefore onClick={handleClosePopup} />
