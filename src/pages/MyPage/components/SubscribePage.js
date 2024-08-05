@@ -129,7 +129,12 @@ const Popup = styled.div`
   color: white;
   width: 361px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로로 가운데 정렬 */
+  justify-content: center; /* 세로로 가운데 정렬 (필요한 경우) */
 `;
+
 
 const PopupHeader = styled.div`
   display: flex;
@@ -155,6 +160,7 @@ const PopupButtons = styled.div`
   margin-top: 20px;
   gap :5px;
 `;
+
 
 const PopupButtons2 = styled.div`
   display: flex;
@@ -204,9 +210,9 @@ const SubscribePage = () => {
   const [subscribeTypeKorean, setSubscribeTypeKorean] = useState("음료");
   const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  //const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const handleCancelClick = () => {
     setPopupVisible(true);
@@ -335,21 +341,14 @@ const SubscribePage = () => {
               <StyledExclamationMark />
               정말 구독을 취소하시겠어요?
             </PopupHeader>
-<<<<<<< HEAD
+
             <Text color="#FFFFFF" fontSize="12px"  fontWeight="500" >
               지금 구독을 취소하더라도 <br /> 
               {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
             </Text>
-=======
-            <PopupText>
 
-              지금 구독을 취소하더라도 <br/>
-              {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
-
-            </PopupText>
->>>>>>> 407f3936c6c139fea6127ae4730766bb444de80d
             <PopupButtons>
-              <Button name={"닫기"} fontSize={"15px"} color={"#FFFA87"} width={"95px"} height = {"39px"} paddingBottom = {"31px"} onClick={handleClosePopup}  />
+              <Button name={"닫기"} fontSize={"15px"} color={"#FFFA87"} width={"95px"} height = {"39px"} paddingBottom = {"31px"} marginLeft = {"-32px"} onClick={handleClosePopup}  />
               <Button name={"구독취소"} fontSize={"15px"} color={"#FF5858"} width={"95px"} height = {"39px"} paddingBottom = {"31px"}  onClick={handleCancelSubscription}  />
             </PopupButtons>
           </Popup>
@@ -362,9 +361,8 @@ const SubscribePage = () => {
               <StyledCancelComplete />
               <div margin="30px 0">서비스 플랜 구독이 취소 되었습니다.</div>
             </PopupHeader>
-            <PopupButtons2>
-              <StyledCloseButtonMiniBefore onClick={handleCloseCancelPopup} />
-            </PopupButtons2>
+            <Button name={"닫기"} fontSize={"15px"} color={"#FF5858"} width={"95px"} height = {"39px"} paddingBottom = {"31px"} marginTop={"22px"} onClick={handleCloseCancelPopup}  />
+        
           </Popup>
         </PopupOverlay>
       )}
@@ -373,12 +371,13 @@ const SubscribePage = () => {
           <Popup>
             <PopupHeader>
               <StyledExclamationMark2 />
-              현재 준비중인 서비스입니다. <br />
-              조금만 더 기다려주세요!
+              <Text color="#FFFFFF" fontSize="16px"  fontWeight="700" >
+                현재 준비중인 서비스입니다. <br />
+                조금만 더 기다려주세요!
+              </Text>
             </PopupHeader>
-            <PopupButtons2>
-              <CloseButtonMiniBefore onClick={handleCloseDevelopPopup} />
-            </PopupButtons2>
+              <Button name={"닫기"} fontSize={"15px"} color={"#FFFA87"} width={"152px"} height = {"39px"} paddingBottom = {"31px"} marginTop={"22px"}  onClick={handleCloseDevelopPopup}  />
+             
           </Popup>
         </PopupOverlay>
       )}
