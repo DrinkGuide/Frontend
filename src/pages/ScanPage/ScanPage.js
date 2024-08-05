@@ -202,21 +202,23 @@ const ScanPage = () => {
   };
 
   const handleClickEvent = (event) => {
-    if (clickTimeout) {
-      clearTimeout(clickTimeout);
-      setClickTimeout(null);
-      // Double-click detected
-      handlePurchaseDataSubmit();
-    } else {
-      // Single click detected, set timeout to differentiate between single and double click
-      const timeout = setTimeout(() => {
-        // Single-click action
-        getSpeech(result);
-        setProductName(result);
+    if (productType === "음료수") {
+      if (clickTimeout) {
+        clearTimeout(clickTimeout);
         setClickTimeout(null);
-      }, 300); // Adjust the delay as necessary to suit your needs
+        // Double-click detected
+        handlePurchaseDataSubmit();
+      } else {
+        // Single click detected, set timeout to differentiate between single and double click
+        const timeout = setTimeout(() => {
+          // Single-click action
+          getSpeech(result);
+          setProductName(result);
+          setClickTimeout(null);
+        }, 300); // Adjust the delay as necessary to suit your needs
 
-      setClickTimeout(timeout);
+        setClickTimeout(timeout);
+      }
     }
   };
 
@@ -245,7 +247,9 @@ const ScanPage = () => {
               {productType}
             </div>
           </div>
-          <ResultText color={resultColor}>{result}</ResultText>
+          <ResultText color={resultColor}>
+            {productType === "음료수" ? result : "결제를 진행하세요"}
+          </ResultText>
         </BottomBox>
       </ScanContainer>
     </>
