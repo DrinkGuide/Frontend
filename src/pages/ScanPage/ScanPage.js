@@ -11,6 +11,7 @@ import {
 import * as tmImage from "@teachablemachine/image";
 import { getSpeech } from "../../components/getSpeech";
 import ImageSlider from "./components/ImageSlider";
+import Toast from "./components/Toast";
 
 const ScanContainer = styled.div`
   box-sizing: border-box;
@@ -125,12 +126,12 @@ const ScanPage = () => {
   const productType = useRecoilValue(scanPageProductTypeAtom); // 화면에 보여주기 위한 hook
   const [sendProductType, setSendProductType] = useState("DRINK"); // 서버 전달용 변수
   const [clickTimeout, setClickTimeout] = useState(null);
+  const [toast, setToast] = useState(false); // 토스트 메세지 상태관리
   const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = localStorage.getItem("accessToken");
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
-
   const data = { productName: productName, productType: sendProductType };
+  const toastText =
+    "터치 한 번 시 인식 결과를 음성으로 안내하고 터치 두 번 시 구매가 진행됩니다.";
 
   useEffect(() => {
     const init = async () => {
@@ -175,6 +176,17 @@ const ScanPage = () => {
       setSendProductType("SNACK");
     }
   }, [productType]);
+
+  useEffect(() => {
+    setToast(true);
+    const timer = setTimeout(() => {
+      setToast(false);
+      getSpeech(toastText);
+    }, 1000); // 1 second
+
+    // Cleanup function to clear the timeout if the component unmounts before the timeout completes
+    return () => clearTimeout(timer);
+  }, []);
 
   const videoConstraints = {
     facingMode: "environment",
@@ -242,7 +254,7 @@ const ScanPage = () => {
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
         />
-
+        {toast && <Toast setToast={setToast} text={toastText} />}
         <BottomBox color={resultColor}>
           <div className="frame-1">
             <div className="scan-type" style={{ color: "#101010" }}>
