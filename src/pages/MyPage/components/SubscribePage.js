@@ -32,7 +32,7 @@ const SubscirbeContainer = styled.div`
   align-items: center;
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
-  background-color: black;
+  background-color: #101010;
 `;
 
 const SubscribeTextBox = styled.div`
@@ -213,6 +213,8 @@ const SubscribePage = () => {
   const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
+  // const accessToken =
+  //    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
 
   const handleCancelClick = () => {

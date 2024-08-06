@@ -21,7 +21,7 @@ const ScanContainer = styled.div`
   height: 100vh; /* 화면 높이 맞춤 */
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
-  background-color: #000;
+  background-color: #101010;
   position: relative;
     &:before {
     content: "";
@@ -127,7 +127,8 @@ const ScanPage = () => {
   const [clickTimeout, setClickTimeout] = useState(null);
   const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = localStorage.getItem("accessToken");
-
+  // const accessToken =
+  // "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
   const data = { productName: productName, productType: sendProductType };
 
   useEffect(() => {
