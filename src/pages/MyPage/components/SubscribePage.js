@@ -123,11 +123,12 @@ const PopupOverlay = styled.div`
 
 const Popup = styled.div`
   background: #2d2d2d;
-  padding: 20px;
   border-radius: 10px;
   text-align: center;
-  color: white;
+  justify-content: center;
   width: 361px;
+  height: 225px;
+  color: white;
   position: relative;
 `;
 
@@ -148,12 +149,12 @@ const PopupText = styled.p`
 const PopupButtons = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 95px); /* 3개의 동일한 너비의 컬럼 생성 */
-  gap: 22px;
   justify-content: center;
   align-items: center;
   place-items: center;
   margin-top: 20px;
-  gap :5px;
+  margin-bottom: 20px;
+  gap :22px;
 `;
 
 const PopupButtons2 = styled.div`
@@ -179,14 +180,15 @@ const StyledCloseButtonMiniAfter = styled(CloseButtonMiniAfter)`
 const StyledExclamationMark = styled(ExclamationMark)`
   width: 40px;
   height: 40px;
-  padding-top:31px;
-  padding-bottom :22px;
+  padding-top: 31px;
+  padding-bottom :18px;
 `;
 
 const StyledExclamationMark2 = styled(ExclamationMark2)`
-  width: 40px;
-  height: 40px;
-  margin-bottom: 15px;
+width: 40px;
+height: 40px;
+padding-top: 31px;
+padding-bottom :18px;
 `;
 
 const StyledCancelComplete = styled(CancelComplete)`
@@ -204,9 +206,9 @@ const SubscribePage = () => {
   const [subscribeTypeKorean, setSubscribeTypeKorean] = useState("음료");
   const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem("accessToken");
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  // const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const handleCancelClick = () => {
     setPopupVisible(true);
@@ -335,22 +337,13 @@ const SubscribePage = () => {
               <StyledExclamationMark />
               정말 구독을 취소하시겠어요?
             </PopupHeader>
-<<<<<<< HEAD
             <Text color="#FFFFFF" fontSize="12px"  fontWeight="500" >
               지금 구독을 취소하더라도 <br /> 
               {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
             </Text>
-=======
-            <PopupText>
-
-              지금 구독을 취소하더라도 <br/>
-              {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
-
-            </PopupText>
->>>>>>> 407f3936c6c139fea6127ae4730766bb444de80d
             <PopupButtons>
               <Button name={"닫기"} fontSize={"15px"} color={"#FFFA87"} width={"95px"} height = {"39px"} paddingBottom = {"31px"} onClick={handleClosePopup}  />
-              <Button name={"구독취소"} fontSize={"15px"} color={"#FF5858"} width={"95px"} height = {"39px"} paddingBottom = {"31px"}  onClick={handleCancelSubscription}  />
+              <Button name={"구독 취소"} fontSize={"15px"} color={"#FF5858"} width={"95px"} height = {"39px"} paddingBottom = {"31px"}  onClick={handleCancelSubscription}  />
             </PopupButtons>
           </Popup>
         </PopupOverlay>
