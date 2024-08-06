@@ -17,6 +17,7 @@ import { useRecoilValue } from "recoil";
 import { getAccessTokenAtom } from "../../../recoil/atom";
 import { Button } from "../../../components/Button";
 import { Footer } from "../../../components/Footer";
+import { Text } from "../../../components/Text";
 
 /*
 해야할 것들

@@ -16,7 +16,7 @@ const MarqueeContainer = styled.div`
   padding-bottom: ${(props) => props.paddingBottom};
   width: 100%;
   overflow: hidden; /* Ensure the overflow is hidden */
-  background-color: black; /* Adjust the background color if necessary */
+  background-color: #101010; /* Adjust the background color if necessary */
 `;
 
 const MarqueeContent = styled.div`

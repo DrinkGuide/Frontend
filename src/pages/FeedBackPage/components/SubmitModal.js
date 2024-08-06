@@ -44,7 +44,7 @@ const SubmitModal = ({ isOpen, onClose }) => {
           고객님의 소중한 의견이 제출되었습니다.
           <br />더 나은 보이스라벨을 기대해주세요!
         </Text>
-        <Button name={"닫기"} color={"#FFFA87"} width={"152px"} height={"39px"}   onClick={() => {
+        <Button name={"닫기"} color={"#FFFA87"} width={"152px"} height={"39px"}  fontSize={"16px"} fontWeight={"900"} onClick={() => {
   onClose();
   navigate("/");
 }}/>

@@ -25,12 +25,13 @@ import { SubscribeTypeAtom, getAccessTokenAtom } from "../../recoil/atom";
 import { jwtDecode } from "jwt-decode"; // 올바른 명명된 임포트
 
 const MainContainer = styled.div`
-  font-family: "Pretendard-Regular";
+  font: "Pretendard-Regular";
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  background-color: black;
+  margin: 0 auto;
+  background-color: #101010;
 `;
 
 const handleScroll = () => {
@@ -54,6 +55,7 @@ const IconWrapper = styled.div`
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
   margin-top: ${(props) => (props.isHovered ? "-20px" : "0")};
   margin-bottom: ${(props) => (props.isHovered ? "20px" : "0")};
+  cursor: pointer;
 `;
 
 const WhiteArrowBefore = styled(WhiteArrowBeforeSVG)`
@@ -102,6 +104,18 @@ const StyledChanging_icon_6 = styled(Changing_icon_6)`
   height: 150px;
 `;
 
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top :48px;
+  padding-bottom:5px;
+`;
+
+const FlexContainer2 = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ChangingIcon = () => {
   const icons = [
     <StyledChanging_icon_1 />,
@@ -138,11 +152,13 @@ const MainPage = () => {
   const [isSubscribe, setIsSubscribe] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(getAccessTokenAtom);
   const [isHovered, setIsHovered] = useState(false);
+  
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
+    // const token = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Mywicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZDc4Zjc3OV0iLCJpYXQiOjE3MjI5MTU0MDgsImV4cCI6MzMyNTg5MTU0MDh9.NYs9hEkOD6o5ZrvzslHYdwr86dZ8OvkyrB8gNZ-7sAw"
     if (token) {
       setAccessToken(token); // Recoil 상태에 설정
       setIsLoggedIn(true);
@@ -150,11 +166,13 @@ const MainPage = () => {
       setIsLoggedIn(false);
     }
   }, [setAccessToken]);
+  
 
   useEffect(() => {
     if (accessToken) {
       console.log("Access Token:", accessToken); // 추가
       const decodedAccessToken = jwtDecode(accessToken);
+      
       console.log(decodedAccessToken);
 
       const fetchData = async () => {
@@ -198,8 +216,8 @@ const MainPage = () => {
   return (
     <MainContainer paddingTop="129px">
       <VoiceLabelText />
-      <Text color="#FFFFFF" fontSize="16px" paddingTop="17.48px" fontWeignt="700">
-        <b>언제 어디서나 손쉽게 음성으로 만나는 정확한 정보</b>
+      <Text color="#FFFFFF" fontSize="16px" paddingTop="17.48px">
+        언제 어디서나 손쉽게 음성으로 만나는 정확한 정보
       </Text>
       <Marquee paddingTop="51px" paddingBottom="63.78px" />
       <Button
@@ -208,6 +226,8 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
+        fontSize = "24px"
+
         onClick={() => handleButtonClick(isSubscribe ? "/scan" : "/subscribe")}
       />
       <Button
@@ -216,6 +236,7 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
+        fontSize = "24px"
         onClick={() => handleButtonClick("/feedback")}
       />
       <Button
@@ -223,6 +244,7 @@ const MainPage = () => {
         color="#FF5858"
         width="214px"
         height="57px"
+        fontSize = "24px"
         marginBottom="25px"
         onClick={() => handleButtonClick("/mypage")}
       />
@@ -242,7 +264,19 @@ const MainPage = () => {
         <SpeechIcon />
       </span>
 
-      <div className="group-12" id="scrollTarget">
+      <FlexContainer>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px" paddingTop="0px" paddingBottom="0px">정확</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >하고&nbsp;</Text>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">또박또박</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >하게</Text>
+        </FlexContainer>
+        <FlexContainer2>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >그리고&nbsp;</Text>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">손쉽게</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >!&nbsp;</Text>
+        </FlexContainer2>
+
+      {/* <div className="group-12" id="scrollTarget">
         <div className="rectangle-33"></div>
         <div className="rectangle-34"></div>
         <div className="rectangle-35"></div>
@@ -261,9 +295,9 @@ const MainPage = () => {
             <span className="div-span6">!</span>
           </span>
         </div>
-      </div>
+      </div> */}
 
-      <Text color="#FFFFFF" fontSize="14px" paddingTop="7px">
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="55px">
         글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
         <br />
         빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를
@@ -273,8 +307,19 @@ const MainPage = () => {
       <Marquee paddingTop="145px" paddingBottom="137px" />
 
       <ChangingIcon />
+      
+      <FlexContainer>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px" paddingTop="0px" paddingBottom="0px">바로바로</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >&nbsp;식별 가능한</Text>
+        </FlexContainer>
+        <FlexContainer2>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">다양한 종류</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >의&nbsp;</Text>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">상품</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >들</Text>
+        </FlexContainer2>
 
-      <div class="group-12">
+      {/* <div class="group-12">
         <span>
           <span class="div-span">바로바로</span>
           <span class="div-span2">
@@ -286,9 +331,9 @@ const MainPage = () => {
           <span class="div-span5">상품</span>
           <span class="div-span6">들</span>
         </span>
-      </div>
+      </div> */}
 
-      <Text color="#FFFFFF" fontSize="14px" paddingTop="7px">
+      <Text color="#FFFFFF" fontSize="14px" paddingTop="55px">
         과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!
         <br />
         다양한 상품의 정보를 빠르게 알려드립니다.
