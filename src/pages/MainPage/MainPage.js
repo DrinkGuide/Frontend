@@ -24,6 +24,7 @@ import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-
 import { SubscribeTypeAtom, getAccessTokenAtom } from "../../recoil/atom";
 import { jwtDecode } from "jwt-decode"; // 올바른 명명된 임포트
 
+
 const MainContainer = styled.div`
   font-family: "Pretendard-Regular";
   display: flex;
@@ -140,7 +141,7 @@ const MainPage = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+ 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
@@ -153,6 +154,8 @@ const MainPage = () => {
 
   useEffect(() => {
     if (accessToken) {
+      const accessToken =
+      "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
       console.log("Access Token:", accessToken); // 추가
       const decodedAccessToken = jwtDecode(accessToken);
       console.log(decodedAccessToken);
@@ -208,6 +211,7 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
+        fontSize="24px"
         onClick={() => handleButtonClick(isSubscribe ? "/scan" : "/subscribe")}
       />
       <Button
@@ -216,6 +220,7 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
+        fontSize="24px"
         onClick={() => handleButtonClick("/feedback")}
       />
       <Button
@@ -224,6 +229,7 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
+        fontSize="24px"
         onClick={() => handleButtonClick("/mypage")}
       />
       <Text
@@ -232,7 +238,7 @@ const MainPage = () => {
         paddingTop="40px"
         paddingBottom="25px"
       >
-        보이스라벨은 어떤 서비스인가요?
+        <b>보이스라벨은 어떤 서비스인가요?</b>
       </Text>
       <ScrollButton onClick={handleScroll} />
       <Marquee paddingTop="65px" paddingBottom="145px" />
