@@ -9,7 +9,7 @@ const StyledToast = styled.div`
   transform: translateX(-50%); /* Center horizontally */
   background-color: ${({ color }) =>
     color || "#101010"}; /* Use the color prop or default to black */
-  color: FF5858;
+  color: #FF5858;
   font-size: 20px;
   font-weight :700;
   padding: 10px 20px;

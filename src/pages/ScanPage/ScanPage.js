@@ -1,10 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Webcam from "react-webcam";
 import { useRecoilValue } from "recoil";
 import {
-  getAccessTokenAtom,
   scanPageColorAtom,
   scanPageProductTypeAtom,
 } from "../../recoil/atom";
@@ -24,7 +24,7 @@ const ScanContainer = styled.div`
   margin: 0 auto;
   background-color: #101010;
   position: relative;
-    &:before {
+  &:before {
     content: "";
     background: linear-gradient(
       to top,
@@ -38,6 +38,7 @@ const ScanContainer = styled.div`
     top: 0;
     height: 50%;
     width: 100%;
+  }
 `;
 
 const StyledWebcam = styled(Webcam)`
@@ -117,6 +118,16 @@ const ResultText = styled.div`
   position: relative;
 `;
 
+const BackButton = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 32px;
+  z-index: 2; // 웹캠보다 위에 표시되도록 z-index 설정
+`;
+
 const ScanPage = () => {
   const URL = "/my_model/";
   const [model, setModel] = useState(null);
@@ -130,10 +141,10 @@ const ScanPage = () => {
   const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = localStorage.getItem("accessToken");
   const data = { productName: productName, productType: sendProductType };
-  // const toastText =
-  //   " 터치 한 번 시 인식 결과를 음성으로 안내하고 \n 터치 두 번 시 구매가 진행됩니다.";
   const toastText =
     " 한 번 터치하면 인식 결과가 나타나고, \n 두 번 터치 시 구매 기록에 저장됩니다.";
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const init = async () => {
@@ -184,11 +195,10 @@ const ScanPage = () => {
     const timer = setTimeout(() => {
       setToast(false);
       getSpeech(toastText);
-    }, 8000); // 1 second
+    }, 8000); // 8 seconds
 
-    // Cleanup function to clear the timeout if the component unmounts before the timeout completes
     return () => clearTimeout(timer);
-  }, []);
+  }, []); // 빈 배열을 넣어서 마운트 시 한 번만 실행되게 함
 
   const videoConstraints = {
     facingMode: "environment",
@@ -222,16 +232,13 @@ const ScanPage = () => {
       if (clickTimeout) {
         clearTimeout(clickTimeout);
         setClickTimeout(null);
-        // Double-click detected
         handlePurchaseDataSubmit();
       } else {
-        // Single click detected, set timeout to differentiate between single and double click
         const timeout = setTimeout(() => {
-          // Single-click action
           getSpeech(result);
           setProductName(result);
           setClickTimeout(null);
-        }, 300); // Adjust the delay as necessary to suit your needs
+        }, 300);
 
         setClickTimeout(timeout);
       }
@@ -239,16 +246,19 @@ const ScanPage = () => {
   };
 
   const handleSliderClick = (event) => {
-    event.stopPropagation(); // 이벤트 전파 중단
+    event.stopPropagation();
+  };
+
+  const handleBackClick = () => {
+    navigate("/"); // 메인 페이지로 이동
   };
 
   return (
     <>
-      <ScanContainer
-        onClick={(event) => {
-          handleClickEvent(event);
-        }}
-      >
+      <ScanContainer onClick={(event) => handleClickEvent(event)}>
+        <BackButton onClick={handleBackClick}>
+          {"<"}
+        </BackButton>
         <ImageSlider onClick={handleSliderClick} />
         <StyledWebcam
           audio={false}
@@ -256,7 +266,7 @@ const ScanPage = () => {
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
         />
-        {toast && <Toast setToast={setToast} text={toastText} back/>}
+        {toast && <Toast setToast={setToast} text={toastText} />}
         <BottomBox color={resultColor}>
           <div className="frame-1">
             <div className="scan-type" style={{ color: "#101010" }}>
@@ -272,4 +282,4 @@ const ScanPage = () => {
   );
 };
 
-export default ScanPage;
+export default ScanPage

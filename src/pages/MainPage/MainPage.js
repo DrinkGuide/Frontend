@@ -34,7 +34,7 @@ const MainContainer = styled.div`
 `;
 
 const handleScroll = () => {
-  window.scrollTo({ top: 710, behavior: "smooth" });
+  window.scrollTo({ top: 750, behavior: "smooth" });
 };
 
 const handleScrollToTop = () => {

@@ -1,10 +1,11 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useRecoilValue } from "recoil";
-import { useEffect, useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { Footer } from "../../../components/Footer";
 import { ProductTypeColorAtom } from "../../../recoil/atom";
+import { useRecoilValue } from "recoil";
 import { getSpeech, stopSpeech } from "../../../components/getSpeech";
 import { ReactComponent as Changing_icon_1 } from "../../../assets/images/changing_icon_1.svg";
 import { ReactComponent as Changing_icon_2 } from "../../../assets/images/changing_icon_2.svg";
@@ -118,7 +119,7 @@ const PurchaseImageContainer = styled.div`
   width: 361px;
   height: 152px;
   place-items: center;
-  margin-bottom:23px;
+  margin-bottom: 23px;
 `;
 
 const Circle = styled.div`
@@ -131,6 +132,16 @@ const Circle = styled.div`
   align-items: center;
 `;
 
+const BackButton = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 32px;
+  z-index: 2; // 다른 요소들보다 위에 표시되도록 z-index 설정
+`;
+
 const HistoryPage = () => {
   const [historyData, setHistoryData] = useState([]); // 전체 구매 내역 저장
   const productColor = useRecoilValue(ProductTypeColorAtom);
@@ -140,6 +151,7 @@ const HistoryPage = () => {
   const [icons, setIcons] = useState([]);
   const [infoSpeech, setInfoSpeech] = useState();
   const [isSpeechClicked, setIsSpeechClicked] = useState(false);
+  const navigate = useNavigate();
 
   const accessToken = localStorage.getItem("accessToken");
   const decodedaccessToken = jwtDecode(accessToken);
@@ -147,7 +159,6 @@ const HistoryPage = () => {
 
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
-
       if (item === "DRINK") return <Changing_icon_2 key={index} />;
       if (item === "SNACK") return <Changing_icon_1 key={index} />;
 
@@ -155,7 +166,6 @@ const HistoryPage = () => {
     });
     setIcons(newIcons);
   };
-
 
   const handleExpandClick = async (index, productName) => {
     stopSpeech(); // 이전 음성 중단
@@ -243,9 +253,14 @@ const HistoryPage = () => {
     return colorObj ? colorObj[productType] : "#FFFFFF";
   };
 
+  const handleBackClick = () => {
+    navigate("/"); // 메인 페이지로 이동
+  };
+
   return (
     <>
       <HistoryContainer>
+        <BackButton onClick={handleBackClick}>{"<"}</BackButton>
         <HistoryTextBox fontSize="24px" fontColor="#ffffff" margin="0 0 60px 0">
           구매한 상품 이력
         </HistoryTextBox>
@@ -260,7 +275,11 @@ const HistoryPage = () => {
             <Circle key={icons.length + index}></Circle>
           ))}
         </PurchaseImageContainer>
-        <HistoryTextBox fontSize="16px" fontColor="#FFFA87" margin="0 0 40px 0" >
+        <HistoryTextBox
+          fontSize="16px"
+          fontColor="#FFFA87"
+          margin="0 0 40px 0"
+        >
           이번 달에는 구매 인증을 {purchaseNum}회 했어요.
           <br />
           {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.

@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { ReactComponent as FeedBackText } from "../../assets/images/feedback-text.svg";
 import { Button } from "../../components/Button";
 import "./FeedBack.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getAccessTokenAtom } from "../../recoil/atom";
 import { useRecoilValue } from "recoil";
 import SubmitModal from "./components/SubmitModal"; // 올바른 경로로 수정
@@ -58,13 +58,22 @@ const StyledTextarea = styled.textarea`
   }
 `;
 
+const BackButton = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  cursor: pointer;
+  color: white;
+  font-size: 32px;
+  z-index: 2; // 다른 요소들보다 위에 표시되도록 z-index 설정
+`;
+
 function FeedBackPage() {
   const [content, setContent] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태 관리
   const location = useLocation();
+  const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
-  // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
 
   const {
     transcript,
@@ -98,9 +107,6 @@ function FeedBackPage() {
       prevTranscript.current = transcript;
     }
   }, [transcript]);
-  
-  
-
 
   const handleRecordOn = () => {
     SpeechRecognition.startListening({ continuous: true });
@@ -148,9 +154,16 @@ function FeedBackPage() {
     }
   };
 
+  const handleBackClick = () => {
+    navigate("/"); // 메인 페이지로 이동
+  };
+
   return (
     <>
       <FeedBackContainer>
+        <BackButton onClick={handleBackClick}>
+          {"<"}
+        </BackButton>
         <FeedBackText style={{ paddingTop: '129px' }} />
         <TextContainer>
           <div>고객님의 의견을 들려주세요!</div>
