@@ -183,7 +183,7 @@ const ScanPage = () => {
   };
 
   useEffect(() => {
-    if (productType === "음료") {
+    if (productType === "음료수") {
       setSendProductType("DRINK");
     } else if (productType === "과자") {
       setSendProductType("SNACK");
@@ -194,7 +194,7 @@ const ScanPage = () => {
     setToast(true);
     const timer = setTimeout(() => {
       setToast(false);
-      getSpeech(toastText);
+      // getSpeech(toastText);
     }, 8000); // 8 seconds
 
     return () => clearTimeout(timer);
