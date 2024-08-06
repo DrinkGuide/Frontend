@@ -49,7 +49,7 @@ const SubscribeTextBox = styled.div`
 `;
 
 const SubscribeTextBox2 = styled.div`
-  background-color: ${(props) => props.backgroundColor || 'transparent'};
+  background-color: ${(props) => props.backgroundColor};
   color: black;
   text-align: center;
   font-size: 40px;
