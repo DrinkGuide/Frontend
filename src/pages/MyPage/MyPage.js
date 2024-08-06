@@ -31,7 +31,7 @@ const MyPageContainer = styled.div`
   height: 852px;
   width: 100vw;
   margin: 0 auto;
-  background-color: black;
+  background-color: #101010;
   padding-bottom:68px;
 `;
 

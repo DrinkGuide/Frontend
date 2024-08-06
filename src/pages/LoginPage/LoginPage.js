@@ -37,12 +37,12 @@ const LoginContainer = styled.div`
   align-items: center;
   width: 100vw;
   margin: 0 auto;
-  background-color: black;
+  background-color: #101010;
 `;
 
 const TextContainer = styled.div`
   margin-bottom: 51px;
-  color: #ffffff;
+  color: #101010;
   text-align: center;
   font-family: "PretendardVariable-Bold", sans-serif;
   font-size: 1rem;
@@ -110,6 +110,18 @@ const GoUpMessage = styled(GoUpMessageSVG)`
   margin-bottom: 68px;
 `;
 
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top :48px;
+  padding-bottom:5px;
+`;
+
+const FlexContainer2 = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const scrollToTop = () => {
   window.scrollTo({
     top: 0,
@@ -175,9 +187,10 @@ function LoginPage() {
     <>
       <LoginContainer paddingTop="129px">
         <VoiceLabelText />
-        <TextContainer>
+        <Text color="#FFFFFF" fontSize="16px"  fontWeight="700" paddingTop="17.48px" paddingBottom="51px">
           언제 어디서나 손쉽게 음성으로 만나는 정확한 정보
-        </TextContainer>
+        </Text>
+
         <Marquee paddingBottom="100px" />
         <Text color="#FFFFFF" fontSize="23px"  fontWeight="700" paddingBottom="25px">
           별도의 번거로운 회원가입 절차 없이 <br />
@@ -200,7 +213,7 @@ function LoginPage() {
         <Text
           color="#FFFFFF"
           fontSize="16px"
-          marginTop="96px"
+          paddingTop="103px"
           paddingBottom="25px"
           fontWeight="700"
         >
@@ -212,44 +225,58 @@ function LoginPage() {
           <EyeIcon />
           <SpeechIcon />
         </span>
-
-        <div className="group-12" id="scrollTarget">
-          <div className="rectangle-33"></div>
-          <div className="rectangle-34"></div>
-          <div className="rectangle-35"></div>
-          <div className="div">
-            <span>
-              <span className="div-span">정확</span>
-              <span className="div-span2">하고 </span>
-              <span className="div-span3">또박또박</span>
-              <span className="div-span4">
-                하게
-                <br />
-                그리고
-              </span>
-              <span className="div-span2"> </span>
-              <span className="div-span5">손쉽게</span>
-              <span className="div-span6">!</span>
+        <FlexContainer>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px" paddingTop="0px" paddingBottom="0px">정확</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >하고&nbsp;</Text>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">또박또박</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >하게</Text>
+        </FlexContainer>
+        <FlexContainer2>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >그리고&nbsp;</Text>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">손쉽게</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >!&nbsp;</Text>
+        </FlexContainer2>
+        {/* <div class="group-12">
+          <span>
+            <span class="div-span">정확</span>
+            <span class="div-span4">하고 </span>
+            <span class="div-span">또박또박</span>
+            <span class="div-span2">
+              하게
+              <br />
+              그리고&nbsp;
             </span>
-          </div>
-        </div>
-
-        <Text color="#FFFFFF" fontSize="14px">
+            <span class="div-span">손쉽게</span>
+            <span class="div-span4">&nbsp;!</span>
+          </span>
+        </div> */}
+        <Text color="#FFFFFF" fontSize="16px"  paddingTop="55px">
           글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
           <br />
           빼곡하게 적혀 있어 눈에 잘 들어오지 않는 상품 정보를
           <br />
           정확하고 또박또박한 음성으로 손쉽게 알려드립니다.
         </Text>
-        <Marquee paddingTop="145px" paddingBottom="137px" />
+        <Marquee paddingTop="145px" paddingBottom="137px"/>
 
         <ChangingIcon />
 
-        <div class="group-12">
+        <FlexContainer>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px" paddingTop="0px" paddingBottom="0px">바로바로</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >&nbsp;식별 가능한</Text>
+        </FlexContainer>
+        <FlexContainer2>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">다양한 종류</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >의&nbsp;</Text>
+          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">상품</Text>
+          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >들</Text>
+        </FlexContainer2>
+
+        {/* <div class="group-12">
           <span>
             <span class="div-span">바로바로</span>
             <span class="div-span2">
-              식별 가능한
+              &nbsp;식별 가능한
               <br />
             </span>
             <span class="div-span3">다양한 종류</span>
@@ -257,9 +284,9 @@ function LoginPage() {
             <span class="div-span5">상품</span>
             <span class="div-span6">들</span>
           </span>
-        </div>
+        </div> */}
 
-        <Text color="#FFFFFF" fontSize="14px">
+        <Text color="#FFFFFF" fontSize="16px" paddingTop = "55px">
           과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!
           <br />
           다양한 상품의 정보를 빠르게 알려드립니다.
