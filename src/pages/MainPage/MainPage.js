@@ -20,6 +20,7 @@ import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-mess
 import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
 import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
 import { SubscribeTypeAtom } from "../../recoil/atom";
+import { useRecoilState } from "recoil";
 import { jwtDecode } from "jwt-decode";
 
 const MainContainer = styled.div`
@@ -342,8 +343,6 @@ const MainPage = () => {
         </Text>
       </FlexContainer2>
 
-
-
       <Text color="#FFFFFF" fontSize="14px" paddingTop="55px">
         과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!
         <br />
@@ -355,7 +354,7 @@ const MainPage = () => {
       <div
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={scrollToTop}
+        onClick={handleScrollToTop}
       >
         <IconWrapper isHovered={isHovered}>
           <WhiteArrowBefore isHovered={isHovered} />
