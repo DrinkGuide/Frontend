@@ -182,7 +182,7 @@ const ScanPage = () => {
     const timer = setTimeout(() => {
       setToast(false);
       getSpeech(toastText);
-    }, 1000); // 1 second
+    }, 3000); // 1 second
 
     // Cleanup function to clear the timeout if the component unmounts before the timeout completes
     return () => clearTimeout(timer);
