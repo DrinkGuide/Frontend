@@ -32,7 +32,7 @@ const HistoryContainer = styled.div`
   align-items: center;
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
-  background-color: black;
+  background-color: #101010;
   padding: 100px 0; /* 상하 여백 추가 */
   overflow-y: auto;
 `;
@@ -111,16 +111,14 @@ const PurchaseImageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
   justify-content: center;
   align-items: center;
   background-color: #333;
   border-radius: 20px;
-  padding: 20px;
-  margin: 15px 0;
   width: 361px;
   height: 152px;
   place-items: center;
+  margin-bottom:23px;
 `;
 
 const Circle = styled.div`
@@ -149,22 +147,15 @@ const HistoryPage = () => {
 
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
-      if (item === "DRINK")
-        return (
-          <IconWrapper key={index}>
-            <Changing_icon_2 />
-          </IconWrapper>
-        );
-      if (item === "SNACK")
-        return (
-          <IconWrapper key={index}>
-            <Changing_icon_1 />
-          </IconWrapper>
-        );
+
+      if (item === "DRINK") return <Changing_icon_2 key={index} />;
+      if (item === "SNACK") return <Changing_icon_1 key={index} />;
+
       return null;
     });
     setIcons(newIcons);
   };
+
 
   const handleExpandClick = async (index, productName) => {
     stopSpeech(); // 이전 음성 중단
@@ -269,7 +260,7 @@ const HistoryPage = () => {
             <Circle key={icons.length + index}></Circle>
           ))}
         </PurchaseImageContainer>
-        <HistoryTextBox fontSize="16px" fontColor="#FFFA87" margin="0 0 40px 0">
+        <HistoryTextBox fontSize="16px" fontColor="#FFFA87" margin="0 0 40px 0" >
           이번 달에는 구매 인증을 {purchaseNum}회 했어요.
           <br />
           {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.

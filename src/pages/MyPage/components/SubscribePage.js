@@ -37,7 +37,7 @@ const SubscirbeContainer = styled.div`
 `;
 
 const SubscribeTextBox = styled.div`
-  background-color: ${(props) => props.backColor || "black"};
+  background-color: ${(props) => props.backColor || "transparent"};
   color: ${(props) => props.fontColor || "white"};
   text-align: center;
   font-size: ${(props) => props.fontSize};
@@ -72,6 +72,7 @@ const SubscribePlan = styled.div`
   padding-right:15px;
   font-size: 16px;
   font-weight: bold;
+  font-family: "Pretendard Variable";
 
   &:hover {
     cursor: pointer;

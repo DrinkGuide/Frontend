@@ -6,7 +6,6 @@
   font-style: normal;
 }
 
-
 @font-face {
   font-family: "Pretendard-Light";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff") format("woff");
@@ -17,6 +16,13 @@
 @font-face {
   font-family: "Pretendard-Bold";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff") format("woff");
-  font-weight: 300;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css");
+  font-weight: 1 1000;
   font-style: normal;
 }
