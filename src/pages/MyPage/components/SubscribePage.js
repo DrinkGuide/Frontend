@@ -33,6 +33,7 @@ const SubscirbeContainer = styled.div`
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
   background-color: #101010;
+  font-family : Pretendard-Regular;
 `;
 
 const SubscribeTextBox = styled.div`
@@ -67,7 +68,7 @@ const SubscribePlan = styled.div`
   border: 2.5px solid #f9e97c;
   border-radius: 15px;
   margin-bottom: 10px;
-  padding-left :23px;
+  padding-left :15px;
   padding-right:15px;
   font-size: 16px;
   font-weight: bold;

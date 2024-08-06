@@ -57,7 +57,7 @@ const PurchaseHistoryList = styled.div`
 `;
 
 const PurchaseItemContainer = styled.div`
-  width: 90%;
+  width: 361px;
   color: ${(props) => props.color};
   border: 2px solid ${(props) => props.color};
   border-radius: 15px;
@@ -280,7 +280,7 @@ const HistoryPage = () => {
         </HistoryTextBox>
         <HistoryTextBox fontSize="16px" fontColor="#ffffff" margin="0">
           구매한 상품 히스토리
-          <br /> 각 구매 내역 클릭시 음성 안내를 들을 수 있습니다 :D
+          <br /> 각 구매 내역 클릭시 음성 안내를 들을 수 있습니다.
         </HistoryTextBox>
 
         <PurchaseHistoryList>
