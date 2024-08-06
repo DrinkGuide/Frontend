@@ -13,6 +13,20 @@ import { ReactComponent as Changing_icon_4 } from "../../../assets/images/changi
 import { ReactComponent as Changing_icon_5 } from "../../../assets/images/changing_icon_5.svg";
 import { ReactComponent as Changing_icon_6 } from "../../../assets/images/changing_icon_6.svg";
 
+const IconWrapper = styled.div`
+  width: 60px; // 원하는 크기로 설정
+  height: 60px; // 원하는 크기로 설정
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+
 const HistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -105,13 +119,14 @@ const PurchaseImageContainer = styled.div`
   border-radius: 20px;
   padding: 20px;
   margin: 15px 0;
-  width: 80%;
+  width: 361px;
+  height :152px;
   place-items: center;
 `;
 
 const Circle = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 41px;
+  height: 41px;
   border: 3px solid #444;
   border-radius: 50%;
   display: flex;
@@ -130,17 +145,29 @@ const HistoryPage = () => {
   const [isSpeechClicked, setIsSpeechClicked] = useState(false);
 
   const accessToken = localStorage.getItem("accessToken");
+  // const accessToken =
+  //    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
 
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
-      if (item === "DRINK") return <Changing_icon_2 key={index} />;
-      if (item === "SNACK") return <Changing_icon_1 key={index} />;
+      if (item === "DRINK") return (
+        <IconWrapper key={index}>
+          <Changing_icon_2 />
+        </IconWrapper>
+      );
+      if (item === "SNACK") return (
+        <IconWrapper key={index}>
+          <Changing_icon_1 />
+        </IconWrapper>
+      );
       return null;
     });
     setIcons(newIcons);
   };
+  
+  
 
   const handleExpandClick = async (index, productName) => {
     stopSpeech(); // 이전 음성 중단
