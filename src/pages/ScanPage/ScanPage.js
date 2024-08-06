@@ -126,9 +126,9 @@ const ScanPage = () => {
   const [sendProductType, setSendProductType] = useState("DRINK"); // 서버 전달용 변수
   const [clickTimeout, setClickTimeout] = useState(null);
   const resultColor = useRecoilValue(scanPageColorAtom);
-  // const accessToken = localStorage.getItem("accessToken");
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAMjdiYzFmZjJdIiwiaWF0IjoxNzIyOTMwMjExLCJleHAiOjMzMjU4OTMwMjExfQ.fGNq-TeYci7MOh6rZR3qc4z-lYU3C28lyeaMBcySmh4";
+  const accessToken = localStorage.getItem("accessToken");
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAMjdiYzFmZjJdIiwiaWF0IjoxNzIyOTMwMjExLCJleHAiOjMzMjU4OTMwMjExfQ.fGNq-TeYci7MOh6rZR3qc4z-lYU3C28lyeaMBcySmh4";
   const data = { productName: productName, productType: sendProductType };
 
   useEffect(() => {
