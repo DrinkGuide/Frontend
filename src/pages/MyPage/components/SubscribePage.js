@@ -37,7 +37,7 @@ const SubscirbeContainer = styled.div`
 `;
 
 const SubscribeTextBox = styled.div`
-  background-color: ${(props) => props.backColor || "transparent"};
+  background-color: transparent ;
   color: ${(props) => props.fontColor || "white"};
   text-align: center;
   font-size: ${(props) => props.fontSize};
@@ -49,8 +49,7 @@ const SubscribeTextBox = styled.div`
 `;
 
 const SubscribeTextBox2 = styled.div`
-  background-color: ${(props) =>
-    props.backgroundColor || "#f9e97c"}; /* 배경색 */
+  background-color: transparent;
   color: black;
   text-align: center;
   font-size: 40px;
@@ -357,7 +356,7 @@ const SubscribePage = () => {
               정말 구독을 취소하시겠어요?
             </PopupHeader>
 
-            <Text color="#FFFFFF" fontSize="12px"  fontWeight="500" >
+            <Text color="#FFFFFF" fontSize="12px"  fontWeight="500" font= "Pretendard Variable" >
               지금 구독을 취소하더라도 <br /> 
               {subscribeInfo.expirationDate}까지는 서비스를 이용할 수 있습니다.
             </Text>
