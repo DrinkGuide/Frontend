@@ -144,9 +144,9 @@ const HistoryPage = () => {
   const [infoSpeech, setInfoSpeech] = useState();
   const [isSpeechClicked, setIsSpeechClicked] = useState(false);
 
-  const accessToken = localStorage.getItem("accessToken");
-  // const accessToken =
-  //    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  //const accessToken = localStorage.getItem("accessToken");
+  const accessToken =
+     "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
 
@@ -263,6 +263,7 @@ const HistoryPage = () => {
         </HistoryTextBox>
         <HistoryTextBox fontSize="16px" fontColor="#ffffff" margin="0">
           이번달 구매 인증
+          
         </HistoryTextBox>
         <PurchaseImageContainer>
           {icons.map((icon, index) => (
@@ -279,6 +280,7 @@ const HistoryPage = () => {
         </HistoryTextBox>
         <HistoryTextBox fontSize="16px" fontColor="#ffffff" margin="0">
           구매한 상품 히스토리
+          <br /> 각 구매 내역 클릭시 음성 안내를 들을 수 있습니다 :D
         </HistoryTextBox>
 
         <PurchaseHistoryList>
