@@ -8,12 +8,15 @@ const StyledToast = styled.div`
   left: 50%;
   transform: translateX(-50%); /* Center horizontally */
   background-color: ${({ color }) =>
-    color || "black"}; /* Use the color prop or default to black */
-  color: white;
+    color || "#101010"}; /* Use the color prop or default to black */
+  color: FF5858;
   font-size: 20px;
+  font-weight :700;
   padding: 10px 20px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  white-space: pre-line;
+  text-align : center;
   z-index: 1000; /* Make sure it appears above other content */
 `;
 function Toast({ setToast, text }) {
