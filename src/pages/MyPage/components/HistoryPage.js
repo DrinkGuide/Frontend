@@ -118,7 +118,7 @@ const PurchaseImageContainer = styled.div`
   width: 361px;
   height: 152px;
   place-items: center;
-  margin-bottom:23px;
+  margin-bottom: 23px;
 `;
 
 const Circle = styled.div`
@@ -147,7 +147,6 @@ const HistoryPage = () => {
 
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
-
       if (item === "DRINK") return <Changing_icon_2 key={index} />;
       if (item === "SNACK") return <Changing_icon_1 key={index} />;
 
@@ -155,7 +154,6 @@ const HistoryPage = () => {
     });
     setIcons(newIcons);
   };
-
 
   const handleExpandClick = async (index, productName) => {
     stopSpeech(); // 이전 음성 중단
@@ -260,7 +258,7 @@ const HistoryPage = () => {
             <Circle key={icons.length + index}></Circle>
           ))}
         </PurchaseImageContainer>
-        <HistoryTextBox fontSize="16px" fontColor="#FFFA87" margin="0 0 40px 0" >
+        <HistoryTextBox fontSize="16px" fontColor="#FFFA87" margin="0 0 40px 0">
           이번 달에는 구매 인증을 {purchaseNum}회 했어요.
           <br />
           {10 - purchaseNum}회 더 인증 시 구독료 1,000원 할인 혜택이 있어요.
