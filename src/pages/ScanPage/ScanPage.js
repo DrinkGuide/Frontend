@@ -22,7 +22,7 @@ const ScanContainer = styled.div`
   height: 100svh; /* 화면 높이 맞춤 */
   width: 100vw; /* 화면 너비 맞춤 */
   margin: 0 auto;
-  background-color: #000;
+  background-color: #101010;
   position: relative;
     &:before {
     content: "";
@@ -128,6 +128,7 @@ const ScanPage = () => {
   const [clickTimeout, setClickTimeout] = useState(null);
   const [toast, setToast] = useState(false); // 토스트 메세지 상태관리
   const resultColor = useRecoilValue(scanPageColorAtom);
+  const accessToken = localStorage.getItem("accessToken");
   const data = { productName: productName, productType: sendProductType };
   const toastText =
     "터치 한 번 시 인식 결과를 음성으로 안내하고 터치 두 번 시 구매가 진행됩니다.";

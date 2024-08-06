@@ -77,18 +77,19 @@ const PurchaseImageContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
+
   justify-content: center;
   align-items: center;
   background-color: #333;
   border-radius: 20px;
-  width: 80%;
+  width: 361px;
+  height :152px;
   place-items: center;
 `;
 
 const Circle = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 41px;
+  height: 41px;
   border: 3px solid #444;
   border-radius: 50%;
   display: flex;
@@ -159,7 +160,7 @@ const MyPage = () => {
   const [icons, setIcons] = useState([]);
   const accessToken = localStorage.getItem("accessToken");
   // const accessToken =
-  //   "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  //    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
   let memberId;
   if (accessToken) {
     const decodedaccessToken = jwtDecode(accessToken);
@@ -267,7 +268,7 @@ const MyPage = () => {
           ))}
         </PurchaseImageContainer>
 
-        <Text color="#FFFA87" fontSize="16px" fontWeight="700" paddingTop="23px" paddingBottom="55px">
+        <Text color="#FFFA87" fontSize="16px" fontWeight="700" paddingTop="23px" >
           {purchaseNum !== 10 ? (
             <>
               이번 달에는 구매 인증을 {purchaseNum}회 했어요.
