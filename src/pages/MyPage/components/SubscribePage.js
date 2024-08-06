@@ -217,7 +217,7 @@ const SubscribePage = () => {
   const [subscribePrice, setSubscribePrice] = useState(3000);
   const navigate = useNavigate();
   const accessToken = localStorage.getItem("accessToken");
-
+  
   const handleCancelClick = () => {
     setPopupVisible(true);
   };
@@ -291,7 +291,7 @@ const SubscribePage = () => {
         <SubscribeTextBox
           fontSize="20px"
           fontColor={
-            subscribeInfo.subscribeType === "TRIAL" ? "#5D9EFF" : "FFFA87"
+            subscribeInfo.subscribeType === "TRIAL" ? "#5D9EFF" : "#FFFA87"
           }
           margin="5px 0"
         >
@@ -301,7 +301,7 @@ const SubscribePage = () => {
         </SubscribeTextBox>
         <SubscribeTextBox2
           backgroundColor={
-            subscribeInfo.subscribeType === "TRIAL" ? "#5D9EFF" : "FFFA87"
+            subscribeInfo.subscribeType === "TRIAL" ? "#5D9EFF" : "#FFFA87"
           }
         >
           {subscribeInfo.subscribeType === "TRIAL"
