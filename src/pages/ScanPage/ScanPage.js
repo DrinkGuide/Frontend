@@ -5,7 +5,6 @@ import axios from "axios";
 import Webcam from "react-webcam";
 import { useRecoilValue } from "recoil";
 import {
-  getAccessTokenAtom,
   scanPageColorAtom,
   scanPageProductTypeAtom,
 } from "../../recoil/atom";
@@ -199,7 +198,7 @@ const ScanPage = () => {
     }, 8000); // 8 seconds
 
     return () => clearTimeout(timer);
-  }, []);
+  }, []); // 빈 배열을 넣어서 마운트 시 한 번만 실행되게 함
 
   const videoConstraints = {
     facingMode: "environment",
@@ -283,4 +282,4 @@ const ScanPage = () => {
   );
 };
 
-export default ScanPage;
+export default ScanPage
