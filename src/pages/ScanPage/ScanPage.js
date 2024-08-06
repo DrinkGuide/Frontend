@@ -128,9 +128,6 @@ const ScanPage = () => {
   const [clickTimeout, setClickTimeout] = useState(null);
   const [toast, setToast] = useState(false); // 토스트 메세지 상태관리
   const resultColor = useRecoilValue(scanPageColorAtom);
-  // const accessToken = localStorage.getItem("accessToken");
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAMjdiYzFmZjJdIiwiaWF0IjoxNzIyOTMwMjExLCJleHAiOjMzMjU4OTMwMjExfQ.fGNq-TeYci7MOh6rZR3qc4z-lYU3C28lyeaMBcySmh4";
   const data = { productName: productName, productType: sendProductType };
   const toastText =
     "터치 한 번 시 인식 결과를 음성으로 안내하고 터치 두 번 시 구매가 진행됩니다.";
@@ -181,7 +178,6 @@ const ScanPage = () => {
 
   useEffect(() => {
     setToast(true);
-
     const timer = setTimeout(() => {
       setToast(false);
       getSpeech(toastText);
