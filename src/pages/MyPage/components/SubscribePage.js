@@ -233,7 +233,7 @@ const SubscribePage = () => {
 
   const handleCloseCancelPopup = () => {
     setCancelPopupVisible(false);
-    navigate("/"); // 메인 페이지로 이동
+    navigate("/mypage"); // 메인 페이지로 이동
   };
 
   const handleDevelopClick = () => {
