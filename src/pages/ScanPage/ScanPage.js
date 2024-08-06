@@ -130,8 +130,10 @@ const ScanPage = () => {
   const resultColor = useRecoilValue(scanPageColorAtom);
   const accessToken = localStorage.getItem("accessToken");
   const data = { productName: productName, productType: sendProductType };
+  // const toastText =
+  //   " 터치 한 번 시 인식 결과를 음성으로 안내하고 \n 터치 두 번 시 구매가 진행됩니다.";
   const toastText =
-    "터치 한 번 시 인식 결과를 음성으로 안내하고 터치 두 번 시 구매가 진행됩니다.";
+    " 한 번 터치하면 인식 결과가 나타나고, \n 두 번 터치 시 구매 기록에 저장됩니다.";
 
   useEffect(() => {
     const init = async () => {
@@ -182,7 +184,7 @@ const ScanPage = () => {
     const timer = setTimeout(() => {
       setToast(false);
       getSpeech(toastText);
-    }, 3000); // 1 second
+    }, 8000); // 1 second
 
     // Cleanup function to clear the timeout if the component unmounts before the timeout completes
     return () => clearTimeout(timer);
@@ -254,7 +256,7 @@ const ScanPage = () => {
           screenshotFormat="image/jpeg"
           videoConstraints={videoConstraints}
         />
-        {toast && <Toast setToast={setToast} text={toastText} />}
+        {toast && <Toast setToast={setToast} text={toastText} back/>}
         <BottomBox color={resultColor}>
           <div className="frame-1">
             <div className="scan-type" style={{ color: "#101010" }}>
