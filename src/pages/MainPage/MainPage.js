@@ -157,8 +157,8 @@ const MainPage = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    //const token = localStorage.getItem("accessToken");
-    const token = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Mywicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZDc4Zjc3OV0iLCJpYXQiOjE3MjI5MTU0MDgsImV4cCI6MzMyNTg5MTU0MDh9.NYs9hEkOD6o5ZrvzslHYdwr86dZ8OvkyrB8gNZ-7sAw"
+    const token = localStorage.getItem("accessToken");
+    // const token = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Mywicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZDc4Zjc3OV0iLCJpYXQiOjE3MjI5MTU0MDgsImV4cCI6MzMyNTg5MTU0MDh9.NYs9hEkOD6o5ZrvzslHYdwr86dZ8OvkyrB8gNZ-7sAw"
     if (token) {
       setAccessToken(token); // Recoil 상태에 설정
       setIsLoggedIn(true);
