@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import axios from "axios";
-import "./Main.css";
 import { useNavigate } from "react-router-dom";
 import { VoiceLabelText } from "../../components/VoiceLableText";
 import { Marquee } from "../../components/Marquee";
@@ -21,8 +19,8 @@ import { ReactComponent as Changing_icon_6 } from "../../assets/images/changing_
 import { ReactComponent as GoUpMessageSVG } from "../../assets/images/go-up-message.svg";
 import { ReactComponent as WhiteArrowBeforeSVG } from "../../assets/images/white-arrow-before.svg";
 import { ReactComponent as WhiteArrowAfterSVG } from "../../assets/images/white-arrow-after.svg";
-import { SubscribeTypeAtom, getAccessTokenAtom } from "../../recoil/atom";
-import { jwtDecode } from "jwt-decode"; // 올바른 명명된 임포트
+import { SubscribeTypeAtom } from "../../recoil/atom";
+import { jwtDecode } from "jwt-decode";
 
 const MainContainer = styled.div`
   font: "Pretendard-Regular";
@@ -35,23 +33,17 @@ const MainContainer = styled.div`
 `;
 
 const handleScroll = () => {
-  window.scrollTo({
-    top: 710,
-    behavior: "smooth",
-  });
+  window.scrollTo({ top: 710, behavior: "smooth" });
 };
 
 const handleScrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
+  window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
 const IconWrapper = styled.div`
   position: relative;
-  width: 35px; /* Adjust width as needed */
-  height: 35px; /* Adjust height as needed */
+  width: 35px;
+  height: 35px;
   transition: margin-top 0.5s ease-in-out, margin-bottom 0.5s ease-in-out;
   margin-top: ${(props) => (props.isHovered ? "-20px" : "0")};
   margin-bottom: ${(props) => (props.isHovered ? "20px" : "0")};
@@ -138,38 +130,29 @@ const ChangingIcon = () => {
   return <div>{icons[currentIconIndex]}</div>;
 };
 
-const scrollToTop = () => {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
-
 const MainPage = () => {
   const navigate = useNavigate();
   const [userSubscribeType, setUserSubscribeType] =
     useRecoilState(SubscribeTypeAtom);
   const [isSubscribe, setIsSubscribe] = useState(false);
-  const [accessToken, setAccessToken] = useRecoilState(getAccessTokenAtom);
+  const [accessToken, setAccessToken] = useState(
+    localStorage.getItem("accessToken") || ""
+  );
   const [isHovered, setIsHovered] = useState(false);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
     if (token) {
-      setAccessToken(token); // Recoil 상태에 설정
-      setIsLoggedIn(true);
+      setAccessToken(token);
     } else {
-      setIsLoggedIn(false);
+      setAccessToken("");
     }
-  }, [setAccessToken]);
+  }, []);
 
   useEffect(() => {
     if (accessToken) {
-      console.log("Access Token:", accessToken); // 추가
+      console.log("Access Token:", accessToken);
       const decodedAccessToken = jwtDecode(accessToken);
-
       console.log(decodedAccessToken);
 
       const fetchData = async () => {
@@ -177,12 +160,10 @@ const MainPage = () => {
           const response = await axios.get(
             "https://www.drinkguide.store/api/v1/members/subscribe",
             {
-              headers: {
-                Authorization: `Bearer ${accessToken}`,
-              },
+              headers: { Authorization: `Bearer ${accessToken}` },
             }
           );
-          console.log(response.data.data); // 응답 데이터 확인
+          console.log(response.data.data);
           setUserSubscribeType(response.data.data.subscribeType);
 
           const subscribeType = response.data.data.subscribeType;
@@ -190,7 +171,7 @@ const MainPage = () => {
             setIsSubscribe(true);
           }
         } catch (error) {
-          console.error("실패함", error);
+          console.error("API 호출 실패", error);
         }
       };
 
@@ -198,18 +179,13 @@ const MainPage = () => {
     }
   }, [accessToken, setUserSubscribeType]);
 
-  //스크롤 버튼 활성화
-
   const handleButtonClick = (path) => {
-    const token = localStorage.getItem("accessToken");
-    console.log(token);
-    if (token) {
+    if (accessToken) {
       navigate(path);
     } else {
       navigate("/signin");
     }
   };
-
   return (
     <MainContainer paddingTop="129px">
       <VoiceLabelText />
@@ -309,27 +285,6 @@ const MainPage = () => {
         </Text>
       </FlexContainer2>
 
-      {/* <div className="group-12" id="scrollTarget">
-        <div className="rectangle-33"></div>
-        <div className="rectangle-34"></div>
-        <div className="rectangle-35"></div>
-        <div className="div">
-          <span>
-            <span className="div-span">정확</span>
-            <span className="div-span2">하고 </span>
-            <span className="div-span3">또박또박</span>
-            <span className="div-span4">
-              하게
-              <br />
-              그리고
-            </span>
-            <span className="div-span2"> </span>
-            <span className="div-span5">손쉽게</span>
-            <span className="div-span6">!</span>
-          </span>
-        </div>
-      </div> */}
-
       <Text color="#FFFFFF" fontSize="14px" paddingTop="55px">
         글자가 너무 작아서 잘 보이지 않는 크기로 적혀있거나,
         <br />
@@ -387,19 +342,7 @@ const MainPage = () => {
         </Text>
       </FlexContainer2>
 
-      {/* <div class="group-12">
-        <span>
-          <span class="div-span">바로바로</span>
-          <span class="div-span2">
-            식별 가능한
-            <br />
-          </span>
-          <span class="div-span3">다양한 종류</span>
-          <span class="div-span4">의 </span>
-          <span class="div-span5">상품</span>
-          <span class="div-span6">들</span>
-        </span>
-      </div> */}
+
 
       <Text color="#FFFFFF" fontSize="14px" paddingTop="55px">
         과자와 음료수부터 가공식품, 과일, 채소, 생선류 등!
