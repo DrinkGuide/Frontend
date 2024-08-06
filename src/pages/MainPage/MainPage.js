@@ -107,8 +107,8 @@ const StyledChanging_icon_6 = styled(Changing_icon_6)`
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top :48px;
-  padding-bottom:5px;
+  margin-top: 48px;
+  padding-bottom: 5px;
 `;
 
 const FlexContainer2 = styled.div`
@@ -152,13 +152,11 @@ const MainPage = () => {
   const [isSubscribe, setIsSubscribe] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(getAccessTokenAtom);
   const [isHovered, setIsHovered] = useState(false);
-  
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("accessToken");
-    // const token = "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Mywicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFAZDc4Zjc3OV0iLCJpYXQiOjE3MjI5MTU0MDgsImV4cCI6MzMyNTg5MTU0MDh9.NYs9hEkOD6o5ZrvzslHYdwr86dZ8OvkyrB8gNZ-7sAw"
     if (token) {
       setAccessToken(token); // Recoil 상태에 설정
       setIsLoggedIn(true);
@@ -166,13 +164,12 @@ const MainPage = () => {
       setIsLoggedIn(false);
     }
   }, [setAccessToken]);
-  
 
   useEffect(() => {
     if (accessToken) {
       console.log("Access Token:", accessToken); // 추가
       const decodedAccessToken = jwtDecode(accessToken);
-      
+
       console.log(decodedAccessToken);
 
       const fetchData = async () => {
@@ -226,8 +223,7 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
-        fontSize = "24px"
-
+        fontSize="24px"
         onClick={() => handleButtonClick(isSubscribe ? "/scan" : "/subscribe")}
       />
       <Button
@@ -236,7 +232,7 @@ const MainPage = () => {
         width="214px"
         height="57px"
         marginBottom="25px"
-        fontSize = "24px"
+        fontSize="24px"
         onClick={() => handleButtonClick("/feedback")}
       />
       <Button
@@ -244,7 +240,7 @@ const MainPage = () => {
         color="#FF5858"
         width="214px"
         height="57px"
-        fontSize = "24px"
+        fontSize="24px"
         marginBottom="25px"
         onClick={() => handleButtonClick("/mypage")}
       />
@@ -265,16 +261,53 @@ const MainPage = () => {
       </span>
 
       <FlexContainer>
-          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px" paddingTop="0px" paddingBottom="0px">정확</Text>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >하고&nbsp;</Text>
-          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">또박또박</Text>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >하게</Text>
-        </FlexContainer>
-        <FlexContainer2>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >그리고&nbsp;</Text>
-          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">손쉽게</Text>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >!&nbsp;</Text>
-        </FlexContainer2>
+        <Text
+          color="#000000"
+          fontSize="24px"
+          fontWeight="900"
+          backgroundColor="#FFFA87"
+          paddingLeft="3px"
+          paddingRight="3px"
+          paddingTop="0px"
+          paddingBottom="0px"
+        >
+          정확
+        </Text>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          하고&nbsp;
+        </Text>
+        <Text
+          color="#000000"
+          fontSize="24px"
+          fontWeight="900"
+          backgroundColor="#FFFA87"
+          paddingLeft="3px"
+          paddingRight="3px"
+        >
+          또박또박
+        </Text>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          하게
+        </Text>
+      </FlexContainer>
+      <FlexContainer2>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          그리고&nbsp;
+        </Text>
+        <Text
+          color="#000000"
+          fontSize="24px"
+          fontWeight="900"
+          backgroundColor="#FFFA87"
+          paddingLeft="3px"
+          paddingRight="3px"
+        >
+          손쉽게
+        </Text>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          !&nbsp;
+        </Text>
+      </FlexContainer2>
 
       {/* <div className="group-12" id="scrollTarget">
         <div className="rectangle-33"></div>
@@ -307,17 +340,52 @@ const MainPage = () => {
       <Marquee paddingTop="145px" paddingBottom="137px" />
 
       <ChangingIcon />
-      
+
       <FlexContainer>
-          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px" paddingTop="0px" paddingBottom="0px">바로바로</Text>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >&nbsp;식별 가능한</Text>
-        </FlexContainer>
-        <FlexContainer2>
-          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">다양한 종류</Text>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >의&nbsp;</Text>
-          <Text color="#000000" fontSize="24px"  fontWeight="900" backgroundColor = "#FFFA87" paddingLeft = "3px" paddingRight="3px">상품</Text>
-          <Text color="#ffffff" fontSize="24px"  fontWeight="700" >들</Text>
-        </FlexContainer2>
+        <Text
+          color="#000000"
+          fontSize="24px"
+          fontWeight="900"
+          backgroundColor="#FFFA87"
+          paddingLeft="3px"
+          paddingRight="3px"
+          paddingTop="0px"
+          paddingBottom="0px"
+        >
+          바로바로
+        </Text>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          &nbsp;식별 가능한
+        </Text>
+      </FlexContainer>
+      <FlexContainer2>
+        <Text
+          color="#000000"
+          fontSize="24px"
+          fontWeight="900"
+          backgroundColor="#FFFA87"
+          paddingLeft="3px"
+          paddingRight="3px"
+        >
+          다양한 종류
+        </Text>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          의&nbsp;
+        </Text>
+        <Text
+          color="#000000"
+          fontSize="24px"
+          fontWeight="900"
+          backgroundColor="#FFFA87"
+          paddingLeft="3px"
+          paddingRight="3px"
+        >
+          상품
+        </Text>
+        <Text color="#ffffff" fontSize="24px" fontWeight="700">
+          들
+        </Text>
+      </FlexContainer2>
 
       {/* <div class="group-12">
         <span>

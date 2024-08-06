@@ -26,7 +26,6 @@ const IconWrapper = styled.div`
   }
 `;
 
-
 const HistoryContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -117,7 +116,7 @@ const PurchaseImageContainer = styled.div`
   background-color: #333;
   border-radius: 20px;
   width: 361px;
-  height :152px;
+  height: 152px;
   place-items: center;
   margin-bottom:23px;
 `;
@@ -142,22 +141,20 @@ const HistoryPage = () => {
   const [infoSpeech, setInfoSpeech] = useState();
   const [isSpeechClicked, setIsSpeechClicked] = useState(false);
 
-  //const accessToken = localStorage.getItem("accessToken");
-  const accessToken =
-     "eyJhbGciOiJIUzI1NiJ9.eyJtZW1iZXJJZCI6Miwicm9sZSI6IltsaW9uNi5Ecmlua0d1aWRlLmNvbW1vbi5vYXV0aC5DdXN0b21PQXV0aDJVc2VyJDFANzhiOTY0Y2ZdIiwiaWF0IjoxNzIyNzAyODM5LCJleHAiOjMzMjU4NzAyODM5fQ.9DT5uGdI2dby-zcc5TbJyWrh2qo94aAFr-1Ntd29UKE";
+  const accessToken = localStorage.getItem("accessToken");
   const decodedaccessToken = jwtDecode(accessToken);
   const memberId = decodedaccessToken.memberId;
 
   const addIconArray = () => {
     const newIcons = certify.map((item, index) => {
+
       if (item === "DRINK") return <Changing_icon_2 key={index} />;
       if (item === "SNACK") return <Changing_icon_1 key={index} />;
+
       return null;
     });
     setIcons(newIcons);
   };
-
-
 
 
   const handleExpandClick = async (index, productName) => {
@@ -254,7 +251,6 @@ const HistoryPage = () => {
         </HistoryTextBox>
         <HistoryTextBox fontSize="16px" fontColor="#ffffff" margin="0">
           이번달 구매 인증
-          
         </HistoryTextBox>
         <PurchaseImageContainer>
           {icons.map((icon, index) => (
